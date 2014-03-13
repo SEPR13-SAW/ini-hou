@@ -11,6 +11,7 @@ public final class Airport extends Entity{
 	Waypoint runwayEnd;
 	Waypoint runwayMid;
 	Waypoint runwayStart;
+	Waypoint approach;
 	
 	private final boolean visible = true;
 	
@@ -19,6 +20,7 @@ public final class Airport extends Entity{
 		this.runwayMid = new Waypoint(midPoint.x, midPoint.y, false);
 		this.runwayStart = new Waypoint(midPoint.x, midPoint.y -60, false);
 		this.runwayEnd = new Waypoint(midPoint.x, midPoint.y +60, false);
+		this.approach = new Waypoint(runwayStart.getX(), runwayStart.getY() - 100, false);
 		
 		debugShape = true;
 		this.coords = new Vector2(midPoint.x, midPoint.y);
@@ -45,6 +47,7 @@ public final class Airport extends Entity{
 		return visible;
 	}	
 	
+	
 	public Waypoint cpy() {
 		return new Waypoint(getX(), getY(), this.visible);
 	}
@@ -55,4 +58,9 @@ public final class Airport extends Entity{
 			super.draw(batch, parentAlpha);
 		}
 	}
+}
+	public Waypoint getApproach(){
+		return approach;
+	}
+	
 }

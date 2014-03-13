@@ -60,6 +60,7 @@ public final class AircraftController extends InputListener {
 	//landing
 	private static boolean landing = false;
 
+	private Random scoreCheck = new Random();
 
 	/**
 	 * 
@@ -244,6 +245,9 @@ public final class AircraftController extends InputListener {
 		a.setBreaching(true);
 		b.setBreaching(true);
 
+		if(scoreCheck.nextInt(60) == 0){
+			score -= 1;
+		}
 		breachingSound = true;
 	}
 
