@@ -1,12 +1,14 @@
 package seprsaw.network;
 
+import java.net.InetSocketAddress;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import seprini.network.Client;
-import seprini.network.Server;
+import seprini.network.client.Client;
 import seprini.network.packet.JoinGamePacket;
+import seprini.network.server.Server;
 
 /**
  * Test class for networking
@@ -14,7 +16,7 @@ import seprini.network.packet.JoinGamePacket;
 @RunWith(JUnit4.class)
 public class NetworkTest {
 	
-	Client cli;
+	Client client;
 	
 	@Test
 	public void commsTest() {
@@ -28,27 +30,24 @@ public class NetworkTest {
 				}
 			}
 		}).start();
-		
+
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		
-		System.out.println("Connecting with client");
-		cli = new Client("127.0.0.1", 11111);
-		cli.setOnConnect(new Runnable() {
+
+		client = new Client(new InetSocketAddress("127.0.0.1", 11111), new Runnable() {
 			@Override
 			public void run() {
 				try {
-					cli.sendPacket(new JoinGamePacket("Test"));
+					client.writePacket(new JoinGamePacket("Test"));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		cli.start();
-		
+
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {

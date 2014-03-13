@@ -113,6 +113,7 @@ public final class Aircraft extends Entity {
 	 * 
 	 * @param batch
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	protected void additionalDraw(SpriteBatch batch) {
 
