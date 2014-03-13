@@ -18,6 +18,7 @@ import seprini.models.types.AircraftType;
 import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -82,6 +83,9 @@ public final class AircraftController extends InputListener {
 
 		// add the background
 		airspace.addActor(new Map());
+		
+		//add the airport
+		airspace.addActor(new Airport(new Vector2(100,100)));
 
 		// manages the waypoints
 		this.waypoints = new WaypointComponent(this);
