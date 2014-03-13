@@ -57,8 +57,6 @@ public final class AircraftController extends InputListener {
 	// game score
 	public static float score = 0;
 	
-	//landing
-	private static boolean landing = false;
 
 	private Random scoreCheck = new Random();
 
@@ -78,9 +76,8 @@ public final class AircraftController extends InputListener {
 		this.airport = airport;
 		this.screen = screen;
 
-		// TODO: jcowgill - this is a massive hack but it will do at the moment
+		// Static variable reset.
 		score = 0;
-		landing = false;
 
 		// add the background
 		airspace.addActor(new Map());
@@ -369,14 +366,6 @@ public final class AircraftController extends InputListener {
 	
 	public float getScore() {
 		return score;
-	}
-
-	public static boolean isLanding() {
-		return landing;
-	}
-
-	public static void setLanding(boolean landing) {
-		AircraftController.landing = landing;
 	}
 
 	public Aircraft getSelectedAircraft() {

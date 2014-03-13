@@ -1,5 +1,8 @@
 package seprini.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,6 +15,7 @@ public final class Airport extends Entity{
 	Waypoint runwayMid;
 	Waypoint runwayStart;
 	Waypoint approach;
+	ArrayList<Aircraft> landedPlanes = new ArrayList<Aircraft>();
 	
 	private final boolean visible = true;
 	
@@ -58,9 +62,14 @@ public final class Airport extends Entity{
 			super.draw(batch, parentAlpha);
 		}
 	}
-}
+
 	public Waypoint getApproach(){
 		return approach;
+	}
+	
+	public void addLanded(Aircraft x){
+		landedPlanes.add(x);
+		x.setActive(false);
 	}
 	
 }

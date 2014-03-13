@@ -186,7 +186,7 @@ public final class SidebarController extends ChangeListener {
 	}
 
 	/**
-	 * Convinience method to create buttons and add them to the sidebar
+	 * Convenience method to create buttons and add them to the sidebar
 	 * 
 	 * @param name
 	 * @param text

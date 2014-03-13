@@ -40,7 +40,7 @@ public class FlightPlanComponent {
 	}
 
 	/**
-	 * Adds a selection of waypoints + lastWaypoint to flighPlan.
+	 * Adds a selection of waypoints + lastWaypoint to flightPlan.
 	 * 
 	 * @param flightPlan
 	 * @param currentWaypoint
