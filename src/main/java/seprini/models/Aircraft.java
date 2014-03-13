@@ -224,9 +224,7 @@ public final class Aircraft extends Entity {
 				getWidth(), getHeight());
 
 		//Reduce speed and altitude between landing waypoints to simulate a smooth landing.
-		Waypoint approach1 = new Waypoint(230, 275, false);
-		Waypoint approach2 = new Waypoint(310, 195, false);
-		if (this.getNextWaypoint().getCoords().equals(approach1.getCoords()) || this.getNextWaypoint().getCoords().equals(approach2.getCoords())){
+		if (this.getNextWaypoint().getCoords().equals(this.airport.getApproach().getCoords())){
 			this.setSpeed(350 / Config.AIRCRAFT_SPEED_MULTIPLIER);
 			this.desiredAltitude = 2500;
 		}
@@ -252,7 +250,7 @@ public final class Aircraft extends Entity {
 			if (getX() < -10 ||
 				getY() < -10 ||
 				getX() > Config.SCREEN_WIDTH - 190 ||
-				getY() > Config.SCREEN_HEIGHT + 105) {
+				getY() > Config.SCREEN_HEIGHT + 10) {
 
 				isActive = false;
 				Debug.msg("Aircraft id " + id + ": Out of bounds, last coordinates: " + coords);
@@ -569,7 +567,6 @@ public final class Aircraft extends Entity {
 //		Waypoint runwayEnd = new Waypoint(464, 395, false);
 //		Waypoint runwayMid = new Waypoint(387, 335, false);
 //		Waypoint runwayStart = new Waypoint(310, 275, false);
-		Waypoint approach;
 //		int choice = 0;
 		//Calculates if aircraft is in Pos A or B to decide which approach waypoint to use.
 		//
@@ -591,11 +588,10 @@ public final class Aircraft extends Entity {
 //		} else {
 //			approach = new Waypoint(310, 195, false);
 //		}
-		approach = new Waypoint(this.airport.getStart().getX(), this.airport.getStart().getY()-100, false);
 		this.insertWaypoint(this.airport.getEnd());
 		this.insertWaypoint(this.airport.getMid());
 		this.insertWaypoint(this.airport.getStart());
-		this.insertWaypoint(approach);
+		this.insertWaypoint(this.airport.getApproach());
 		returnToPath();
 	}
 	
