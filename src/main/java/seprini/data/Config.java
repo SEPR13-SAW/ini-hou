@@ -26,7 +26,9 @@ public final class Config {
 	// Game related
 	public final static float AIRCRAFT_SPEED_MULTIPLIER = 40f / 3f;
 	public final static int MIN_ALTITUDE_DIFFERENCE = 1000;
-	public static final int[] ALTITUDES = { 5000, 10000, 15000 };
+	public final static int[] ALTITUDES = { 5000, 10000, 15000 };
+	//Coordinates of the middle point of the airports
+	public final static Vector2[] AIRPORT_COORDIATES = {new Vector2(387, 335)};
 
 	// other
 	public final static String COPYRIGHT_NOTICE = "Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made "

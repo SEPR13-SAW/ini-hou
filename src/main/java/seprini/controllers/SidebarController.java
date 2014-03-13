@@ -115,7 +115,7 @@ public final class SidebarController extends ChangeListener {
 
 		aircraftControls.row().colspan(2);
 		
-		createButton("land", "Land (G)", aircraftControls, false).width(200);
+		createButton("land", "Land (F)", aircraftControls, false).width(200);
 
 		aircraftControls.row().spaceTop(100);
 

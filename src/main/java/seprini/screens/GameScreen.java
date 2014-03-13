@@ -47,7 +47,7 @@ public class GameScreen extends AbstractScreen
 
 		// create and add the Airspace group, contains aircraft and waypoints
 		Airspace airspace = new Airspace();
-		Airport airport = new Airport();
+		Airport airport = new Airport(Config.AIRPORT_COORDIATES[0]);
 		controller = new AircraftController(diff, airspace, airport, this);
 		root.setKeyboardFocus(airspace);
 

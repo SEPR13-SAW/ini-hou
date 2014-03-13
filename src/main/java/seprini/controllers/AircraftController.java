@@ -109,9 +109,6 @@ public final class AircraftController extends InputListener {
 		// Update timer
 		timer += delta;
 		
-		// Update score
-		score += difficulty.getScoreMultiplier() * delta;
-
 		breachingSound = false;
 
 		// wait at least 2 seconds before allowing to warn again
@@ -418,7 +415,7 @@ public final class AircraftController extends InputListener {
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
 			
-			if (keycode == Keys.G)
+			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000)
 				selectedAircraft.landAircraft();
 			
 			if (keycode == Keys.T)

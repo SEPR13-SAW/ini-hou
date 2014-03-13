@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import seprini.controllers.AircraftController;
+import seprini.data.Config;
 import seprini.data.GameDifficulty;
 import seprini.models.Airport;
 import seprini.models.Airspace;
@@ -24,7 +25,7 @@ public class WaypointComponentTest
 	public void setUpWaypointComponent()
 	{
 		waypointComponent = new WaypointComponent(
-		                        new AircraftController(GameDifficulty.EASY, new Airspace(), new Airport(), null));
+		                        new AircraftController(GameDifficulty.EASY, new Airspace(), new Airport(Config.AIRPORT_COORDIATES[0]), null));
 	}
 
 	/** Should be >= 2 entry points */
