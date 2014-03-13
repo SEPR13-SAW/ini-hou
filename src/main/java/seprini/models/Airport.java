@@ -3,6 +3,7 @@ package seprini.models;
 import com.badlogic.gdx.math.Vector2;
 
 import seprini.data.Art;
+import seprini.data.Config;
 
 public final class Airport extends Entity{
 
@@ -11,11 +12,10 @@ public final class Airport extends Entity{
 	Waypoint runwayStart = new Waypoint(310, 275, false);
 	
 	public Airport() {
-		this.coords = new Vector2(387, 335);
-		this.size = new Vector2(154, 120);
-		this.texture = Art.getTextureRegion("airport");
+		this.coords = new Vector2(154,120);
+		this.size = Config.AIRSPACE_SIZE;
+		this.texture = Art.getTextureRegion("airspace");
 	}
-	
 	
 	public Waypoint getStart(){
 		return runwayStart;
