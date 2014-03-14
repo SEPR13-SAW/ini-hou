@@ -29,6 +29,10 @@ public class Server implements Runnable {
 		this.port = port;
 	}
 
+	public boolean playerConnected(String name) {
+		return clients.containsValue(name);
+	}
+
 	public int getUnusedId() throws IOException {
 		for (int id = 0; id < MAX_CLIENTS; id++) {
 			if (clients.containsKey(id)) continue;
@@ -78,5 +82,4 @@ public class Server implements Runnable {
 			bossGroup.shutdownGracefully();
 		}
 	}
-	
 }

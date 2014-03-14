@@ -25,5 +25,6 @@ public abstract class Handler<T extends Packet, A> {
 
 	static {
 		new JoinGamePacketHandler();
+		new PlayerJoinPacketHandler();
 	}
 }

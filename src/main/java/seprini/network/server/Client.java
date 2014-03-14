@@ -1,9 +1,12 @@
 package seprini.network.server;
 
+import java.util.Map.Entry;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import seprini.network.Frame;
 import seprini.network.packet.Packet;
+import seprini.network.packet.UpdateScorePacket;
 import seprini.network.packet.codec.encoder.Encoder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +16,7 @@ public final class Client {
 	@Getter @Setter private String name;
 	@Getter private final Server server;
 	@Getter private final Channel channel;
+	@Getter @Setter private int score;
 
 	public Client(Server server, Channel channel) {
 		this.server = server;
@@ -26,6 +30,15 @@ public final class Client {
 			Frame frame = new Frame(packet.getId(), buf);
 	
 			channel.writeAndFlush(frame);
+		}
+	}
+
+	public void addScore(int delta) {
+		score += delta;
+
+		for (Entry<Integer, Client> entry : server.getClients().entrySet()) {
+			Client client = entry.getValue();
+			client.writePacket(new UpdateScorePacket(client.getId(), score));
 		}
 	}
 }

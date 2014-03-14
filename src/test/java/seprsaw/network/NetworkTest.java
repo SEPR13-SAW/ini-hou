@@ -37,16 +37,17 @@ public class NetworkTest {
 			e1.printStackTrace();
 		}
 
+		final String username = "TestUsername";
 		client = new Client(new InetSocketAddress("127.0.0.1", 11111), new Runnable() {
 			@Override
 			public void run() {
 				try {
-					client.writePacket(new JoinGamePacket("Test"));
+					client.writePacket(new JoinGamePacket(username));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
+		}, username);
 
 		try {
 			Thread.sleep(1000);
