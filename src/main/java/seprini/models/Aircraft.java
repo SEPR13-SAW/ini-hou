@@ -87,7 +87,7 @@ public final class Aircraft extends Entity {
 		coords = new Vector2(entryPoint.getX(), entryPoint.getY());
 		waypoints.remove(0);
 
-		// set origin to center of the aircraft, makes rotation more intuitive
+		// set origin to centre of the aircraft, makes rotation more intuitive
 		this.setOrigin(size.x / 2, size.y / 2);
 
 		this.setScale(0.5f);
@@ -207,9 +207,15 @@ public final class Aircraft extends Entity {
 	 * @param  
 	 */
 	public void act(float delta) {
+		
 
-		if (!isActive || landed)
+		if (!isActive)
 			return;
+		if (landed){
+			this.airport.addLanded(this);
+			return;
+		}
+
 
 		// handle aircraft rotation
 		rotateAircraft(delta);
@@ -225,9 +231,7 @@ public final class Aircraft extends Entity {
 				getWidth(), getHeight());
 
 		//Reduce speed and altitude between landing waypoints to simulate a smooth landing.
-		Waypoint approach1 = new Waypoint(230, 275, false);
-		Waypoint approach2 = new Waypoint(310, 195, false);
-		if (this.getNextWaypoint().getCoords().equals(approach1.getCoords()) || this.getNextWaypoint().getCoords().equals(approach2.getCoords())){
+		if (this.getNextWaypoint().getCoords().equals(this.airport.getApproach().getCoords())){
 			this.setSpeed(350 / Config.AIRCRAFT_SPEED_MULTIPLIER);
 			this.desiredAltitude = 2500;
 		}
@@ -242,6 +246,7 @@ public final class Aircraft extends Entity {
 		if (this.getNextWaypoint().getCoords().equals(runwayMid.getCoords())){
 			this.setSpeed(150 / Config.AIRCRAFT_SPEED_MULTIPLIER);
 			this.desiredAltitude = 0;
+
 		}
 		
 		// finally, test waypoint collisions using new coordinates
@@ -253,7 +258,7 @@ public final class Aircraft extends Entity {
 			if (getX() < -10 ||
 				getY() < -10 ||
 				getX() > Config.SCREEN_WIDTH - 190 ||
-				getY() > Config.SCREEN_HEIGHT + 105) {
+				getY() > Config.SCREEN_HEIGHT + 10) {
 
 				isActive = false;
 				Debug.msg("Aircraft id " + id + ": Out of bounds, last coordinates: " + coords);
@@ -564,39 +569,13 @@ public final class Aircraft extends Entity {
 	 * - Changes in altitude and speed are handled in act.
 	 */
 	public void landAircraft(){
-		if (!selected || AircraftController.isLanding() || mustLand == false)
-			return;
-		AircraftController.setLanding(true);
-//		Waypoint runwayEnd = new Waypoint(464, 395, false);
-//		Waypoint runwayMid = new Waypoint(387, 335, false);
-//		Waypoint runwayStart = new Waypoint(310, 275, false);
-		Waypoint approach;
-//		int choice = 0;
-		//Calculates if aircraft is in Pos A or B to decide which approach waypoint to use.
-		//
-		//--------------
-		//|          _/|
-		//| A      _/  |
-		//|      _/    |
-		//|    _/      |
-		//|  _/     B  |
-		//|_/          |
-		//--------------
-		//
-		//Adds 1 to avoid 0 error
-//		if (((this.getX() + 1) / (this.getY() + 1)) > 1.8){
-//			choice = 1;
-//		}
-//		if (choice == 0){
-//			approach = new Waypoint(230, 275, false);
-//		} else {
-//			approach = new Waypoint(310, 195, false);
-//		}
-		approach = new Waypoint(this.airport.getStart().getX(), this.airport.getStart().getY()-100, false);
+		if (!selected || mustLand == false)
+			return;	
+		
 		this.insertWaypoint(this.airport.getEnd());
 		this.insertWaypoint(this.airport.getMid());
 		this.insertWaypoint(this.airport.getStart());
-		this.insertWaypoint(approach);
+		this.insertWaypoint(this.airport.getApproach());
 		returnToPath();
 	}
 	
@@ -610,7 +589,6 @@ public final class Aircraft extends Entity {
 	public void takeOff(){
 		if (!landed)
 			return;
-		AircraftController.setLanding(false);
 		this.landed = false;
 		this.setSpeed(400 / Config.AIRCRAFT_SPEED_MULTIPLIER);
 		this.mustLand = false;
@@ -692,6 +670,10 @@ public final class Aircraft extends Entity {
 	 */
 	public boolean isActive() {
 		return isActive;
+	}
+	
+	public void setActive(boolean activity) {
+		isActive = activity;
 	}
 
 	/**
