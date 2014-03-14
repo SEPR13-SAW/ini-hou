@@ -16,9 +16,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-/**
- * Discards any incoming data.
- */
 public class Server implements Runnable {
 	private final static int MAX_CLIENTS = 4;
 
