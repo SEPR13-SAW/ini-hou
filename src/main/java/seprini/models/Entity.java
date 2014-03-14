@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Entity extends Actor {
-
 	protected Vector2 coords;
 	protected TextureRegion texture;
 	protected Vector2 size;

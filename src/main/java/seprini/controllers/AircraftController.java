@@ -15,6 +15,7 @@ import seprini.models.Airspace;
 import seprini.models.Map;
 import seprini.models.Waypoint;
 import seprini.models.types.AircraftType;
+import seprini.network.client.Player;
 import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
@@ -178,7 +179,8 @@ public final class AircraftController extends InputListener {
 		}
 
 		// try to generate a new aircraft
-		final Aircraft generatedAircraft = generateAircraft();
+		// TODO Assign aircraft to player (random for multiplayer).
+		final Aircraft generatedAircraft = generateAircraft(null);
 
 		// if the newly generated aircraft is not null (ie checking one was
 		// generated), add it as an actor to the stage
@@ -262,7 +264,7 @@ public final class AircraftController extends InputListener {
 	 *         otherwise <b>null</b>
 	 * 
 	 */
-	private Aircraft generateAircraft() {
+	private Aircraft generateAircraft(Player player) {
 		// number of aircraft has reached maximum, abort
 		if (aircraftList.size() >= difficulty.getMaxAircraft())
 			return null;
@@ -279,7 +281,7 @@ public final class AircraftController extends InputListener {
 		}
 		
 		Aircraft newAircraft = new Aircraft(randomAircraftType(),
-				flightplan.generate(), aircraftId++, shouldLand, this.airport);
+				flightplan.generate(), aircraftId++, shouldLand, this.airport, player);
 
 		aircraftList.add(newAircraft);
 

@@ -40,7 +40,7 @@ public class AircraftControllerTest extends FakeArtEnabler
 		flightPlan.add(new Waypoint(x, y, false));
 		flightPlan.add(new Waypoint(1000, 1000, false));
 
-		Aircraft aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0]));
+		Aircraft aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0]), null);
 
 		// Force middle altitude
 		if (aircraft.getAltitude() < 10000)

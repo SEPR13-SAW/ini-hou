@@ -3,10 +3,12 @@ package seprini.models;
 import java.util.ArrayList;
 import java.util.Random;
 
+import lombok.Getter;
 import seprini.controllers.AircraftController;
 import seprini.data.Config;
 import seprini.data.Debug;
 import seprini.models.types.AircraftType;
+import seprini.network.client.Player;
 import seprini.screens.AbstractScreen;
 
 import com.badlogic.gdx.graphics.Color;
@@ -55,13 +57,13 @@ public final class Aircraft extends Entity {
 	
 	private boolean mustLand;
 
-	public Aircraft(AircraftType aircraftType, ArrayList<Waypoint> flightPlan,
-			int id, boolean mustLand, Airport airport) {
-		
+	@Getter private final Player player;
+
+	public Aircraft(AircraftType aircraftType, ArrayList<Waypoint> flightPlan, int id, boolean mustLand, Airport airport, Player player) {
+		this.player = player;
 		this.airport = airport;
 		// allows drawing debug shape of this entity
-		debugShape = true;
-
+		this.debugShape = true;
 		this.id = id;
 		this.aircraftType = aircraftType;
 
