@@ -529,6 +529,14 @@ public final class Aircraft extends Entity {
 
 		this.desiredAltitude -= ALTITUDE_CHANGE;
 	}
+	
+	public boolean isAscending() {
+		return this.altitude < this.desiredAltitude;
+	}
+	
+	public boolean isDescending() {
+		return this.altitude > this.desiredAltitude;
+	}
 
 	public boolean isTurningRight() {
 		return turnRight;
