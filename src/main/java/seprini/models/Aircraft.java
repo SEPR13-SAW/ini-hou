@@ -214,6 +214,7 @@ public final class Aircraft extends Entity {
 		if (!isActive)
 			return;
 		if (landed){
+			AircraftController.score += 2000;
 			this.airport.addLanded(this);
 			return;
 		}
@@ -450,8 +451,7 @@ public final class Aircraft extends Entity {
 					Debug.msg("Aircraft id " + id + ": Hit waypoint");
 					// Sets aircraft speed to 0 if it has reached the middle of runway.
 					// Only occurs when landing as runwayMid can only be part of a landing flight plan.
-					Waypoint runwayMid = new Waypoint(387, 335, false);
-					if (waypoints.get(0).getCoords().equals(runwayMid.getCoords())){
+					if (waypoints.get(0).getCoords().equals(this.airport.getMid().getCoords())){
 						this.setSpeed(0.00000000001f);
 						this.altitude = 0;
 						this.landed = true;
@@ -581,7 +581,6 @@ public final class Aircraft extends Entity {
 	public void landAircraft(){
 		if (!selected || mustLand == false)
 			return;	
-		
 		this.insertWaypoint(this.airport.getEnd());
 		this.insertWaypoint(this.airport.getMid());
 		this.insertWaypoint(this.airport.getStart());
@@ -599,6 +598,7 @@ public final class Aircraft extends Entity {
 	public void takeOff(){
 		if (!landed)
 			return;
+		this.setActive(true);
 		this.landed = false;
 		this.setSpeed(400 / Config.AIRCRAFT_SPEED_MULTIPLIER);
 		this.mustLand = false;
@@ -692,7 +692,7 @@ public final class Aircraft extends Entity {
 	 * @param newSelected
 	 * @return whether is selected
 	 */
-	public boolean selected(boolean newSelected) {
+	public boolean setSelected(boolean newSelected) {
 		return this.selected = newSelected;
 	}
 	

@@ -1,6 +1,8 @@
 package seprini.models;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,7 +14,7 @@ public final class Airport extends Entity{
 	Waypoint runwayMid;
 	Waypoint runwayStart;
 	Waypoint approach;
-	ArrayList<Aircraft> landedPlanes = new ArrayList<Aircraft>();
+	Queue<Aircraft> landedPlanes = new LinkedList<Aircraft>();
 	
 	private final boolean visible = true;
 
@@ -24,9 +26,7 @@ public final class Airport extends Entity{
 		this.debugShape = true;
 		this.coords = new Vector2(midPoint.x, midPoint.y);
 		this.size = new Vector2(154, 120);
-		this.texture = Art.getTextureRegion("airport");
-		
-		
+		this.texture = Art.getTextureRegion("airport");		
 	}
 	
 	
@@ -40,6 +40,10 @@ public final class Airport extends Entity{
 	
 	public Waypoint getMid(){
 		return runwayMid;
+	}
+	
+	public Queue<Aircraft> getLandedPlanes(){
+		return this.landedPlanes;
 	}
 
 

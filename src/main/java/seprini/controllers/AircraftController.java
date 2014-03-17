@@ -274,9 +274,9 @@ public final class AircraftController extends InputListener {
 		if (timer - lastGenerated < difficulty.getTimeBetweenGenerations() + rand.nextInt(100))
 			return null;
 
-		int landChoice = rand.nextInt(6);
+		int landChoice = rand.nextInt(1);
 		boolean shouldLand = false;
-		if (landChoice == 5){
+		if (landChoice == 0){
 			shouldLand = true;
 		}
 		
@@ -331,7 +331,7 @@ public final class AircraftController extends InputListener {
 		// make sure old selected aircraft is no longer selected in its own
 		// object
 		if (selectedAircraft != null) {
-			selectedAircraft.selected(false);
+			selectedAircraft.setSelected(false);
 
 			// make sure the old aircraft stops turning after selecting a new
 			// aircraft; prevents it from going in circles
@@ -343,7 +343,7 @@ public final class AircraftController extends InputListener {
 		selectedAircraft = aircraft;
 
 		// make new aircraft know it's selected
-		selectedAircraft.selected(true);
+		selectedAircraft.setSelected(true);
 	}
 
 	/**
@@ -414,13 +414,23 @@ public final class AircraftController extends InputListener {
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
 			
-			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000)
+			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000){
 				selectedAircraft.landAircraft();
-			
-			if (keycode == Keys.T)
-				selectedAircraft.takeOff();
+				this.selectedAircraft = null;
+			}
 
 		}
+		
+		if (keycode == Keys.T && this.airport.getLandedPlanes().size() != 0){
+			Aircraft aircraft = this.airport.getLandedPlanes().poll();
+			aircraft.setActive(true);
+			aircraft.setSelected(false);
+			this.aircraftList.add(aircraft);
+			this.airspace.addActor(aircraft);
+			aircraft.takeOff();
+			
+		}
+		
 		if (keycode == Keys.SPACE)
 			screen.setPaused(!screen.isPaused());
 
