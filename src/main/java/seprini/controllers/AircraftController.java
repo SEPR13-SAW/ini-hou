@@ -84,7 +84,7 @@ public final class AircraftController extends InputListener {
 		airspace.addActor(new Map());
 		
 		//add the airport
-		airspace.addActor(new Airport(new Vector2(100,100)));
+		airspace.addActor(new Airport(new Vector2(387,355)));
 
 		// manages the waypoints
 		this.waypoints = new WaypointComponent(this);

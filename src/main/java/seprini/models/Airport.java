@@ -26,6 +26,7 @@ public final class Airport extends Entity{
 		this.size = new Vector2(154, 120);
 		this.texture = Art.getTextureRegion("airport");
 		
+		
 	}
 	
 	
