@@ -274,9 +274,9 @@ public final class AircraftController extends InputListener {
 		if (timer - lastGenerated < difficulty.getTimeBetweenGenerations() + rand.nextInt(100))
 			return null;
 
-		int landChoice = rand.nextInt(4);
+		int landChoice = rand.nextInt(3);
 		boolean shouldLand = false;
-		if (landChoice == 3){
+		if (landChoice == 0){
 			shouldLand = true;
 		}
 		
@@ -286,7 +286,7 @@ public final class AircraftController extends InputListener {
 		aircraftList.add(newAircraft);
 
 		// store the time when an aircraft was last generated to know when to
-		// generate the next aicraft
+		// generate the next aircraft
 		lastGenerated = timer;
 
 		return newAircraft;
@@ -414,7 +414,7 @@ public final class AircraftController extends InputListener {
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
 			
-			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000){
+			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && this.airport.getLandedPlanes().size() < 10){
 				selectedAircraft.landAircraft();
 				this.selectedAircraft = null;
 			}
