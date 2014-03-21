@@ -274,9 +274,9 @@ public final class AircraftController extends InputListener {
 		if (timer - lastGenerated < difficulty.getTimeBetweenGenerations() + rand.nextInt(100))
 			return null;
 
-		int landChoice = rand.nextInt(1);
+		int landChoice = rand.nextInt(4);
 		boolean shouldLand = false;
-		if (landChoice == 0){
+		if (landChoice == 3){
 			shouldLand = true;
 		}
 		

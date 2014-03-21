@@ -6,7 +6,7 @@ package seprini.data;
 public class GameDifficulty
 {
 	// maxAircraft, timeBetweenGenerations, separationRadius, scoreMultiplier
-	public static final GameDifficulty EASY   = new GameDifficulty(1, 4, 150, 17);
+	public static final GameDifficulty EASY   = new GameDifficulty(10, 4, 150, 17);
 	public static final GameDifficulty MEDIUM = new GameDifficulty(10, 3, 100, 22);
 	public static final GameDifficulty HARD   = new GameDifficulty(10, 2,  75, 27);
 
