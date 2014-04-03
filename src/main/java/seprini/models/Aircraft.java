@@ -162,9 +162,14 @@ public final class Aircraft extends Entity {
 		// around it
 		if (mustLand) {
 			batch.end();
-
+			
 			drawer.begin(ShapeType.Line);
+			if (this.airport.getID() == 0)
+			{
 			drawer.setColor(0, 0, 1, 0);
+			}else{
+			drawer.setColor(0, 1, 0, 0);
+			}
 			drawer.circle(getX(), getY(), getSeparationRadius() * 0.25f);
 			drawer.end();
 
@@ -708,5 +713,8 @@ public final class Aircraft extends Entity {
 				+ "\n\r flight plan: " + waypoints.toString();
 	}
 	
+	public Airport getAirport(){
+		return this.airport;
+	}
 
 }

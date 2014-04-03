@@ -31,6 +31,7 @@ public final class AircraftController extends InputListener {
 	// aircraft and aircraft type lists
 	private final ArrayList<AircraftType> aircraftTypeList = new ArrayList<AircraftType>();
 	private final ArrayList<Aircraft> aircraftList = new ArrayList<Aircraft>();
+	private final ArrayList<Airport> airportList = new ArrayList<Airport>();
 
 	private float lastGenerated, lastWarned;
 	private boolean breachingSound, breachingIsPlaying;
@@ -45,7 +46,6 @@ public final class AircraftController extends InputListener {
 
 	// ui related
 	private final Airspace airspace;
-	private final Airport airport;
 	private final ScreenBase screen;
 
 	private boolean allowRedirection;
@@ -58,7 +58,9 @@ public final class AircraftController extends InputListener {
 	// game score
 	public static float score = 0;
 	
-
+	//airport selection flag
+	private int airportFlag = 0;
+	
 	private Random scoreCheck = new Random();
 
 	/**
@@ -71,10 +73,9 @@ public final class AircraftController extends InputListener {
 	 *            added
 	 * @param screen
 	 */
-	public AircraftController(GameDifficulty diff, Airspace airspace, Airport airport, ScreenBase screen) {
+	public AircraftController(GameDifficulty diff, Airspace airspace, ScreenBase screen) {
 		this.difficulty = diff;
 		this.airspace = airspace;
-		this.airport = airport;
 		this.screen = screen;
 
 		// Static variable reset.
@@ -83,8 +84,11 @@ public final class AircraftController extends InputListener {
 		// add the background
 		airspace.addActor(new Map());
 		
-		//add the airport
-		airspace.addActor(new Airport(new Vector2(387,355)));
+		//initialise airports
+		airportList.add(new Airport(new Vector2(387,355), 0));
+		airportList.add(new Airport(new Vector2(487, 555), 1));
+		airspace.addActor(airportList.get(0));
+		airspace.addActor(airportList.get(1));
 
 		// manages the waypoints
 		this.waypoints = new WaypointComponent(this);
@@ -280,8 +284,16 @@ public final class AircraftController extends InputListener {
 			shouldLand = true;
 		}
 		
+		int airportChoice = rand.nextInt(2);
+		Airport airport;
+		if (airportChoice == 0){
+			airport = airportList.get(0);
+		}else{
+			airport = airportList.get(1);
+		}
+		
 		Aircraft newAircraft = new Aircraft(randomAircraftType(),
-				flightplan.generate(), aircraftId++, shouldLand, this.airport, player);
+				flightplan.generate(), aircraftId++, shouldLand, airport, player);
 
 		aircraftList.add(newAircraft);
 
@@ -414,21 +426,35 @@ public final class AircraftController extends InputListener {
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
 			
-			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && this.airport.getLandedPlanes().size() < 10){
+			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && selectedAircraft.getAirport().getLandedPlanes().size() < 10){
 				selectedAircraft.landAircraft();
 				this.selectedAircraft = null;
 			}
 
 		}
 		
-		if (keycode == Keys.T && this.airport.getLandedPlanes().size() != 0){
-			Aircraft aircraft = this.airport.getLandedPlanes().poll();
+		if (keycode == Keys.T && airportList.get(airportFlag).getLandedPlanes().size() != 0){
+			Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
+			if(airportFlag == 0){
+				airportFlag = 1;
+			}else{
+				airportFlag = 0;
+			}
 			aircraft.setActive(true);
 			aircraft.setSelected(false);
 			this.aircraftList.add(aircraft);
 			this.airspace.addActor(aircraft);
 			aircraft.takeOff();
 			
+		}else{
+			if (keycode == Keys.T)
+			{
+				if(airportFlag == 0){
+					airportFlag = 1;
+				}else{
+					airportFlag = 0;
+				}
+			}
 		}
 		
 		if (keycode == Keys.SPACE)

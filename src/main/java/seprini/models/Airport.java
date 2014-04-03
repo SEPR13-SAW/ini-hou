@@ -17,8 +17,9 @@ public final class Airport extends Entity{
 	Queue<Aircraft> landedPlanes = new LinkedList<Aircraft>();
 	
 	private final boolean visible = true;
+	private int id;
 
-	public Airport(Vector2 midPoint) {
+	public Airport(Vector2 midPoint, int ID) {
 		this.runwayMid = new Waypoint(midPoint.x, midPoint.y, false);
 		this.runwayStart = new Waypoint(midPoint.x, midPoint.y -60, false);
 		this.runwayEnd = new Waypoint(midPoint.x, midPoint.y +60, false);
@@ -26,9 +27,14 @@ public final class Airport extends Entity{
 		this.debugShape = true;
 		this.coords = new Vector2(midPoint.x, midPoint.y);
 		this.size = new Vector2(154, 120);
-		this.texture = Art.getTextureRegion("airport");		
+		this.texture = Art.getTextureRegion("airport");	
+		this.id = ID;
 	}
 	
+	
+	public int getID(){
+		return this.id;
+	}
 	
 	public Waypoint getStart(){
 		return runwayStart;

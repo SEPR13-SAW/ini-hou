@@ -5,9 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import seprini.controllers.AircraftController;
-import seprini.data.Config;
 import seprini.data.GameDifficulty;
-import seprini.models.Airport;
 import seprini.models.Airspace;
 import seprini.models.Waypoint;
 
@@ -38,7 +36,7 @@ public class FlightPlanComponentTest
 	public void setupGenerator()
 	{
 		waypointComponent = new WaypointComponent(
-				new AircraftController(GameDifficulty.EASY, new Airspace(), new Airport(Config.AIRPORT_COORDIATES[0]), null));
+				new AircraftController(GameDifficulty.EASY, new Airspace(), null));
 		flightPlanComponent = new FlightPlanComponent(waypointComponent);
 	}
 

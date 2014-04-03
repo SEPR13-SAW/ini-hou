@@ -47,7 +47,7 @@ public class AircraftTest
 				.setInitialSpeed(30f);
 
 		// Create aircraft
-		aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0]), null);
+		aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0], 0), null);
 	}
 
 	/**
