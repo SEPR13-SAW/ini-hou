@@ -10,26 +10,25 @@ import com.badlogic.gdx.math.Vector2;
 
 import seprini.data.Art;
 
-public final class Airport extends Entity{
+public final class Airport extends Entity {
 	Waypoint runwayEnd;
 	Waypoint runwayMid;
 	Waypoint runwayStart;
 	Waypoint approach;
 	Queue<Aircraft> landedPlanes = new LinkedList<Aircraft>();
 	TextureRegion aircraft;
-	float[] landedPositionsX = new float[10];
-	float[] landedPositionsY = new float[10];
-	
-	
-	
+	public ArrayList<Waypoint> availablePositions = new ArrayList<Waypoint>();
+	public Queue<Waypoint> takenPositions = new LinkedList<Waypoint>();
+
 	private final boolean visible = true;
 	private int id;
 
 	public Airport(Vector2 midPoint, int ID) {
 		this.runwayMid = new Waypoint(midPoint.x, midPoint.y, false);
-		this.runwayStart = new Waypoint(midPoint.x, midPoint.y -60, false);
-		this.runwayEnd = new Waypoint(midPoint.x, midPoint.y +60, false);
-		this.approach = new Waypoint(runwayStart.getX(), runwayStart.getY() - 100, false);
+		this.runwayStart = new Waypoint(midPoint.x, midPoint.y - 60, false);
+		this.runwayEnd = new Waypoint(midPoint.x, midPoint.y + 60, false);
+		this.approach = new Waypoint(runwayStart.getX(),
+				runwayStart.getY() - 100, false);
 		this.debugShape = true;
 		this.coords = new Vector2(midPoint.x, midPoint.y);
 		this.size = new Vector2(154, 120);
@@ -38,73 +37,82 @@ public final class Airport extends Entity{
 		this.id = ID;
 		this.adjustPositions();
 	}
-	
-	public void adjustPositions(){
+	//Fills the arraylist with positions for the landed planes to appear on.
+	public void adjustPositions() {
 		int offsetX = 40, offsetY = 25, stepY = 20;
-		for(int i = 0; i < 5; i++){
-			this.landedPositionsX[i] = this.runwayStart.getX() + offsetX;
-			this.landedPositionsY[i] = this.runwayStart.getY() + offsetY;
+		Waypoint waypoint;
+		for (int i = 0; i < 5; i++) {
+			waypoint = new Waypoint(this.runwayStart.getX() + offsetX, this.runwayStart.getY() + offsetY, false);
 			offsetY += stepY;
+			this.availablePositions.add(waypoint);
 		};
 		offsetY = 5;
-		offsetX = - 35;
-		
-		for(int o = 5; o < 10; o++){
-			this.landedPositionsX[o] = this.runwayStart.getX() + offsetX;
-			this.landedPositionsY[o] = this.runwayStart.getY() + offsetY;
+		offsetX = -35;
+
+		for (int o = 5; o < 10; o++) {
+			waypoint = new Waypoint(this.runwayStart.getX() + offsetX, this.runwayStart.getY() + offsetY, false);
 			offsetY += stepY;
+			this.availablePositions.add(waypoint);
 		}
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return this.id;
 	}
-	
-	public Waypoint getStart(){
+
+	public Waypoint getStart() {
 		return runwayStart;
 	}
-	
-	public Waypoint getEnd(){
+
+	public Waypoint getEnd() {
 		return runwayEnd;
 	}
-	
-	public Waypoint getMid(){
+
+	public Waypoint getMid() {
 		return runwayMid;
 	}
-	
-	public Queue<Aircraft> getLandedPlanes(){
+
+	public Queue<Aircraft> getLandedPlanes() {
 		return this.landedPlanes;
 	}
 
-
 	public boolean isVisible() {
 		return visible;
-	}	
-	
-	
+	}
+
 	public Waypoint cpy() {
 		return new Waypoint(getX(), getY(), this.visible);
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if (visible){
+		if (visible) {
 			super.draw(batch, parentAlpha);
-			for(int i = 0; i < this.landedPlanes.size(); i++)
-				if(i < 5)
-					batch.draw(aircraft, this.landedPositionsX[i], this.landedPositionsY[i], 0, 0, aircraft.getRegionWidth(), aircraft.getRegionHeight(), 0.3f, 0.3f, 160f);
+			//Draws planes landed on the airport.
+			for(Waypoint position : this.takenPositions){
+				if (position.getX() > this.getMid().getX())
+					batch.draw(aircraft, position.getX(),
+							position.getY(), 0, 0,
+							aircraft.getRegionWidth(),
+							aircraft.getRegionHeight(), 0.3f, 0.3f, 160f);
 				else
-					batch.draw(aircraft, this.landedPositionsX[i], this.landedPositionsY[i], 0, 0, aircraft.getRegionWidth(), aircraft.getRegionHeight(), 0.3f, 0.3f, 20f);
+					batch.draw(aircraft, position.getX(),
+							position.getY(), 0, 0,
+							aircraft.getRegionWidth(),
+							aircraft.getRegionHeight(), 0.3f, 0.3f, 20f);
+			}
 		}
 	}
 
-	public Waypoint getApproach(){
+	public Waypoint getApproach() {
 		return approach;
 	}
-	
-	public void addLanded(Aircraft x){
+
+	public void addLanded(Aircraft x) {
 		landedPlanes.add(x);
+		this.takenPositions.add(this.availablePositions.get(0));
+		this.availablePositions.remove(0);
 		x.setActive(false);
 	}
-	
+
 }
