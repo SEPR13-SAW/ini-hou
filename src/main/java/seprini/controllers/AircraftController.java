@@ -435,7 +435,8 @@ public final class AircraftController extends InputListener {
 		
 		if (keycode == Keys.T && airportList.get(airportFlag).getLandedPlanes().size() != 0){
 			Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
-			airportList.get(airportFlag).availablePositions.add(0, airportList.get(airportFlag).takenPositions.poll());
+			airportList.get(airportFlag).takenPositions.poll();
+			airportList.get(airportFlag).findNext();
 			if(airportFlag == 0){
 				airportFlag = 1;
 			}else{

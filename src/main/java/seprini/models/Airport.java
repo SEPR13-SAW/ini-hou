@@ -19,6 +19,7 @@ public final class Airport extends Entity {
 	TextureRegion aircraft;
 	public ArrayList<Waypoint> availablePositions = new ArrayList<Waypoint>();
 	public Queue<Waypoint> takenPositions = new LinkedList<Waypoint>();
+	public Waypoint nextPosition;
 
 	private final boolean visible = true;
 	private int id;
@@ -37,7 +38,8 @@ public final class Airport extends Entity {
 		this.id = ID;
 		this.adjustPositions();
 	}
-	//Fills the arraylist with positions for the landed planes to appear on.
+
+	// Fills the arraylist with positions for the landed planes to appear on.
 	public void adjustPositions() {
 		int offsetX = 40, offsetY = 25, stepY = 20;
 		Waypoint waypoint;
@@ -53,6 +55,21 @@ public final class Airport extends Entity {
 			waypoint = new Waypoint(this.runwayStart.getX() + offsetX, this.runwayStart.getY() + offsetY, false);
 			offsetY += stepY;
 			this.availablePositions.add(waypoint);
+		}
+		this.nextPosition = this.availablePositions.get(0);
+	}
+
+	public void findNext() {
+		for (int i = 0; i < this.availablePositions.size(); i++) {
+			this.nextPosition = this.availablePositions.get(i);
+			for (int o = 0; o < this.takenPositions.size(); o++) {
+				if (this.takenPositions.contains(this.availablePositions.get(i))) {
+					this.nextPosition = null;
+					break;
+				}
+			}
+			if (this.nextPosition != null)
+				break;
 		}
 	}
 
@@ -88,8 +105,8 @@ public final class Airport extends Entity {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (visible) {
 			super.draw(batch, parentAlpha);
-			//Draws planes landed on the airport.
-			for(Waypoint position : this.takenPositions){
+			// Draws planes landed on the airport.
+			for (Waypoint position : this.takenPositions) {
 				if (position.getX() > this.getMid().getX())
 					batch.draw(aircraft, position.getX(),
 							position.getY(), 0, 0,
@@ -110,8 +127,8 @@ public final class Airport extends Entity {
 
 	public void addLanded(Aircraft x) {
 		landedPlanes.add(x);
-		this.takenPositions.add(this.availablePositions.get(0));
-		this.availablePositions.remove(0);
+		this.takenPositions.add(this.nextPosition);
+		this.findNext();
 		x.setActive(false);
 	}
 
