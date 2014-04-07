@@ -433,23 +433,6 @@ public final class AircraftController extends InputListener {
 				this.selectedAircraft = null;
 			}
 			
-			if (keycode == Keys.TAB){
-				
-				int listSize = this.aircraftList.size();
-							
-				if(this.selectedAircraft != null){
-				tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
-				this.selectedAircraft.returnToPath();
-				this.selectedAircraft.setSelected(false);
-				this.selectedAircraft = null;
-				}
-				
-				if((tabIndex)%listSize == 0 || listSize == 1)
-				tabIndex = 0;
-				
-				this.selectedAircraft = this.aircraftList.get(tabIndex);
-				this.selectedAircraft.setSelected(true);
-			}
 
 		}
 		
@@ -486,6 +469,24 @@ public final class AircraftController extends InputListener {
 			Art.getSound("ambience").stop();
 			screen.getGame().showMenuScreen();
 			}
+		
+		if (keycode == Keys.TAB && this.aircraftList.size() != 0){
+			
+			int listSize = this.aircraftList.size();
+						
+			if(this.selectedAircraft != null){
+			tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
+			this.selectedAircraft.returnToPath();
+			this.selectedAircraft.setSelected(false);
+			this.selectedAircraft = null;
+			}
+			
+			if((tabIndex)%listSize == 0 || listSize == 1)
+			tabIndex = 0;
+			
+			this.selectedAircraft = this.aircraftList.get(tabIndex);
+			this.selectedAircraft.setSelected(true);
+		}
 
 		return false;
 	}
