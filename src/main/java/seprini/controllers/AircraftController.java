@@ -13,6 +13,7 @@ import seprini.models.Aircraft;
 import seprini.models.Airport;
 import seprini.models.Airspace;
 import seprini.models.Map;
+import seprini.models.ScoreBar;
 import seprini.models.Waypoint;
 import seprini.models.types.AircraftType;
 import seprini.network.client.Player;
@@ -54,24 +55,24 @@ public final class AircraftController extends InputListener {
 
 	// game timer
 	private float timer = 0;
-	
+
 	// game score
 	public static float score = 0;
-	
-	//airport selection flag
+
+	// airport selection flag
 	private int airportFlag = 0;
-	
+
 	private int tabIndex = 0;
-	
+
 	private Random scoreCheck = new Random();
+	
+	public ScoreBar scoreBar;
 
 	/**
 	 * 
-	 * @param diff
-	 *            game difficulty, changes number of aircraft and time between
+	 * @param diff game difficulty, changes number of aircraft and time between
 	 *            them
-	 * @param airspace
-	 *            the group where all of the waypoints and aircraft will be
+	 * @param airspace the group where all of the waypoints and aircraft will be
 	 *            added
 	 * @param screen
 	 */
@@ -85,9 +86,9 @@ public final class AircraftController extends InputListener {
 
 		// add the background
 		airspace.addActor(new Map());
-		
-		//initialise airports
-		airportList.add(new Airport(new Vector2(387,355), 0));
+
+		// initialise airports
+		airportList.add(new Airport(new Vector2(387, 355), 0));
 		airportList.add(new Airport(new Vector2(487, 555), 1));
 		airspace.addActor(airportList.get(0));
 		airspace.addActor(airportList.get(1));
@@ -108,6 +109,10 @@ public final class AircraftController extends InputListener {
 				.setSeparationRadius(diff.getSeparationRadius())
 				.setTexture(Art.getTextureRegion("aircraft"))
 				.setInitialSpeed(30f));
+		this.scoreBar = new ScoreBar();
+		airspace.addActor(this.scoreBar);
+		
+
 	}
 
 	/**
@@ -117,6 +122,8 @@ public final class AircraftController extends InputListener {
 	public void update(float delta) {
 		// Update timer
 		timer += delta;
+
+		this.scoreBar.act(delta);
 		
 		breachingSound = false;
 
@@ -137,7 +144,8 @@ public final class AircraftController extends InputListener {
 			for (Aircraft planeJ : aircraftList) {
 
 				// Quite simply checks if distance between the centres of both
-				// the aircraft <= the radius of aircraft i + radius of aircraft j
+				// the aircraft <= the radius of aircraft i + radius of aircraft
+				// j
 
 				if (!planeI.equals(planeJ)
 						// Check difference in altitude.
@@ -170,8 +178,6 @@ public final class AircraftController extends InputListener {
 			if (planeI.getAltitude() < 0) {
 				screen.getGame().showEndScreen(timer, score);
 			}
-			
-			
 
 		}
 
@@ -223,10 +229,8 @@ public final class AircraftController extends InputListener {
 	/**
 	 * Handles what happens after a collision
 	 * 
-	 * @param a
-	 *            first aircraft that collided
-	 * @param b
-	 *            second aircraft that collided
+	 * @param a first aircraft that collided
+	 * @param b second aircraft that collided
 	 */
 	private void collisionHasOccured(Aircraft a, Aircraft b) {
 		// stop the ambience sound and play the crash sound
@@ -240,17 +244,15 @@ public final class AircraftController extends InputListener {
 	/**
 	 * Handles what happens after the separation rules have been breached
 	 * 
-	 * @param a
-	 *            first aircraft that breached
-	 * @param b
-	 *            second aircraft that breached
+	 * @param a first aircraft that breached
+	 * @param b second aircraft that breached
 	 */
 	private void separationRulesBreached(Aircraft a, Aircraft b) {
 		// for scoring mechanisms, if applicable
 		a.setBreaching(true);
 		b.setBreaching(true);
 
-		if(scoreCheck.nextInt(60) == 0){
+		if (scoreCheck.nextInt(60) == 0) {
 			score -= 1;
 		}
 		breachingSound = true;
@@ -282,18 +284,18 @@ public final class AircraftController extends InputListener {
 
 		int landChoice = rand.nextInt(3);
 		boolean shouldLand = false;
-		if (landChoice == 0){
+		if (landChoice == 0) {
 			shouldLand = true;
 		}
-		
+
 		int airportChoice = rand.nextInt(2);
 		Airport airport;
-		if (airportChoice == 0){
+		if (airportChoice == 0) {
 			airport = airportList.get(0);
-		}else{
+		} else {
 			airport = airportList.get(1);
 		}
-		
+
 		Aircraft newAircraft = new Aircraft(randomAircraftType(),
 				flightplan.generate(), aircraftId++, shouldLand, airport, player);
 
@@ -325,8 +327,8 @@ public final class AircraftController extends InputListener {
 
 		if (aircraft.equals(selectedAircraft))
 			selectedAircraft = null;
-		
-		if (aircraft.isMustLand()){
+
+		if (aircraft.isMustLand()) {
 			score -= 1000;
 		}
 		// removes the aircraft from the list of aircrafts on screen
@@ -363,8 +365,7 @@ public final class AircraftController extends InputListener {
 	/**
 	 * Redirects aircraft to another waypoint.
 	 * 
-	 * @param waypoint
-	 *            Waypoint to redirect to
+	 * @param waypoint Waypoint to redirect to
 	 */
 	public void redirectAircraft(Waypoint waypoint) {
 		Debug.msg("Redirecting aircraft " + 0 + " to " + waypoint);
@@ -374,12 +375,11 @@ public final class AircraftController extends InputListener {
 
 		getSelectedAircraft().insertWaypoint(waypoint);
 	}
-	
 
 	public float getTimer() {
 		return timer;
 	}
-	
+
 	public float getScore() {
 		return score;
 	}
@@ -396,9 +396,13 @@ public final class AircraftController extends InputListener {
 		return airspace;
 	}
 
-	public boolean allowRedirection() { return allowRedirection; }
+	public boolean allowRedirection() {
+		return allowRedirection;
+	}
 
-	public void setAllowRedirection(boolean value) { allowRedirection = value; }
+	public void setAllowRedirection(boolean value) {
+		allowRedirection = value;
+	}
 
 	@Override
 	/**
@@ -424,25 +428,24 @@ public final class AircraftController extends InputListener {
 
 			if (keycode == Keys.Q)
 				selectedAircraft.decreaseSpeed();
-			
+
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
-			
-			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && selectedAircraft.getAirport().getLandedPlanes().size() < 10){
+
+			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && selectedAircraft.getAirport().getLandedPlanes().size() < 10) {
 				selectedAircraft.landAircraft();
 				this.selectedAircraft = null;
 			}
-			
 
 		}
-		
-		if (keycode == Keys.T && airportList.get(airportFlag).getLandedPlanes().size() != 0){
+
+		if (keycode == Keys.T && airportList.get(airportFlag).getLandedPlanes().size() != 0) {
 			Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
 			airportList.get(airportFlag).takenPositions.poll();
 			airportList.get(airportFlag).findNext();
-			if(airportFlag == 0){
+			if (airportFlag == 0) {
 				airportFlag = 1;
-			}else{
+			} else {
 				airportFlag = 0;
 			}
 			aircraft.setActive(true);
@@ -450,40 +453,45 @@ public final class AircraftController extends InputListener {
 			this.aircraftList.add(aircraft);
 			this.airspace.addActor(aircraft);
 			aircraft.takeOff();
-			
-		}else{
+
+		} else {
 			if (keycode == Keys.T)
 			{
-				if(airportFlag == 0){
+				if (airportFlag == 0) {
 					airportFlag = 1;
-				}else{
+				} else {
 					airportFlag = 0;
 				}
 			}
 		}
-		
+
 		if (keycode == Keys.SPACE)
 			screen.setPaused(!screen.isPaused());
+		
+		if (keycode == Keys.U)
+			this.scoreBar.increaseRed();
+		if (keycode == Keys.J)
+			this.scoreBar.decreaseRed();
 
-		if (keycode == Keys.ESCAPE){
+		if (keycode == Keys.ESCAPE) {
 			Art.getSound("ambience").stop();
 			screen.getGame().showMenuScreen();
-			}
-		
-		if (keycode == Keys.TAB && this.aircraftList.size() != 0){
-			
+		}
+
+		if (keycode == Keys.TAB && this.aircraftList.size() != 0) {
+
 			int listSize = this.aircraftList.size();
-						
-			if(this.selectedAircraft != null){
-			tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
-			this.selectedAircraft.returnToPath();
-			this.selectedAircraft.setSelected(false);
-			this.selectedAircraft = null;
+
+			if (this.selectedAircraft != null) {
+				tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
+				this.selectedAircraft.returnToPath();
+				this.selectedAircraft.setSelected(false);
+				this.selectedAircraft = null;
 			}
-			
-			if((tabIndex)%listSize == 0 || listSize == 1)
-			tabIndex = 0;
-			
+
+			if ((tabIndex) % listSize == 0 || listSize == 1)
+				tabIndex = 0;
+
 			this.selectedAircraft = this.aircraftList.get(tabIndex);
 			this.selectedAircraft.setSelected(true);
 		}
