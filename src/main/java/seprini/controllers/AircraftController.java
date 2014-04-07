@@ -61,6 +61,8 @@ public final class AircraftController extends InputListener {
 	//airport selection flag
 	private int airportFlag = 0;
 	
+	private int tabIndex = 0;
+	
 	private Random scoreCheck = new Random();
 
 	/**
@@ -429,6 +431,24 @@ public final class AircraftController extends InputListener {
 			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && selectedAircraft.getAirport().getLandedPlanes().size() < 10){
 				selectedAircraft.landAircraft();
 				this.selectedAircraft = null;
+			}
+			
+			if (keycode == Keys.TAB){
+				
+				int listSize = this.aircraftList.size();
+							
+				if(this.selectedAircraft != null){
+				tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
+				this.selectedAircraft.returnToPath();
+				this.selectedAircraft.setSelected(false);
+				this.selectedAircraft = null;
+				}
+				
+				if((tabIndex)%listSize == 0 || listSize == 1)
+				tabIndex = 0;
+				
+				this.selectedAircraft = this.aircraftList.get(tabIndex);
+				this.selectedAircraft.setSelected(true);
 			}
 
 		}
