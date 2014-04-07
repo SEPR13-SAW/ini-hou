@@ -122,8 +122,6 @@ public final class AircraftController extends InputListener {
 	public void update(float delta) {
 		// Update timer
 		timer += delta;
-
-		this.scoreBar.act(delta);
 		
 		breachingSound = false;
 
