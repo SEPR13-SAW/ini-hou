@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
 
@@ -28,14 +29,14 @@ public final class MenuController extends ChangeListener {
 	 * Initiate variables, set the screen and ui, add all of the buttons to the
 	 * screen
 	 * 
-	 * @param screen
-	 *            required so the controller could change the screen after
+	 * @param screen required so the controller could change the screen after
 	 *            clicking the appropriate button
-	 * @param ui
-	 *            required for actually adding the buttons
+	 * @param ui required for actually adding the buttons
 	 */
 	public MenuController(MenuScreen screen, Table ui) {
 		this.ui = ui;
+		// Moves ui down, to leave space for buttons
+		ui.setPosition(0, -30);
 		this.screen = screen;
 
 		buttons = new HashMap<String, TextButton>();
@@ -46,6 +47,11 @@ public final class MenuController extends ChangeListener {
 	 * Adds all the buttons on the screen with their own listener
 	 */
 	private void addButtons() {
+		// Adds multiplayer label and formats it
+		Label singleplayerLabel = new Label("Singleplayer", Art.getSkin());
+		singleplayerLabel.setAlignment(Align.center);
+		ui.add(singleplayerLabel).colspan(4).width(150);
+		ui.row();
 		// Create a label for difficulty and add it
 		Label difficultylabel = new Label("Difficulty:", Art.getSkin());
 		ui.add(difficultylabel).width(100).center();
@@ -61,7 +67,14 @@ public final class MenuController extends ChangeListener {
 
 		// create a new row
 		ui.row();
-
+		// Adds multiplayer label and formats it
+		Label multiplayerLabel = new Label("Multiplayer", Art.getSkin());
+		multiplayerLabel.setAlignment(Align.center);
+		ui.add(multiplayerLabel).colspan(4).width(150);
+		ui.row();
+		// Adds start multiplayer button
+		addButton("startMulti", "Start multiplayer game", this).width(200).colspan(4);
+		ui.row();
 		// create the Exit button
 		addButton("exit", "Exit", this).width(200).colspan(4);
 
@@ -103,6 +116,9 @@ public final class MenuController extends ChangeListener {
 
 		if (actor.equals(buttons.get("startHard")))
 			screen.getGame().showGameScreen(GameDifficulty.HARD);
+
+		if (actor.equals(buttons.get("startMulti")))
+			screen.getGame().showGameScreen(GameDifficulty.EASY);
 
 		if (actor.equals(buttons.get("exit")))
 			Gdx.app.exit();
