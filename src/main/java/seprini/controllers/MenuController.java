@@ -118,7 +118,7 @@ public final class MenuController extends ChangeListener {
 			screen.getGame().showGameScreen(GameDifficulty.HARD);
 
 		if (actor.equals(buttons.get("startMulti")))
-			screen.getGame().showGameScreen(GameDifficulty.EASY);
+			screen.getGame().showGameScreen(GameDifficulty.MULTI);
 
 		if (actor.equals(buttons.get("exit")))
 			Gdx.app.exit();
