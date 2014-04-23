@@ -469,7 +469,7 @@ public final class AircraftController extends InputListener {
 		if (keycode == Keys.U)
 			this.scoreBar.increaseRed();
 		if (keycode == Keys.J)
-			this.scoreBar.decreaseRed();
+			this.scoreBar.increaseBlue();
 
 		if (keycode == Keys.ESCAPE) {
 			Art.getSound("ambience").stop();

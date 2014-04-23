@@ -31,7 +31,7 @@ public class ScoreBar extends Entity {
 		this.lengthBlue = this.lengthBar - this.lengthRed;
 	}
 	
-	public void decreaseRed(){
+	public void increaseBlue(){
 		if(this.lengthRed > 0 && this.lengthRed < this.lengthBar)
 			this.lengthRed -= this.step;
 		this.lengthBlue = this.lengthBar - this.lengthRed;
