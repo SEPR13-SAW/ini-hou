@@ -5,12 +5,14 @@ package seprini.data;
  */
 public class GameDifficulty
 {
-	// maxAircraft, timeBetweenGenerations, separationRadius, scoreMultiplier
-	public static final GameDifficulty EASY   = new GameDifficulty(10, 4, 150, 17);
-	public static final GameDifficulty MEDIUM = new GameDifficulty(10, 3, 100, 22);
-	public static final GameDifficulty HARD   = new GameDifficulty(10, 2,  75, 27);
+	// maxAircraft, timeBetweenGenerations, separationRadius, scoreMultiplier, multiplayermode?
+	public static final GameDifficulty EASY   = new GameDifficulty(10, 4, 150, 17, false);
+	public static final GameDifficulty MEDIUM = new GameDifficulty(10, 3, 100, 22, false);
+	public static final GameDifficulty HARD   = new GameDifficulty(10, 2,  75, 27, false);
+	public static final GameDifficulty MULTI = new GameDifficulty(10, 3, 100, 22, true);
 
 	private final int maxAircraft, timeBetweenGenerations, separationRadius, scoreMultiplier;
+	private boolean multiplayer;
 
 	/**
 	 * Initializes a new game difficulty
@@ -19,13 +21,15 @@ public class GameDifficulty
 	 * @param timeBetweenGenerations minimum time between new aircraft
 	 * @param separationRadius separation radius between aircraft
 	 * @param scoreMultiplier score multiplier
+	 * @param  
 	 */
-	public GameDifficulty(int maxAircraft, int timeBetweenGenerations, int separationRadius, int scoreMultiplier)
+	public GameDifficulty(int maxAircraft, int timeBetweenGenerations, int separationRadius, int scoreMultiplier, boolean multiplayer)
 	{
 		this.maxAircraft = maxAircraft;
 		this.timeBetweenGenerations = timeBetweenGenerations;
 		this.separationRadius = separationRadius;
 		this.scoreMultiplier = scoreMultiplier;
+		this.multiplayer = multiplayer;
 	}
 
 	/** Returns the maximum number of aircraft allowed */
@@ -50,5 +54,11 @@ public class GameDifficulty
 	public int getScoreMultiplier()
 	{
 		return scoreMultiplier;
+	}
+	
+	/**Returns if the game is multiplayer or not */
+	public boolean getMultiplayer()
+	{
+		return multiplayer;
 	}
 }

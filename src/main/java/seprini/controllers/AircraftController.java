@@ -58,6 +58,10 @@ public final class AircraftController extends InputListener {
 
 	// game score
 	public static float score = 0;
+	
+	//Multiplayer Scores
+	public static float player1score = 0;
+	public static float player2score = 0;
 
 	// airport selection flag
 	private int airportFlag = 0;
@@ -83,6 +87,8 @@ public final class AircraftController extends InputListener {
 
 		// Static variable reset.
 		score = 0;
+		player1score = 0;
+		player2score = 0;
 
 		// add the background
 		airspace.addActor(new Map());
@@ -109,8 +115,11 @@ public final class AircraftController extends InputListener {
 				.setSeparationRadius(diff.getSeparationRadius())
 				.setTexture(Art.getTextureRegion("aircraft"))
 				.setInitialSpeed(30f));
-		this.scoreBar = new ScoreBar();
-		airspace.addActor(this.scoreBar);
+		boolean multy = difficulty.getMultiplayer();
+		if (multy){
+			this.scoreBar = new ScoreBar();
+			airspace.addActor(this.scoreBar);
+		}
 		
 
 	}

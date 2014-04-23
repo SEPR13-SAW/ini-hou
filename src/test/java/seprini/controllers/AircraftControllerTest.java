@@ -28,7 +28,7 @@ public class AircraftControllerTest extends FakeArtEnabler
 	/** Returns a difficulty which no aircraft can be generated in */
 	private static GameDifficulty getNoAircraftDifficulty()
 	{
-		return new GameDifficulty(0, 100000, 0, 0);
+		return new GameDifficulty(0, 100000, 0, 0, false);
 	}
 
 	/** Generates a fake aircraft at the given position */
@@ -92,7 +92,7 @@ public class AircraftControllerTest extends FakeArtEnabler
 	public void testMaxAircraft()
 	{
 		// Generate airspace with 2 aircraft in it (with limit on 2)
-		GameDifficulty difficulty = new GameDifficulty(2, 0, 0, 0);
+		GameDifficulty difficulty = new GameDifficulty(2, 0, 0, 0, false);
 		AircraftController controller = new AircraftController(difficulty, new Airspace(), null);
 		controller.getAircraftList().add(makeFakeAircraft(500, 500));
 		controller.getAircraftList().add(makeFakeAircraft(100, 100));
