@@ -4,8 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import seprini.ATC;
+import seprini.controllers.AircraftController;
+import seprini.controllers.SingleAircraftController;
 import seprini.data.Config;
+import seprini.data.GameDifficulty;
 import seprini.models.types.AircraftType;
+import seprini.screens.ScreenBase;
 
 import java.util.*;
 
@@ -26,9 +32,19 @@ public class AircraftTest
 	private AircraftType aircraftType;
 	private List<Waypoint> originalFlightPlan;
 
+	/** Returns a difficulty which no aircraft can be generated in */
+	private static GameDifficulty getNoAircraftDifficulty()
+	{
+		return new GameDifficulty(0, 100000, 0, 0, false);
+	}
+
 	@Before
 	public void setupAircraft()
 	{
+		// Create 2 aircraft in different places - should not collide
+		ScreenBaseImpl screenBase = new ScreenBaseImpl();
+		AircraftController controller = new SingleAircraftController(getNoAircraftDifficulty(), new Airspace(), screenBase);
+		
 		// Create flight plan
 		ArrayList<Waypoint> flightPlan = new ArrayList<Waypoint>();
 		flightPlan.add(new Waypoint(0, 0, true));
@@ -47,7 +63,7 @@ public class AircraftTest
 				.setInitialSpeed(30f);
 
 		// Create aircraft
-		aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0], 0), null);
+		aircraft = new Aircraft(controller, aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0], 0), null);
 	}
 
 	/**
@@ -205,5 +221,27 @@ public class AircraftTest
 		for (int i = 0; i < array.length; i++)
 			result[i] = array[i];
 		return result;
+	}
+	
+	/**
+	 * Implementation of ScreenBase which detects when the game ends
+	 */
+	private class ScreenBaseImpl implements ScreenBase
+	{
+
+		@Override
+		public ATC getGame() {
+			return new ATC();
+		}
+
+		@Override public boolean isPaused() { return false; }
+		@Override public void setPaused(boolean paused) { }
+		@Override public void render(float delta) { }
+		@Override public void resize(int width, int height) { }
+		@Override public void show() { }
+		@Override public void hide() { }
+		@Override public void pause() { }
+		@Override public void resume() { }
+		@Override public void dispose() { }
 	}
 }

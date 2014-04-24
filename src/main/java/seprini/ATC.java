@@ -38,7 +38,7 @@ public class ATC extends Game
 
 	/**
 	 * Shows the end screen
-	 *
+	 * 
 	 * @param time final time
 	 * @param score final score
 	 */

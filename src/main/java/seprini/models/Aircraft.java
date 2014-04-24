@@ -59,8 +59,10 @@ public final class Aircraft extends Entity {
 	private boolean isLanding = false;
 
 	@Getter private final Player player;
+	private AircraftController controller;
 
-	public Aircraft(AircraftType aircraftType, ArrayList<Waypoint> flightPlan, int id, boolean mustLand, Airport airport, Player player) {
+	public Aircraft(AircraftController controller, AircraftType aircraftType, ArrayList<Waypoint> flightPlan, int id, boolean mustLand, Airport airport, Player player) {
+		this.controller = controller;
 		this.player = player;
 		this.airport = airport;
 		// allows drawing debug shape of this entity
@@ -219,7 +221,7 @@ public final class Aircraft extends Entity {
 		if (!isActive)
 			return;
 		if (landed){
-			AircraftController.score += 2000;
+			controller.incScore(2000, this);
 			this.airport.addLanded(this);
 			return;
 		}
@@ -440,7 +442,7 @@ public final class Aircraft extends Entity {
 				if (distanceToWaypoint < Config.EXIT_WAYPOINT_SIZE.x / 2)
 				{
 					// Collided with exit point
-					AircraftController.score += 1000;
+					controller.incScore(1000, this);
 					Debug.msg("Aircraft id " + id + ": Reached exit WP");
 
 					waypoints.clear();
@@ -452,7 +454,7 @@ public final class Aircraft extends Entity {
 				if (distanceToWaypoint < Config.WAYPOINT_SIZE.x / 2)
 				{
 					// Collided with normal waypoint
-					AircraftController.score += 100;
+					controller.incScore(100, this);
 					Debug.msg("Aircraft id " + id + ": Hit waypoint");
 					// Sets aircraft speed to 0 if it has reached the middle of runway.
 					// Only occurs when landing as runwayMid can only be part of a landing flight plan.

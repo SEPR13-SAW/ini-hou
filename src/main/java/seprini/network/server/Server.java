@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import seprini.controllers.ServerAircraftController;
+import seprini.data.GameDifficulty;
+import seprini.models.Airspace;
 import seprini.network.FrameDecoder;
 import seprini.network.FrameEncoder;
 import seprini.network.FrameHandler;
@@ -50,6 +53,9 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		final Server server = this;
+		
+		Airspace airspace = new Airspace();
+		new ServerAircraftController(GameDifficulty.EASY, airspace, this);
 
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();

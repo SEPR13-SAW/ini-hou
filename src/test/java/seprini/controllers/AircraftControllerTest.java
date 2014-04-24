@@ -32,7 +32,7 @@ public class AircraftControllerTest extends FakeArtEnabler
 	}
 
 	/** Generates a fake aircraft at the given position */
-	private static Aircraft makeFakeAircraft(float x, float y)
+	private static Aircraft makeFakeAircraft(AircraftController controller, float x, float y)
 	{
 		AircraftType aircraftType = new AircraftType().setRadius(50).setMaxClimbRate(100000000);
 
@@ -40,7 +40,7 @@ public class AircraftControllerTest extends FakeArtEnabler
 		flightPlan.add(new Waypoint(x, y, false));
 		flightPlan.add(new Waypoint(1000, 1000, false));
 
-		Aircraft aircraft = new Aircraft(aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0], 0), null);
+		Aircraft aircraft = new Aircraft(controller, aircraftType, flightPlan, 1, false, new Airport(Config.AIRPORT_COORDIATES[0], 0), null);
 
 		// Force middle altitude
 		if (aircraft.getAltitude() < 10000)
@@ -62,10 +62,10 @@ public class AircraftControllerTest extends FakeArtEnabler
 	{
 		// Create 2 aircraft in different places - should not collide
 		ScreenBaseImpl screenBase = new ScreenBaseImpl();
-		AircraftController controller = new AircraftController(getNoAircraftDifficulty(), new Airspace(), screenBase);
+		AircraftController controller = new SingleAircraftController(getNoAircraftDifficulty(), new Airspace(), screenBase);
 
-		controller.getAircraftList().add(makeFakeAircraft(100, 100));
-		controller.getAircraftList().add(makeFakeAircraft(400, 100));
+		controller.getAircraftList().add(makeFakeAircraft(controller, 100, 100));
+		controller.getAircraftList().add(makeFakeAircraft(controller, 400, 100));
 
 		// Should not crash + aircraft should still be on the lists
 		controller.update(0.1f);
@@ -78,10 +78,10 @@ public class AircraftControllerTest extends FakeArtEnabler
 	{
 		// Create 2 aircraft in same place - should collide
 		ScreenBaseImpl screenBase = new ScreenBaseImpl();
-		AircraftController controller = new AircraftController(getNoAircraftDifficulty(), new Airspace(), screenBase);
+		AircraftController controller = new SingleAircraftController(getNoAircraftDifficulty(), new Airspace(), screenBase);
 
-		controller.getAircraftList().add(makeFakeAircraft(100, 100));
-		controller.getAircraftList().add(makeFakeAircraft(100, 100));
+		controller.getAircraftList().add(makeFakeAircraft(controller, 100, 100));
+		controller.getAircraftList().add(makeFakeAircraft(controller, 100, 100));
 
 		// Should crash
 		controller.update(0.1f);
@@ -93,9 +93,9 @@ public class AircraftControllerTest extends FakeArtEnabler
 	{
 		// Generate airspace with 2 aircraft in it (with limit on 2)
 		GameDifficulty difficulty = new GameDifficulty(2, 0, 0, 0, false);
-		AircraftController controller = new AircraftController(difficulty, new Airspace(), null);
-		controller.getAircraftList().add(makeFakeAircraft(500, 500));
-		controller.getAircraftList().add(makeFakeAircraft(100, 100));
+		AircraftController controller = new SingleAircraftController(difficulty, new Airspace(), null);
+		controller.getAircraftList().add(makeFakeAircraft(controller, 500, 500));
+		controller.getAircraftList().add(makeFakeAircraft(controller, 100, 100));
 
 		// Keep refreshing, no more should appear
 		for (int i = 0; i < 100; i++)

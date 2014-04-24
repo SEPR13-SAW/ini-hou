@@ -159,8 +159,10 @@ public final class SidebarController extends ChangeListener {
 		// update timer
 		labels.get("timer").setText("" + Math.round(aircrafts.getTimer()));
 		
-		// update score
-		labels.get("score").setText("" + Math.round(aircrafts.getScore()));
+		if (aircrafts instanceof SingleAircraftController) {
+			// update score
+			labels.get("score").setText("" + Math.round(((SingleAircraftController) aircrafts).getScore()));
+		}
 
 		// if there is no selected aircraft, return immediately to avoid errors
 		// otherwise set it to the local selectedAircraft variable and update
