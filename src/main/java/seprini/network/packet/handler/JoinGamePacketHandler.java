@@ -18,7 +18,9 @@ public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Client>
 		Server server = client.getServer();
 		int id = server.getUnusedId();
 
+		if (packet.getName().length() <= 0) throw new IOException("Name is too short.");
 		if (packet.getName().length() > 32) throw new IOException("Name is too long.");
+		if (server.playerConnected(packet.getName())) throw new IOException("Player already connected with that username.");
 
 		client.setName(packet.getName());
 		client.setId(id);

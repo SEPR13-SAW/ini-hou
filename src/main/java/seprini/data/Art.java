@@ -74,6 +74,7 @@ public class Art {
 		textures.put("entrypoint", split(combined, 20, 720, 20, 20));
 		textures.put("exitpoint", split(combined, 40, 720, 20, 20));
 		textures.put("airport", split(combined, 0, 741, 154, 120));
+		textures.put("dot", split(combined, 1285, 240, 1, 1));
 
 		// load the default skin
 		loadSkin();

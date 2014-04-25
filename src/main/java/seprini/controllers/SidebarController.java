@@ -119,7 +119,7 @@ public final class SidebarController extends ChangeListener {
 
 		aircraftControls.row().spaceTop(100);
 
-		createButton("up", " Up (W)", aircraftControls, false).width(100)
+		createButton("up", " Up (W)", aircraftControls, true).width(100)
 				.colspan(2);
 
 		aircraftControls.row();
@@ -129,7 +129,7 @@ public final class SidebarController extends ChangeListener {
 
 		aircraftControls.row();
 
-		createButton("down", "Down (S)", aircraftControls, false).width(100)
+		createButton("down", "Down (S)", aircraftControls, true).width(100)
 				.colspan(2);
 
 		aircraftControls.row();
@@ -159,8 +159,10 @@ public final class SidebarController extends ChangeListener {
 		// update timer
 		labels.get("timer").setText("" + Math.round(aircrafts.getTimer()));
 		
-		// update score
-		labels.get("score").setText("" + Math.round(aircrafts.getScore()));
+		if (aircrafts instanceof SingleAircraftController) {
+			// update score
+			labels.get("score").setText("" + Math.round(((SingleAircraftController) aircrafts).getScore()));
+		}
 
 		// if there is no selected aircraft, return immediately to avoid errors
 		// otherwise set it to the local selectedAircraft variable and update
@@ -177,6 +179,8 @@ public final class SidebarController extends ChangeListener {
 		// force left + right buttons to be checked correctly
 		buttons.get("left").setChecked (selectedAircraft != null && selectedAircraft.isTurningLeft());
 		buttons.get("right").setChecked(selectedAircraft != null && selectedAircraft.isTurningRight());
+		buttons.get("up").setChecked   (selectedAircraft != null && selectedAircraft.isAscending());
+		buttons.get("down").setChecked (selectedAircraft != null && selectedAircraft.isDescending());
 
 		// update aircraft altitude text
 		labels.get("altitude").setText(altitudeText);
@@ -186,7 +190,7 @@ public final class SidebarController extends ChangeListener {
 	}
 
 	/**
-	 * Convinience method to create buttons and add them to the sidebar
+	 * Convenience method to create buttons and add them to the sidebar
 	 * 
 	 * @param name
 	 * @param text

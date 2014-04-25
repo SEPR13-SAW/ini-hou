@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import seprini.controllers.ServerAircraftController;
+import seprini.data.GameDifficulty;
+import seprini.models.Airspace;
 import seprini.network.FrameDecoder;
 import seprini.network.FrameEncoder;
 import seprini.network.FrameHandler;
@@ -16,9 +19,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-/**
- * Discards any incoming data.
- */
 public class Server implements Runnable {
 	private final static int MAX_CLIENTS = 4;
 
@@ -27,6 +27,10 @@ public class Server implements Runnable {
 
 	public Server(int port) {
 		this.port = port;
+	}
+
+	public boolean playerConnected(String name) {
+		return clients.containsValue(name);
 	}
 
 	public int getUnusedId() throws IOException {
@@ -49,6 +53,9 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		final Server server = this;
+		
+		Airspace airspace = new Airspace();
+		new ServerAircraftController(GameDifficulty.EASY, airspace, this);
 
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -78,5 +85,4 @@ public class Server implements Runnable {
 			bossGroup.shutdownGracefully();
 		}
 	}
-	
 }

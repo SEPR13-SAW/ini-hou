@@ -1,7 +1,11 @@
 package seprini.network.client;
 
 import java.net.SocketAddress;
+import java.util.HashMap;
+import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
 import seprini.network.Frame;
 import seprini.network.FrameDecoder;
 import seprini.network.FrameEncoder;
@@ -19,20 +23,31 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 public class Client implements Runnable {
-	
 	private Channel channel;
 	private final SocketAddress host;
 	private final Runnable onConnect;
+	@Getter private final Map<Integer, Player> players = new HashMap<>();
+	@Getter private final String name;
+	@Getter @Setter private Player player;
 	
-	public Client(SocketAddress host, Runnable onConnect) {
+	public Client(SocketAddress host, Runnable onConnect, String name) {
 		this.host = host;
 		this.onConnect = onConnect;
+		this.name = name;
 
 		new Thread(this).start();
 	}
 
-	public Client(SocketAddress host) {
-		this(host, null);
+	public void addPlayer(Player player) {
+		players.put(player.getId(), player);
+	}
+
+	public void removePlayer(Player player) {
+		players.remove(player.getId());
+	}
+
+	public Client(SocketAddress host, String name) {
+		this(host, null, name);
 	}
 
 	@Override
