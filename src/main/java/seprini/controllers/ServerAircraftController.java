@@ -118,8 +118,8 @@ public final class ServerAircraftController extends AircraftController {
 	 */
 	@Override
 	protected void collisionHasOccured(Aircraft a, Aircraft b) {
-		server.getClients().get(a.getPlayer().getId()).addScore(-1000);
-		server.getClients().get(b.getPlayer().getId()).addScore(-1000);
+		server.getPlayers().get(a.getPlayer().getId()).addScore(-1000);
+		server.getPlayers().get(b.getPlayer().getId()).addScore(-1000);
 	}
 
 	@Override

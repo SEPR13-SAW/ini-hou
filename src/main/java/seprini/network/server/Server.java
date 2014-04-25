@@ -25,34 +25,34 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  *
  */
 public class Server implements Runnable {
-	private final static int MAX_CLIENTS = 4;
+	private final static int MAX_PLAYERS = 2;
 
 	private final int port;
-	private final Map<Integer, Player> clients = new HashMap<>();
+	private final Map<Integer, Player> players = new HashMap<>();
 
 	public Server(int port) {
 		this.port = port;
 	}
 
 	public boolean playerConnected(String name) {
-		return clients.containsValue(name);
+		return players.containsValue(name);
 	}
 
 	public int getUnusedId() throws IOException {
-		for (int id = 0; id < MAX_CLIENTS; id++) {
-			if (clients.containsKey(id)) continue;
+		for (int id = 0; id < MAX_PLAYERS; id++) {
+			if (players.containsKey(id)) continue;
 			return id;
 		}
 
 		throw new IOException("Server is full.");
 	}
 
-	public void addClient(Player client) {
-		clients.put(client.getId(), client);
+	public void addPlayer(Player player) {
+		players.put(player.getId(), player);
 	}
 
-	public Map<Integer, Player> getClients() {
-		return clients;
+	public Map<Integer, Player> getPlayers() {
+		return players;
 	}
 
 	@Override

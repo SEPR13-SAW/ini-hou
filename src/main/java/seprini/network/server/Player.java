@@ -41,7 +41,7 @@ public final class Player {
 	public void addScore(int delta) {
 		score += delta;
 
-		for (Entry<Integer, Player> entry : server.getClients().entrySet()) {
+		for (Entry<Integer, Player> entry : server.getPlayers().entrySet()) {
 			Player client = entry.getValue();
 			client.writePacket(new UpdateScorePacket(client.getId(), score));
 		}
