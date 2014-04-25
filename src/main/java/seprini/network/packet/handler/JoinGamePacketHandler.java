@@ -5,16 +5,16 @@ import java.util.Map.Entry;
 
 import seprini.network.packet.JoinGamePacket;
 import seprini.network.packet.PlayerJoinPacket;
-import seprini.network.server.Client;
+import seprini.network.server.Player;
 import seprini.network.server.Server;
 
-public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Client> {
+public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Player> {
 	public JoinGamePacketHandler() {
 		super(0x00);
 	}
 
 	@Override
-	public void handle(JoinGamePacket packet, Client client) throws Exception {
+	public void handle(JoinGamePacket packet, Player client) throws Exception {
 		Server server = client.getServer();
 		int id = server.getUnusedId();
 
@@ -27,7 +27,7 @@ public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Client>
 
 		server.addClient(client);
 
-		for (Entry<Integer, Client> c : server.getClients().entrySet()) {
+		for (Entry<Integer, Player> c : server.getClients().entrySet()) {
 			c.getValue().writePacket(new PlayerJoinPacket((byte) id, client.getName()));
 		}
 	}

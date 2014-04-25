@@ -23,7 +23,7 @@ public class Server implements Runnable {
 	private final static int MAX_CLIENTS = 4;
 
 	private final int port;
-	private final Map<Integer, Client> clients = new HashMap<>();
+	private final Map<Integer, Player> clients = new HashMap<>();
 
 	public Server(int port) {
 		this.port = port;
@@ -42,11 +42,11 @@ public class Server implements Runnable {
 		throw new IOException("Server is full.");
 	}
 
-	public void addClient(Client client) {
+	public void addClient(Player client) {
 		clients.put(client.getId(), client);
 	}
 
-	public Map<Integer, Client> getClients() {
+	public Map<Integer, Player> getClients() {
 		return clients;
 	}
 
@@ -67,7 +67,7 @@ public class Server implements Runnable {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 								@Override
 								public void initChannel(SocketChannel ch) throws Exception {
-									ch.pipeline().addLast(new FrameDecoder(), new FrameEncoder(), new FrameHandler(new Client(server, ch)));
+									ch.pipeline().addLast(new FrameDecoder(), new FrameEncoder(), new FrameHandler(new Player(server, ch)));
 								}
 							})
 					.option(ChannelOption.SO_BACKLOG, 128)

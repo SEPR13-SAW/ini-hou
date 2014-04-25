@@ -11,14 +11,14 @@ import seprini.network.packet.codec.encoder.Encoder;
 import lombok.Getter;
 import lombok.Setter;
 
-public final class Client {
+public final class Player {
 	@Getter @Setter private int id;
 	@Getter @Setter private String name;
 	@Getter private final Server server;
 	@Getter private final Channel channel;
 	@Getter @Setter private int score;
 
-	public Client(Server server, Channel channel) {
+	public Player(Server server, Channel channel) {
 		this.server = server;
 		this.channel = channel;
 	}
@@ -36,8 +36,8 @@ public final class Client {
 	public void addScore(int delta) {
 		score += delta;
 
-		for (Entry<Integer, Client> entry : server.getClients().entrySet()) {
-			Client client = entry.getValue();
+		for (Entry<Integer, Player> entry : server.getClients().entrySet()) {
+			Player client = entry.getValue();
 			client.writePacket(new UpdateScorePacket(client.getId(), score));
 		}
 	}
