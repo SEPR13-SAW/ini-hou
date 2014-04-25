@@ -6,6 +6,12 @@ import java.util.Map;
 import io.netty.buffer.ByteBuf;
 import seprini.network.packet.Packet;
 
+/**
+ * An abstract class for representing packet decoders.
+ * @author Jonathan
+ *
+ * @param <T>
+ */
 public abstract class Decoder<T extends Packet> {
 	private final static Map<Integer, Decoder<?>> decoders = new HashMap<>();
 

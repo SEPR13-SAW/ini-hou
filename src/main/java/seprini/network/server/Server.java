@@ -19,6 +19,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+/**
+ * Server for listenting for incoming connections and sending / receiving packets.
+ * @author Jonathan
+ *
+ */
 public class Server implements Runnable {
 	private final static int MAX_CLIENTS = 4;
 

@@ -22,6 +22,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+/**
+ * Client for sending and receiving packets.
+ * @author Jonathan
+ *
+ */
 public class Client implements Runnable {
 	private Channel channel;
 	private final SocketAddress host;

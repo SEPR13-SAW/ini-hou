@@ -2,6 +2,11 @@ package seprini.network;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * A frame for wrapping packets before being sent/received.
+ * @author Jonathan
+ *
+ */
 public final class Frame {
 	private final int packetId;
 	private final ByteBuf data;

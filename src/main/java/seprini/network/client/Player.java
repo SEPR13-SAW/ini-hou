@@ -3,6 +3,11 @@ package seprini.network.client;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Client-side representation of a player.
+ * @author Jonathan
+ *
+ */
 public final class Player {
 	@Getter private final int id;
 	@Getter private final String name;

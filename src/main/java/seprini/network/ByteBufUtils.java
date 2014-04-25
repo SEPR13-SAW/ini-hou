@@ -4,6 +4,11 @@ import java.nio.charset.StandardCharsets;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * A bytebuf utility class for string reading/writing.
+ * @author Jonathan
+ *
+ */
 public final class ByteBufUtils {
 	public static void writeString(ByteBuf buf, String string) {
 		byte[] data = string.getBytes(StandardCharsets.UTF_8);

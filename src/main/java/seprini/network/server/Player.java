@@ -11,6 +11,11 @@ import seprini.network.packet.codec.encoder.Encoder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Server-side representation of a player.
+ * @author Jonathan
+ *
+ */
 public final class Player {
 	@Getter @Setter private int id;
 	@Getter @Setter private String name;

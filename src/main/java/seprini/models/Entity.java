@@ -10,6 +10,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+/**
+ * A class representing a renderable entity.
+ * @author Jonathan
+ *
+ */
 public abstract class Entity extends Actor {
 	protected Vector2 coords;
 	protected TextureRegion texture;

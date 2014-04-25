@@ -7,6 +7,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+/**
+ * A class for decoding frames from a stream of bytes.
+ * @author Jonathan
+ *
+ */
 public class FrameDecoder extends ByteToMessageDecoder {
 	public final static byte VERSION = 0x00;
 

@@ -6,6 +6,11 @@ import seprini.network.packet.handler.Handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+/**
+ * A class for handling frames and calling packet decoding / handling.
+ * @author Jonathan
+ *
+ */
 public class FrameHandler extends ChannelInboundHandlerAdapter {
 	private final Object attachment;
 

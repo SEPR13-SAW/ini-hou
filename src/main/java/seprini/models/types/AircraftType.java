@@ -2,8 +2,12 @@ package seprini.models.types;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * A class to represent aircraft types and associated data.
+ * @author Jonathan
+ *
+ */
 public class AircraftType {
-
 	private float initialSpeed;
 	private int radius;
 	private int separationRadius;

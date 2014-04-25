@@ -6,8 +6,12 @@ import seprini.data.Config;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A class to represent waypoints used for navigation within the airspace.
+ * @author Jonathan
+ *
+ */
 public class Waypoint extends Entity {
-
 	private final boolean visible;
 
 	public Waypoint(float x, float y, boolean visible) {

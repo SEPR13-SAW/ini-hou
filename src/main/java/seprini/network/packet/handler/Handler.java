@@ -5,6 +5,13 @@ import java.util.Map;
 
 import seprini.network.packet.Packet;
 
+/**
+ * An abstract class for representing handlers for decoded packets.
+ * @author Jonathan
+ *
+ * @param <T>
+ * @param <A>
+ */
 public abstract class Handler<T extends Packet, A> {
 	private final static Map<Integer, Handler<?, ?>> handlers = new HashMap<>();
 

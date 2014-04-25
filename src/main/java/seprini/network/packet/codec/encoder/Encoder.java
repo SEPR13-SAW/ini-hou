@@ -7,6 +7,12 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import seprini.network.packet.Packet;
 
+/**
+ * An abstract class for representing packet encoders.
+ * @author Jonathan
+ *
+ * @param <T>
+ */
 public abstract class Encoder<T extends Packet> {
 	private final static Map<Integer, Encoder<?>> encoders = new HashMap<>();
 
