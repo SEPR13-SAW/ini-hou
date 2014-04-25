@@ -20,7 +20,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * Server for listenting for incoming connections and sending / receiving packets.
+ * Server for listening for incoming connections and sending / receiving packets.
  * @author Jonathan
  *
  */
