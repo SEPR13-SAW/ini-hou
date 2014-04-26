@@ -18,9 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public final class SingleAircraftController extends AircraftController {
 
 	private final ScreenBase screen;
-	
+
 	// game score
 	public float score = 0;
+	// to delay the take off of planes.
+	public float lastTakeOff = 0;
 
 	/**
 	 * 
@@ -248,9 +250,9 @@ public final class SingleAircraftController extends AircraftController {
 	@Override
 	protected void removeAircraft(int i) {
 		super.removeAircraft(i);
-		
+
 		Aircraft aircraft = aircraftList.get(i);
-		
+
 		if (aircraft.isMustLand()) {
 			score -= 1000;
 		}
@@ -291,29 +293,22 @@ public final class SingleAircraftController extends AircraftController {
 
 		}
 
-		if (keycode == Keys.T && airportList.get(airportFlag).getLandedPlanes().size() != 0) {
-			Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
-			airportList.get(airportFlag).takenPositions.poll();
-			airportList.get(airportFlag).findNext();
+		if (keycode == Keys.T) {
+			if (airportList.get(airportFlag).getLandedPlanes().size() != 0 && this.getTimer() - this.lastTakeOff > 2) {
+				this.lastTakeOff = this.getTimer();
+				Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
+				airportList.get(airportFlag).takenPositions.poll();
+				airportList.get(airportFlag).findNext();
+				aircraft.setActive(true);
+				aircraft.setSelected(false);
+				this.aircraftList.add(aircraft);
+				this.airspace.addActor(aircraft);
+				aircraft.takeOff();
+			}
 			if (airportFlag == 0) {
 				airportFlag = 1;
 			} else {
 				airportFlag = 0;
-			}
-			aircraft.setActive(true);
-			aircraft.setSelected(false);
-			this.aircraftList.add(aircraft);
-			this.airspace.addActor(aircraft);
-			aircraft.takeOff();
-
-		} else {
-			if (keycode == Keys.T)
-			{
-				if (airportFlag == 0) {
-					airportFlag = 1;
-				} else {
-					airportFlag = 0;
-				}
 			}
 		}
 
