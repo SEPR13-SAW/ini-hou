@@ -44,5 +44,8 @@ public class ScoreBar extends Entity {
 		batch.draw(this.texture, this.positionX, this.positionY, lengthBlue, this.height);
 		batch.setColor(Color.RED);
 		batch.draw(this.texture, this.positionX + this.lengthBlue, this.positionY, lengthRed, this.height);
+		batch.setColor(Color.BLACK);
+		//Draws the line in the middle of the screen
+		batch.draw(this.texture, (this.getStage().getWidth() - 200) / 2, 0, 2, this.getStage().getHeight());
 	}
 }
