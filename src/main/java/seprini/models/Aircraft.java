@@ -221,11 +221,23 @@ public final class Aircraft extends Entity {
 		if (!isActive)
 			return;
 		if (landed){
+			int airportid = this.airport.getID();
 			controller.incScore(2000, this);
 			this.airport.addLanded(this);
+			if (controller.isMulty()){
+				//If the game is multiplayer mode, increase the red or blue scorebar
+				if (airportid == 0) {
+					controller.scoreBar.increaseRed();
+				}
+			
+			if (airportid == 1){
+				controller.scoreBar.increaseBlue();
+
+				}
+			}
 			return;
 		}
-
+		
 
 		// handle aircraft rotation
 		rotateAircraft(delta);
@@ -275,6 +287,7 @@ public final class Aircraft extends Entity {
 			}
 		}
 	}
+
 
 	/**
 	 * Calculate the angle between the aircraft's coordinates and the vector the

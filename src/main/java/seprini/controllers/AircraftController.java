@@ -101,7 +101,11 @@ public abstract class AircraftController extends InputListener {
 		if (multy) {
 			this.scoreBar = new ScoreBar();
 			airspace.addActor(this.scoreBar);
-		}
+		}	
+	}
+	
+	public boolean isMulty(){
+		return difficulty.getMultiplayer();
 	}
 
 	/**
@@ -287,7 +291,7 @@ public abstract class AircraftController extends InputListener {
 
 		getSelectedAircraft().insertWaypoint(waypoint);
 	}
-
+	
 	public float getTimer() {
 		return timer;
 	}
@@ -313,4 +317,6 @@ public abstract class AircraftController extends InputListener {
 	}
 
 	public abstract void incScore(int ammount, Aircraft aircraft);
+
+
 }
