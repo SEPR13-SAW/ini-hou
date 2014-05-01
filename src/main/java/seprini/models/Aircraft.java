@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import lombok.Getter;
+import lombok.Setter;
 import seprini.controllers.AircraftController;
 import seprini.data.Config;
 import seprini.data.Debug;
@@ -27,7 +28,7 @@ public final class Aircraft extends Entity {
 
 	private final ArrayList<Waypoint> waypoints;
 	private final AircraftType aircraftType;
-	private final Airport airport;
+	@Setter private Airport airport;
 
 	private int desiredAltitude;
 	private int altitude;
@@ -57,8 +58,9 @@ public final class Aircraft extends Entity {
 	
 	private boolean mustLand;
 	private boolean isLanding = false;
+	private boolean visitedA, visitedB = false;
 
-	@Getter private final Player player;
+	@Getter @Setter private Player player;
 	private AircraftController controller;
 
 	public Aircraft(AircraftController controller, AircraftType aircraftType, ArrayList<Waypoint> flightPlan, int id, boolean mustLand, Airport airport, Player player) {
@@ -586,7 +588,8 @@ public final class Aircraft extends Entity {
 	 * - Changes in altitude and speed are handled in act.
 	 */
 	public void landAircraft(){
-		if (!selected || mustLand == false)
+		
+		if (!selected || mustLand == false || (this.getAirport().getID() == 0 && visitedA == true) || (this.getAirport().getID() == 1 && visitedB == true))
 			return;	
 		this.isLanding = true;
 		selected = false;
@@ -594,6 +597,10 @@ public final class Aircraft extends Entity {
 		this.insertWaypoint(this.airport.getMid());
 		this.insertWaypoint(this.airport.getStart());
 		this.insertWaypoint(this.airport.getApproach());
+		if(this.getAirport().getID() == 0)
+			visitedA = true;
+		if(this.getAirport().getID() == 1)
+			visitedB = true;
 		returnToPath();
 	}
 	

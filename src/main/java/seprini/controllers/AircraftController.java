@@ -126,6 +126,13 @@ public abstract class AircraftController extends InputListener {
 			// Update aircraft.
 			planeI.act(delta);
 			planeI.setBreaching(false);
+			
+			if(difficulty.getMultiplayer()){			
+			if(planeI.getCoords().x > 540)
+				planeI.setPlayer(null);   //Player 1
+			if(planeI.getCoords().x < 540)
+				planeI.setPlayer(null);   //Player 2
+			}
 
 			// Collision Detection + Separation breach detection.
 			for (Aircraft planeJ : aircraftList) {
@@ -213,6 +220,9 @@ public abstract class AircraftController extends InputListener {
 	 */
 	protected Aircraft generateAircraft(Player player) {
 		// number of aircraft has reached maximum, abort
+		boolean shouldLand = false;
+		Airport airport;
+		
 		if (aircraftList.size() >= difficulty.getMaxAircraft())
 			return null;
 
@@ -220,21 +230,26 @@ public abstract class AircraftController extends InputListener {
 		// selected
 		if (timer - lastGenerated < difficulty.getTimeBetweenGenerations() + rand.nextInt(100))
 			return null;
+		
+		if(difficulty.getMultiplayer())
+		{
+			shouldLand = true;
+			airport = airportList.get(player.getId());
+			
+		}else{
 
 		int landChoice = rand.nextInt(3);
-		boolean shouldLand = false;
 		if (landChoice == 0) {
 			shouldLand = true;
 		}
 
 		int airportChoice = rand.nextInt(2);
-		Airport airport;
 		if (airportChoice == 0) {
 			airport = airportList.get(0);
 		} else {
 			airport = airportList.get(1);
 		}
-
+		}
 		Aircraft newAircraft = new Aircraft(this, randomAircraftType(),
 				flightplan.generate(), aircraftId++, shouldLand, airport, player);
 
@@ -246,6 +261,7 @@ public abstract class AircraftController extends InputListener {
 
 		return newAircraft;
 	}
+	
 
 	/**
 	 * Selects random aircraft type from aircraftTypeList.
