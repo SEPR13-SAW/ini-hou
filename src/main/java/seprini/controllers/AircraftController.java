@@ -76,8 +76,8 @@ public abstract class AircraftController extends InputListener {
 		airspace.addActor(new Map());
 
 		// initialise airports
-		airportList.add(new Airport(new Vector2(387, 355), 0));
-		airportList.add(new Airport(new Vector2(487, 555), 1));
+		airportList.add(new Airport(new Vector2(200, 360), 0));
+		airportList.add(new Airport(new Vector2(880, 360), 1));
 		airspace.addActor(airportList.get(0));
 		airspace.addActor(airportList.get(1));
 
@@ -101,7 +101,11 @@ public abstract class AircraftController extends InputListener {
 		if (multy) {
 			this.scoreBar = new ScoreBar();
 			airspace.addActor(this.scoreBar);
-		}
+		}	
+	}
+	
+	public boolean isMulty(){
+		return difficulty.getMultiplayer();
 	}
 
 	/**
@@ -303,7 +307,7 @@ public abstract class AircraftController extends InputListener {
 
 		getSelectedAircraft().insertWaypoint(waypoint);
 	}
-
+	
 	public float getTimer() {
 		return timer;
 	}
@@ -329,4 +333,6 @@ public abstract class AircraftController extends InputListener {
 	}
 
 	public abstract void incScore(int ammount, Aircraft aircraft);
+
+
 }
