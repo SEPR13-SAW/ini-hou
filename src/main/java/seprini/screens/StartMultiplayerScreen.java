@@ -33,8 +33,8 @@ public class StartMultiplayerScreen extends AbstractScreen {
 		drawString(Config.COPYRIGHT_NOTICE, 10, 10, Color.BLACK,
 				root.getSpriteBatch(), false, 0.5f);
 
-//		draw(Art.getTextureRegion("menuAircraft"), 300, 390,
-//				root.getSpriteBatch());
+		draw(Art.getTextureRegion("menuAircraft"), 300, 390,
+				root.getSpriteBatch());
 
 		draw(Art.getTextureRegion("libgdx"), 1228, 0,
 				root.getSpriteBatch());

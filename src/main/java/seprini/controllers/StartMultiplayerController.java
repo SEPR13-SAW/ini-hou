@@ -10,6 +10,7 @@ import seprini.screens.StartMultiplayerScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -41,15 +42,19 @@ public class StartMultiplayerController extends ChangeListener {
 		Label enterPlayerName = new Label("Please enter your player name:", Art.getSkin());
 		ui.add(enterPlayerName);
 		ui.row();
-		TextField playerName = new TextField("Enter you name", Art.getSkin());
+		
+		TextField playerName = new TextField("", Art.getSkin(), "textFieldStyle");
 		playerName.addListener(this);
-		playerName.setScale(2);
-		ui.add(playerName).height(50).width(100);
+		playerName.getStyle();
+		ui.add(playerName);
+		ui.toFront();
+		ui.row();
+		addButton("startGame", "Start Game", this).padTop(20f);
 
 	}
 
 	/**
-	 * Convinience method to add a button to the UI
+	 * Convenience method to add a button to the UI
 	 * 
 	 * @param name
 	 * @param text
@@ -65,13 +70,13 @@ public class StartMultiplayerController extends ChangeListener {
 
 	@Override
 	public void changed(ChangeEvent event, Actor actor) {
-
-		// stop the anthem after entering the game
 		Art.getSound("comeflywithme").stop();
 		Art.getSkin().getFont("default").setScale(1f);
 
 		// Pass difficulty to the newly created GameScreen so the game can
 		// change variables depending on it
+		if (actor.equals(buttons.get("startGame")))
+			screen.getGame().showGameScreen(GameDifficulty.MULTI);
 
 		if (actor.equals(buttons.get("exit")))
 			Gdx.app.exit();
