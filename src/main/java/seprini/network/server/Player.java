@@ -16,7 +16,7 @@ import lombok.Setter;
  * @author Jonathan
  *
  */
-public final class Player {
+public final class Player extends seprini.network.client.Player {
 	@Getter @Setter private int id;
 	@Getter @Setter private String name;
 	@Getter private final Server server;
@@ -24,6 +24,7 @@ public final class Player {
 	@Getter @Setter private int score;
 
 	public Player(Server server, Channel channel) {
+		super(0, "");
 		this.server = server;
 		this.channel = channel;
 	}
