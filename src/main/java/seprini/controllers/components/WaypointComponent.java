@@ -39,14 +39,23 @@ public class WaypointComponent {
 		createExitpoint(0, 0);
 
 		// add some waypoints
-		
-		createWaypoint(150, 360);
-		createWaypoint(300, 500);
-		createWaypoint(600, 650);
-		createWaypoint(700, 200);
-		createWaypoint(850, 360);
-		createWaypoint(700, 500);
-		createWaypoint(450, 100);
+		createWaypoint(150, 150);
+		createWaypoint(400, 150);
+		createWaypoint(400, 360);
+		createWaypoint(150, 570);
+		createWaypoint(400, 570);
+		createWaypoint(930, 150);
+		createWaypoint(680, 150);
+		createWaypoint(680, 360);
+		createWaypoint(930, 570);
+		createWaypoint(680, 570);
+//		createWaypoint(150, 360);
+//		createWaypoint(300, 500);
+//		createWaypoint(600, 650);
+//		createWaypoint(700, 200);
+//		createWaypoint(850, 360);
+//		createWaypoint(700, 500);
+//		createWaypoint(450, 100);
 		
 		
 		Collections.shuffle(permanentList, new Random());
