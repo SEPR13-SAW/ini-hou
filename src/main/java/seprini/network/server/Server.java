@@ -25,6 +25,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  *
  */
 public class Server implements Runnable {
+	public final static int PORT = 11111;
+
 	private final static int MAX_PLAYERS = 2;
 
 	private final int port;

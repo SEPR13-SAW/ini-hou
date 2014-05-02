@@ -1,5 +1,7 @@
 package seprini.screens;
 
+import java.net.InetSocketAddress;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import seprini.ATC;
@@ -11,6 +13,8 @@ import seprini.data.Art;
 import seprini.data.Config;
 import seprini.data.GameDifficulty;
 import seprini.models.Airspace;
+import seprini.network.client.Client;
+import seprini.network.server.Server;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -50,7 +54,11 @@ public class GameScreen extends AbstractScreen
 		// create and add the Airspace group, contains aircraft and waypoints
 		Airspace airspace = new Airspace();
 		if (diff.getMultiplayer()) {
-			controller = new ClientAircraftController(diff, airspace, this);
+			Server s = new Server(Server.PORT);
+			new Thread(s).start();
+			Client c = new Client(new InetSocketAddress("127.0.0.1", Server.PORT), "Test Name");
+			new Thread(c).start();
+			controller = new ClientAircraftController(diff, airspace, this, c);
 		} else {
 			controller = new SingleAircraftController(diff, airspace, this);
 		}

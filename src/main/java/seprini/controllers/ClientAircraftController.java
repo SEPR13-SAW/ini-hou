@@ -8,6 +8,7 @@ import seprini.data.GameDifficulty;
 import seprini.models.Aircraft;
 import seprini.models.Airspace;
 import seprini.models.Waypoint;
+import seprini.network.client.Client;
 import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
@@ -22,6 +23,8 @@ public final class ClientAircraftController extends AircraftController {
 	// to delay the take off of planes.
 	public float lastTakeOff = 0;
 
+	private final Client client;
+
 	/**
 	 * 
 	 * @param diff game difficulty, changes number of aircraft and time between
@@ -30,10 +33,11 @@ public final class ClientAircraftController extends AircraftController {
 	 *            added
 	 * @param screen
 	 */
-	public ClientAircraftController(GameDifficulty diff, Airspace airspace, ScreenBase screen) {
+	public ClientAircraftController(GameDifficulty diff, Airspace airspace, ScreenBase screen, Client client) {
 		super(diff, airspace);
 		this.score = 0;
 		this.screen = screen;
+		this.client = client;
 	}
 
 	/**
