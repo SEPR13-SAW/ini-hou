@@ -1,11 +1,14 @@
 package seprini;
 
 import com.badlogic.gdx.Game;
+
 import seprini.data.Art;
 import seprini.data.GameDifficulty;
 import seprini.screens.EndScreen;
 import seprini.screens.GameScreen;
+import seprini.screens.JoinGameScreen;
 import seprini.screens.MenuScreen;
+import seprini.screens.StartMultiplayerScreen;
 
 /**
  * Main class, calls all subsequent classes. Initialises Input, Art classes,
@@ -45,5 +48,14 @@ public class ATC extends Game
 	public void showEndScreen(float time, float score)
 	{
 		setScreen(new EndScreen(this, time, score));
+	}
+
+	public void showStartMultiplayerScreen(GameDifficulty multi) {
+		setScreen(new StartMultiplayerScreen(this));
+		
+	}
+	
+	public void showJoinGameScreen(GameDifficulty multi){
+		setScreen(new JoinGameScreen(this));
 	}
 }
