@@ -47,6 +47,13 @@ public final class ServerAircraftController extends AircraftController {
 			planeI.act(delta);
 			planeI.setBreaching(false);
 
+			if(difficulty.getMultiplayer()){			
+				if(planeI.getCoords().x > 540)
+					planeI.setPlayer(server.getPlayers().get(0));   //Player 1
+				if(planeI.getCoords().x < 540)
+					planeI.setPlayer(server.getPlayers().get(1));   //Player 2
+				}
+			
 			// Collision Detection + Separation breach detection.
 			for (Aircraft planeJ : aircraftList) {
 

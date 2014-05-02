@@ -131,12 +131,6 @@ public abstract class AircraftController extends InputListener {
 			planeI.act(delta);
 			planeI.setBreaching(false);
 			
-			if(difficulty.getMultiplayer()){			
-			if(planeI.getCoords().x > 540)
-				planeI.setPlayer(null);   //Player 1
-			if(planeI.getCoords().x < 540)
-				planeI.setPlayer(null);   //Player 2
-			}
 
 			// Collision Detection + Separation breach detection.
 			for (Aircraft planeJ : aircraftList) {
