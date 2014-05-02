@@ -3,7 +3,6 @@ package seprini.controllers;
 import java.util.ArrayList;
 
 import seprini.data.Art;
-import seprini.data.Config;
 import seprini.data.Debug;
 import seprini.data.GameDifficulty;
 import seprini.models.Aircraft;
@@ -13,7 +12,6 @@ import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public final class ClientAircraftController extends AircraftController {
 
@@ -139,6 +137,7 @@ public final class ClientAircraftController extends AircraftController {
 	 * 
 	 * @param aircraft
 	 */
+	@SuppressWarnings("unused")
 	private void selectAircraft(Aircraft aircraft) {
 		// Only allows to select planes on the left side of the screen
 		if (aircraft.getCoords().x <= (this.getAirspace().getStage().getWidth() - 200) / 2) {
