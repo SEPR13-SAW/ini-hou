@@ -8,7 +8,7 @@ import lombok.Setter;
  * @author Jonathan
  *
  */
-public final class Player {
+public class Player {
 	@Getter private final int id;
 	@Getter private final String name;
 	@Getter @Setter private int score;

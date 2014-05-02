@@ -28,16 +28,15 @@ public class WaypointComponent {
 		this.controller = controller;
 
 		// add entry waypoints to entryList
-		createEntrypoint(0, 0);
-		createEntrypoint(0, 720);
+		createEntrypoint(0, 360);
 		createEntrypoint(1080, 360);
-		createEntrypoint(540, 0);
+		createEntrypoint(540, 720);
 
 		// add exit waypoints to exitList
 		createExitpoint(1080, 720);
 		createExitpoint(1080, 0);
-		createExitpoint(0, 420);
-		createExitpoint(540, 720);
+		createExitpoint(0, 720);
+		createExitpoint(0, 0);
 
 		// add some waypoints
 		

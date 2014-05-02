@@ -73,7 +73,8 @@ public final class MenuController extends ChangeListener {
 		ui.add(multiplayerLabel).colspan(4).width(150);
 		ui.row();
 		// Adds start multiplayer button
-		addButton("startMulti", "Start multiplayer game", this).width(200).colspan(4);
+		addButton("startMulti", "Start multiplayer game", this).width(200).colspan(2);
+		addButton("joinMulti", "Join multiplayer game", this).width(200).colspan(2);
 		ui.row();
 		// create the Exit button
 		addButton("exit", "Exit", this).width(200).colspan(4);
