@@ -1,8 +1,10 @@
 package seprini.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import seprini.ATC;
 import seprini.controllers.AircraftController;
+import seprini.controllers.ClientAircraftController;
 import seprini.controllers.SidebarController;
 import seprini.controllers.SingleAircraftController;
 import seprini.data.Art;
@@ -47,7 +49,11 @@ public class GameScreen extends AbstractScreen
 
 		// create and add the Airspace group, contains aircraft and waypoints
 		Airspace airspace = new Airspace();
-		controller = new SingleAircraftController(diff, airspace, this);
+		if (diff.getMultiplayer()) {
+			controller = new ClientAircraftController(diff, airspace, this);
+		} else {
+			controller = new SingleAircraftController(diff, airspace, this);
+		}
 		root.setKeyboardFocus(airspace);
 
 		// create sidebar

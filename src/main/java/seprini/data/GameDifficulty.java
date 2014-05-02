@@ -9,7 +9,7 @@ public class GameDifficulty
 	public static final GameDifficulty EASY   = new GameDifficulty(10, 4, 150, 17, false);
 	public static final GameDifficulty MEDIUM = new GameDifficulty(10, 3, 100, 22, false);
 	public static final GameDifficulty HARD   = new GameDifficulty(10, 2,  75, 27, false);
-	public static final GameDifficulty MULTI = new GameDifficulty(10, 3, 100, 22, true);
+	public static final GameDifficulty MULTI =  new GameDifficulty(10, 3, 100, 22, true);
 
 	private final int maxAircraft, timeBetweenGenerations, separationRadius, scoreMultiplier;
 	private boolean multiplayer;

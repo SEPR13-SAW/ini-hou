@@ -5,6 +5,7 @@ import seprini.data.Config;
 import seprini.data.GameDifficulty;
 import seprini.models.Aircraft;
 import seprini.models.Airspace;
+import seprini.network.server.Player;
 import seprini.network.server.Server;
 
 public final class ServerAircraftController extends AircraftController {
@@ -102,7 +103,10 @@ public final class ServerAircraftController extends AircraftController {
 
 		// try to generate a new aircraft
 		// TODO Assign aircraft to player (random for multiplayer).
-		final Aircraft generatedAircraft = generateAircraft(null);
+		Player player = server.getPlayers().get(0);
+		if (player == null) player = server.getPlayers().get(1);
+		if (player == null) return;
+		final Aircraft generatedAircraft = generateAircraft(player);
 
 		// if the newly generated aircraft is not null (ie checking one was
 		// generated), add it as an actor to the stage
