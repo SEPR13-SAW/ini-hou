@@ -5,9 +5,10 @@ import seprini.ATC;
 
 /**
  * Base interface for screens in the game
- *
+ * 
  * <p>
- * This interface allows the test code to implement "non-graphics" versions of this interface for testing purposes.
+ * This interface allows the test code to implement "non-graphics" versions of
+ * this interface for testing purposes.
  */
 public interface ScreenBase extends Screen
 {
@@ -19,10 +20,15 @@ public interface ScreenBase extends Screen
 
 	/**
 	 * Sets the paused state of this screen
-	 *
-	 * <p>When the screen is paused, no calls to the act methods occur for any objects on the stage
-	 * <p>Do not confuse with the libGDX {@link com.badlogic.gdx.Screen#pause()} method</p>
-	 *
+	 * 
+	 * <p>
+	 * When the screen is paused, no calls to the act methods occur for any
+	 * objects on the stage
+	 * <p>
+	 * Do not confuse with the libGDX {@link com.badlogic.gdx.Screen#pause()}
+	 * method
+	 * </p>
+	 * 
 	 * @param paused true if the screen is paused
 	 */
 	void setPaused(boolean paused);

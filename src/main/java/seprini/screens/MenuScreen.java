@@ -8,6 +8,7 @@ import seprini.data.Config;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
 /**
  * Menu Screen, displays the menu with buttons to start and exit the game
  */
@@ -55,6 +56,6 @@ public class MenuScreen extends AbstractScreen
 	public void show()
 	{
 		super.show();
-		Art.getSound("comeflywithme").play(1f);
+		Art.getSound("comeflywithme").play(0.2f);
 	}
 }

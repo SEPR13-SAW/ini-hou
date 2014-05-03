@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.tablelayout.Cell;
 
 public class JoinGameController extends ChangeListener {
@@ -53,7 +52,7 @@ public class JoinGameController extends ChangeListener {
 		Label selectServerLabel = new Label("Please select server:", Art.getSkin());
 		ui.add(selectServerLabel).padTop(20f).width(200f);
 		ui.row();
-		//Test objects
+		// Test objects
 		Object[] temp = new Object[4];
 		temp[0] = new String("Hello world1");
 		temp[1] = new String("Hello world2");
@@ -65,11 +64,13 @@ public class JoinGameController extends ChangeListener {
 		ScrollPane scrollPane = new ScrollPane(serverList, Art.getSkin(), "default");
 		scrollPane.setScrollbarsOnTop(false);
 		scrollPane.setSmoothScrolling(true);
-//		ui.add(serverList).padTop(20f);
+
 		ui.add(scrollPane).padTop(20f).height(80f).width(150f).align(Align.center);
-		
+
 		ui.row();
 		addButton("startGame", "Start Game", this).padTop(20f);
+		ui.row();
+		addButton("back", "Back", this);
 		ui.toFront();
 	}
 
@@ -86,9 +87,9 @@ public class JoinGameController extends ChangeListener {
 		button.addListener(listener);
 		return ui.add(button);
 	}
-	
-	private void showServers(){
-		for(int i = 0; i < 0; i++){
+
+	private void showServers() {
+		for (int i = 0; i < 0; i++) {
 			addButton("serverName", "playerName", this);
 		}
 	}
@@ -98,15 +99,12 @@ public class JoinGameController extends ChangeListener {
 		Art.getSound("comeflywithme").stop();
 		Art.getSkin().getFont("default").setScale(1f);
 
-		// Pass difficulty to the newly created GameScreen so the game can
-		// change variables depending on it
-		//Test get selection of the list
+		// Test get selection of the list
 		System.out.println(serverList.getSelection());
 		if (actor.equals(buttons.get("startGame")))
 			screen.getGame().showGameScreen(GameDifficulty.MULTI);
-
-		if (actor.equals(buttons.get("exit")))
-			Gdx.app.exit();
+		if (actor.equals(buttons.get("back")))
+			screen.getGame().showMenuScreen();
 	}
 
 }

@@ -12,7 +12,7 @@ import seprini.data.Config;
 
 public class StartMultiplayerScreen extends AbstractScreen {
 	private final Table ui;
-	
+
 	public StartMultiplayerScreen(ATC game) {
 		super(game);
 		ui = new Table();
@@ -23,7 +23,7 @@ public class StartMultiplayerScreen extends AbstractScreen {
 		// make it fill the whole screen
 		ui.setFillParent(true);
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
@@ -39,14 +39,12 @@ public class StartMultiplayerScreen extends AbstractScreen {
 		draw(Art.getTextureRegion("libgdx"), 1228, 0,
 				root.getSpriteBatch());
 	}
-	
+
 	@Override
 	public void show()
 	{
 		super.show();
 		Art.getSound("comeflywithme").play(1f);
 	}
-	
-	
 
 }

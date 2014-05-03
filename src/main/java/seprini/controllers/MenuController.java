@@ -104,25 +104,32 @@ public final class MenuController extends ChangeListener {
 	public void changed(ChangeEvent event, Actor actor) {
 
 		// stop the anthem after entering the game
-		Art.getSound("comeflywithme").stop();
+
 		Art.getSkin().getFont("default").setScale(1f);
 
 		// Pass difficulty to the newly created GameScreen so the game can
 		// change variables depending on it
-		if (actor.equals(buttons.get("startEasy")))
-			screen.getGame().showGameScreen(GameDifficulty.EASY);
 
-		if (actor.equals(buttons.get("startMedium")))
-			screen.getGame().showGameScreen(GameDifficulty.MEDIUM);
-
-		if (actor.equals(buttons.get("startHard")))
-			screen.getGame().showGameScreen(GameDifficulty.HARD);
+		if (actor.equals(buttons.get("joinMulti")))
+			screen.getGame().showJoinGameScreen(GameDifficulty.MULTI);
 
 		if (actor.equals(buttons.get("startMulti")))
 			screen.getGame().showStartMultiplayerScreen(GameDifficulty.MULTI);
-		
-		if (actor.equals(buttons.get("joinMulti")))
-			screen.getGame().showJoinGameScreen(GameDifficulty.MULTI);
+
+		if (actor.equals(buttons.get("startEasy"))) {
+			screen.getGame().showGameScreen(GameDifficulty.EASY);
+			Art.getSound("comeflywithme").stop();
+		}
+
+		if (actor.equals(buttons.get("startMedium"))) {
+			screen.getGame().showGameScreen(GameDifficulty.MEDIUM);
+			Art.getSound("comeflywithme").stop();
+		}
+
+		if (actor.equals(buttons.get("startHard"))) {
+			screen.getGame().showGameScreen(GameDifficulty.HARD);
+			Art.getSound("comeflywithme").stop();
+		}
 
 		if (actor.equals(buttons.get("exit")))
 			Gdx.app.exit();

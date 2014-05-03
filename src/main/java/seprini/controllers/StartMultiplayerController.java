@@ -43,9 +43,11 @@ public class StartMultiplayerController extends ChangeListener {
 		// makes the textfield selected for instant input
 		this.screen.getStage().setKeyboardFocus(playerName);
 		ui.add(playerName);
-		
+
 		ui.row();
 		addButton("startGame", "Start Game", this).padTop(20f);
+		ui.row();
+		addButton("back", "Back", this);
 		ui.toFront();
 	}
 
@@ -72,9 +74,8 @@ public class StartMultiplayerController extends ChangeListener {
 		// change variables depending on it
 		if (actor.equals(buttons.get("startGame")))
 			screen.getGame().showGameScreen(GameDifficulty.MULTI);
-
-		if (actor.equals(buttons.get("exit")))
-			Gdx.app.exit();
+		if (actor.equals(buttons.get("back")))
+			screen.getGame().showMenuScreen();
 	}
 
 }

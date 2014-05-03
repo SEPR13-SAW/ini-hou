@@ -34,7 +34,7 @@ public class GameScreen extends AbstractScreen
 	private final AircraftController controller;
 
 	// Paused state
-	//private boolean paused;
+	// private boolean paused;
 
 	public GameScreen(ATC game, GameDifficulty diff) {
 
