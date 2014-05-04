@@ -3,13 +3,16 @@ package seprini.network.server;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import seprini.controllers.AircraftController;
 import seprini.controllers.ServerAircraftController;
 import seprini.data.GameDifficulty;
 import seprini.models.Airspace;
 import seprini.network.FrameDecoder;
 import seprini.network.FrameEncoder;
 import seprini.network.FrameHandler;
+import seprini.network.packet.Packet;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -31,6 +34,8 @@ public class Server implements Runnable {
 
 	private final int port;
 	private final Map<Integer, Player> players = new HashMap<>();
+
+	private AircraftController controller = null;
 
 	public Server(int port) {
 		this.port = port;
@@ -62,7 +67,7 @@ public class Server implements Runnable {
 		final Server server = this;
 		
 		Airspace airspace = new Airspace();
-		new ServerAircraftController(GameDifficulty.EASY, airspace, this);
+		setController(new ServerAircraftController(GameDifficulty.EASY, airspace, this));
 
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -91,5 +96,19 @@ public class Server implements Runnable {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();
 		}
+	}
+
+	public void broadcast(Packet p) throws IOException {
+		for (Entry<Integer, Player> entry : players.entrySet()) {
+			entry.getValue().writePacket(p);
+		}
+	}
+
+	public AircraftController getController() {
+		return controller;
+	}
+
+	public void setController(AircraftController controller) {
+		this.controller = controller;
 	}
 }

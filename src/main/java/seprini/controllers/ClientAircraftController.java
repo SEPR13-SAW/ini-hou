@@ -1,17 +1,22 @@
 package seprini.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import seprini.controllers.components.WaypointComponent;
 import seprini.data.Art;
 import seprini.data.Debug;
 import seprini.data.GameDifficulty;
 import seprini.models.Aircraft;
+import seprini.models.Airport;
 import seprini.models.Airspace;
 import seprini.models.Waypoint;
 import seprini.network.client.Client;
+import seprini.network.client.Player;
 import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 public final class ClientAircraftController extends AircraftController {
@@ -56,6 +61,7 @@ public final class ClientAircraftController extends AircraftController {
 		// Updates aircraft in turn
 		// Removes aircraft which are no longer active from aircraftList.
 		// Manages collision detection.
+		//System.out.println(aircraftList);
 		for (int i = 0; i < aircraftList.size(); i++) {
 			Aircraft planeI = aircraftList.get(i);
 
@@ -64,7 +70,7 @@ public final class ClientAircraftController extends AircraftController {
 			planeI.setBreaching(false);
 
 			// Collision Detection + Separation breach detection.
-			for (Aircraft planeJ : aircraftList) {
+			/*for (Aircraft planeJ : aircraftList) {
 				// Checking for breach of separation.
 				if (!planeI.equals(planeJ)
 						// Check difference in altitude.
@@ -76,7 +82,7 @@ public final class ClientAircraftController extends AircraftController {
 
 					separationRulesBreached(planeI, planeJ);
 				}
-			}
+			}*/
 
 			// Remove inactive aircraft.
 			if (!planeI.isActive()) {
@@ -210,12 +216,6 @@ public final class ClientAircraftController extends AircraftController {
 	@Override
 	protected void removeAircraft(int i) {
 		super.removeAircraft(i);
-
-		Aircraft aircraft = aircraftList.get(i);
-
-		if (aircraft.isMustLand()) {
-			score -= 1000;
-		}
 	}
 
 	@Override
@@ -330,6 +330,17 @@ public final class ClientAircraftController extends AircraftController {
 	@Override
 	public void incScore(int ammount, Aircraft aircraft) {
 		score += ammount;
+	}
+
+	public void addAircraft(Player player, int planeId, String name, ArrayList<Waypoint> flightPlan, boolean shouldLand) {
+		flightPlan.add(new Waypoint(new Vector2(100, 100), true));
+		flightPlan.add(new Waypoint(new Vector2(200, 200), true));
+		Airport airport = airportList.get(player.getId());
+		Aircraft newAircraft = new Aircraft(this, randomAircraftType(), flightPlan, planeId, shouldLand, airport, player);
+		aircraftList.add(newAircraft);
+		newAircraft.toFront();
+		airspace.addActor(newAircraft);
+		Art.getSound("ding").play(0.5f);
 	}
 
 }

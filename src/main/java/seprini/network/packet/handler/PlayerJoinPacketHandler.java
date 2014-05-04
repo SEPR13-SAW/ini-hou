@@ -16,10 +16,15 @@ public final class PlayerJoinPacketHandler extends Handler<PlayerJoinPacket, Cli
 
 		if (name.equals(client.getName())) {
 			Player player = new Player(id, name);
+			player.setController(client.getController());
 			client.addPlayer(player);
 			client.setPlayer(player);
+			System.out.println("add self " + player);
 		} else {
-			client.addPlayer(new Player(id, name));
+			Player player = new Player(id, name);
+			player.setController(client.getController());
+			client.addPlayer(player);
+			System.out.println("add other " + player);
 		}
 	}
 

@@ -122,7 +122,6 @@ public final class Aircraft extends Entity {
 	@SuppressWarnings("unused")
 	@Override
 	protected void additionalDraw(SpriteBatch batch) {
-
 		ShapeRenderer drawer = AbstractScreen.shapeRenderer;
 
 		// if the user takes control of the aircraft, 
@@ -210,7 +209,6 @@ public final class Aircraft extends Entity {
 
 			batch.begin();
 		}
-
 	}
 
 	/**
@@ -737,6 +735,10 @@ public final class Aircraft extends Entity {
 	
 	public Airport getAirport(){
 		return this.airport;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

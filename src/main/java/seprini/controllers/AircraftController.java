@@ -259,14 +259,13 @@ public abstract class AircraftController extends InputListener {
 
 		return newAircraft;
 	}
-	
 
 	/**
 	 * Selects random aircraft type from aircraftTypeList.
 	 * 
 	 * @return AircraftType
 	 */
-	private AircraftType randomAircraftType() {
+	protected AircraftType randomAircraftType() {
 		return aircraftTypeList.get(rand.nextInt(aircraftTypeList.size()));
 	}
 

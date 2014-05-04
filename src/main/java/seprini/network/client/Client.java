@@ -6,6 +6,7 @@ import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
+import seprini.controllers.ClientAircraftController;
 import seprini.network.Frame;
 import seprini.network.FrameDecoder;
 import seprini.network.FrameEncoder;
@@ -34,6 +35,7 @@ public class Client implements Runnable {
 	@Getter private final Map<Integer, Player> players = new HashMap<>();
 	@Getter private final String name;
 	@Getter @Setter private Player player;
+	@Getter @Setter private ClientAircraftController controller;
 	
 	public Client(SocketAddress host, Runnable onConnect, String name) {
 		this.host = host;
@@ -98,5 +100,9 @@ public class Client implements Runnable {
 	
 			channel.writeAndFlush(frame);
 		}
+	}
+
+	public ClientAircraftController getController() {
+		return controller;
 	}
 }

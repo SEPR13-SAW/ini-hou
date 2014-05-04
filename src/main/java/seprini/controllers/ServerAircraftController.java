@@ -1,10 +1,13 @@
 package seprini.controllers;
 
+import java.io.IOException;
+
 import seprini.data.Art;
 import seprini.data.Config;
 import seprini.data.GameDifficulty;
 import seprini.models.Aircraft;
 import seprini.models.Airspace;
+import seprini.network.packet.SpawnPlanePacket;
 import seprini.network.server.Player;
 import seprini.network.server.Server;
 
@@ -105,16 +108,22 @@ public final class ServerAircraftController extends AircraftController {
 		// TODO Assign aircraft to player (random for multiplayer).
 		Player player = server.getPlayers().get(0);
 		if (player == null) player = server.getPlayers().get(1);
-		if (player == null) return;
-		final Aircraft generatedAircraft = generateAircraft(player);
+		if (player != null) {
+			final Aircraft generatedAircraft = generateAircraft(player);
+	
+			// if the newly generated aircraft is not null (ie checking one was
+			// generated), add it as an actor to the stage
+			if (generatedAircraft != null) {
+				try {
+					server.broadcast(new SpawnPlanePacket(generatedAircraft.getId(), (byte) generatedAircraft.getPlayer().getId(), "Test"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
-		// if the newly generated aircraft is not null (ie checking one was
-		// generated), add it as an actor to the stage
-		if (generatedAircraft != null) {
-
-			// add it to the airspace (stage group) so its automatically drawn
-			// upon calling root.draw()
-			airspace.addActor(generatedAircraft);
+				// add it to the airspace (stage group) so its automatically drawn
+				// upon calling root.draw()
+				airspace.addActor(generatedAircraft);
+			}
 		}
 
 		// sort aircraft so they appear in the right order

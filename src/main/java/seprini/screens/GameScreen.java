@@ -14,6 +14,7 @@ import seprini.data.Config;
 import seprini.data.GameDifficulty;
 import seprini.models.Airspace;
 import seprini.network.client.Client;
+import seprini.network.packet.JoinGamePacket;
 import seprini.network.server.Server;
 
 import com.badlogic.gdx.Gdx;
@@ -35,6 +36,7 @@ public class GameScreen extends AbstractScreen
 
 	// Paused state
 	//private boolean paused;
+	private Client client;
 
 	public GameScreen(ATC game, GameDifficulty diff) {
 
@@ -52,13 +54,23 @@ public class GameScreen extends AbstractScreen
 			sidebar.debug();
 
 		// create and add the Airspace group, contains aircraft and waypoints
+		Server server = null;
 		Airspace airspace = new Airspace();
 		if (diff.getMultiplayer()) {
-			Server s = new Server(Server.PORT);
-			new Thread(s).start();
-			Client c = new Client(new InetSocketAddress("127.0.0.1", Server.PORT), "Test Name");
-			new Thread(c).start();
-			controller = new ClientAircraftController(diff, airspace, this, c);
+			server = new Server(Server.PORT);
+			new Thread(server).start();
+			client = new Client(new InetSocketAddress("127.0.0.1", Server.PORT), new Runnable() {
+				@Override
+				public void run() {
+					try {
+						client.writePacket(new JoinGamePacket(client.getName()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}, "Test Name");
+			controller = new ClientAircraftController(diff, airspace, this, client);
+			client.setController((ClientAircraftController) controller);
 		} else {
 			controller = new SingleAircraftController(diff, airspace, this);
 		}
@@ -68,15 +80,27 @@ public class GameScreen extends AbstractScreen
 		final SidebarController sidebarController = new SidebarController(sidebar, controller, this);
 
 		// set controller update as first actor
-		ui.addActor(new Actor()
-		{
-			@Override
-			public void act(float delta)
-			{
-				controller.update(delta);
-				sidebarController.update();
-			}
-		});
+		if (server == null) {
+			ui.addActor(new Actor() {
+				@Override
+				public void act(float delta)
+				{
+					controller.update(delta);
+					sidebarController.update();
+				}
+			});
+		} else {
+			final Server s = server;
+			ui.addActor(new Actor() {
+				@Override
+				public void act(float delta)
+				{
+					s.getController().update(delta);
+					controller.update(delta);
+					sidebarController.update();
+				}
+			});
+		}
 
 		// make it fill the whole screen
 		ui.setFillParent(true);
