@@ -1,18 +1,19 @@
-package seprini.network.client;
+package com.planepanic.io.client;
 
 import java.net.SocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.planepanic.io.Frame;
+import com.planepanic.io.FrameDecoder;
+import com.planepanic.io.FrameEncoder;
+import com.planepanic.io.FrameHandler;
+import com.planepanic.io.packet.Packet;
+import com.planepanic.io.packet.encoder.Encoder;
+import com.planepanic.model.controllers.ClientAircraftController;
+
 import lombok.Getter;
 import lombok.Setter;
-import seprini.controllers.ClientAircraftController;
-import seprini.network.Frame;
-import seprini.network.FrameDecoder;
-import seprini.network.FrameEncoder;
-import seprini.network.FrameHandler;
-import seprini.network.packet.Packet;
-import seprini.network.packet.codec.encoder.Encoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -100,9 +101,5 @@ public class Client implements Runnable {
 	
 			channel.writeAndFlush(frame);
 		}
-	}
-
-	public ClientAircraftController getController() {
-		return controller;
 	}
 }

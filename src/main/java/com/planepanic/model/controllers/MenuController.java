@@ -1,10 +1,6 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.util.HashMap;
-
-import seprini.data.Art;
-import seprini.data.GameDifficulty;
-import seprini.screens.MenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
+import com.planepanic.model.Art;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.screens.MenuScreen;
 
 /**
  * Menu Controller

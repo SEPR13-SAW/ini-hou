@@ -1,19 +1,18 @@
-package seprini.controllers.components;
+package com.planepanic.model.controllers.components;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import seprini.controllers.AircraftController;
-import seprini.data.Debug;
-import seprini.models.Entrypoint;
-import seprini.models.Exitpoint;
-import seprini.models.Waypoint;
-
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.planepanic.model.Debug;
+import com.planepanic.model.Entrypoint;
+import com.planepanic.model.Exitpoint;
+import com.planepanic.model.Waypoint;
+import com.planepanic.model.controllers.AircraftController;
 
 public class WaypointComponent {
 	

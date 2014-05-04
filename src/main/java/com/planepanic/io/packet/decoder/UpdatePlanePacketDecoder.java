@@ -1,7 +1,8 @@
-package seprini.network.packet.codec.decoder;
+package com.planepanic.io.packet.decoder;
+
+import com.planepanic.io.packet.UpdatePlanePacket;
 
 import io.netty.buffer.ByteBuf;
-import seprini.network.packet.UpdatePlanePacket;
 
 public final class UpdatePlanePacketDecoder extends Decoder<UpdatePlanePacket> {
 	public UpdatePlanePacketDecoder() {

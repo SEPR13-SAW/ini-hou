@@ -1,7 +1,7 @@
-package seprini.screens;
+package com.planepanic.model.screens;
 
 import com.badlogic.gdx.Screen;
-import seprini.ATC;
+import com.planepanic.ATC;
 
 /**
  * Base interface for screens in the game

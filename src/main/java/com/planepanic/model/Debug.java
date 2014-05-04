@@ -1,4 +1,4 @@
-package seprini.data;
+package com.planepanic.model;
 
 /**
  * Convienience class for debugging

@@ -1,10 +1,10 @@
-package seprini.network.packet.handler;
+package com.planepanic.io.packet.handler;
 
 import java.util.ArrayList;
 
-import seprini.models.Waypoint;
-import seprini.network.client.Client;
-import seprini.network.packet.SpawnPlanePacket;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.packet.SpawnPlanePacket;
+import com.planepanic.model.Waypoint;
 
 public final class SpawnPlanePacketHandler extends Handler<SpawnPlanePacket, Client> {
 	public SpawnPlanePacketHandler() {
@@ -14,7 +14,7 @@ public final class SpawnPlanePacketHandler extends Handler<SpawnPlanePacket, Cli
 	@Override
 	public void handle(SpawnPlanePacket packet, Client client) throws Exception {
 		System.out.println(client.getPlayer() + ", " + client.getPlayer().getController());
-		client.getPlayer().getController().addAircraft(client.getPlayer(), packet.getPlaneId(), packet.getName(), new ArrayList<Waypoint>(), true);
+		client.getPlayer().getController().addAircraft(client.getPlayer(), packet.getPlaneId(), packet.getName(), (ArrayList<Waypoint>) packet.getFlightPlan(), true);
 	}
 
 }

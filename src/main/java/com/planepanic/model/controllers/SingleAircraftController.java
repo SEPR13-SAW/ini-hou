@@ -1,19 +1,18 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.util.ArrayList;
-
-import seprini.data.Art;
-import seprini.data.Config;
-import seprini.data.Debug;
-import seprini.data.GameDifficulty;
-import seprini.models.Aircraft;
-import seprini.models.Airspace;
-import seprini.models.Waypoint;
-import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.Debug;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Waypoint;
+import com.planepanic.model.screens.ScreenBase;
 
 public final class SingleAircraftController extends AircraftController {
 

@@ -1,17 +1,16 @@
-package seprini.screens;
+package com.planepanic.model.screens;
 
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import seprini.ATC;
-import seprini.data.Art;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import seprini.data.Config;
+import com.planepanic.ATC;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
 
 public class AbstractScreen implements ScreenBase
 {

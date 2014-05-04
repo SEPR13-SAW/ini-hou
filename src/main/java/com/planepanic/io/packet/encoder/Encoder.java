@@ -1,11 +1,12 @@
-package seprini.network.packet.codec.encoder;
+package com.planepanic.io.packet.encoder;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.planepanic.io.packet.Packet;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import seprini.network.packet.Packet;
 
 /**
  * An abstract class for representing packet encoders.

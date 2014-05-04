@@ -1,7 +1,8 @@
-package seprini.network.packet.codec.decoder;
+package com.planepanic.io.packet.decoder;
+
+import com.planepanic.io.packet.SetAltitudePacket;
 
 import io.netty.buffer.ByteBuf;
-import seprini.network.packet.SetAltitudePacket;
 
 public final class SetAltitudePacketDecoder extends Decoder<SetAltitudePacket> {
 	public SetAltitudePacketDecoder() {

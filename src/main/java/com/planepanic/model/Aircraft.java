@@ -1,16 +1,10 @@
-package seprini.models;
+package com.planepanic.model;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
-import seprini.controllers.AircraftController;
-import seprini.data.Config;
-import seprini.data.Debug;
-import seprini.models.types.AircraftType;
-import seprini.network.client.Player;
-import seprini.screens.AbstractScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +12,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.planepanic.io.client.Player;
+import com.planepanic.model.controllers.AircraftController;
+import com.planepanic.model.screens.AbstractScreen;
 
 public final class Aircraft extends Entity {
 

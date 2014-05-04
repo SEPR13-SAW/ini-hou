@@ -1,13 +1,12 @@
-package seprini.screens;
-
-import seprini.ATC;
-import seprini.controllers.MenuController;
-import seprini.data.Art;
-import seprini.data.Config;
+package com.planepanic.model.screens;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.planepanic.ATC;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.controllers.MenuController;
 /**
  * Menu Screen, displays the menu with buttons to start and exit the game
  */

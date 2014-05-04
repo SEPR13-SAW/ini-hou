@@ -1,8 +1,9 @@
-package seprini.network.packet.codec.decoder;
+package com.planepanic.io.packet.decoder;
+
+import com.planepanic.io.ByteBufUtils;
+import com.planepanic.io.packet.JoinGamePacket;
 
 import io.netty.buffer.ByteBuf;
-import seprini.network.ByteBufUtils;
-import seprini.network.packet.JoinGamePacket;
 
 public final class JoinGamePacketDecoder extends Decoder<JoinGamePacket> {
 	public JoinGamePacketDecoder() {

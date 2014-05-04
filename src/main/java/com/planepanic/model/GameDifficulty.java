@@ -1,4 +1,4 @@
-package seprini.data;
+package com.planepanic.model;
 
 /**
  * Class containing fields configuring the game's difficulty

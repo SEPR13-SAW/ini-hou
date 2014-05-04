@@ -1,23 +1,18 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import seprini.controllers.components.WaypointComponent;
-import seprini.data.Art;
-import seprini.data.Debug;
-import seprini.data.GameDifficulty;
-import seprini.models.Aircraft;
-import seprini.models.Airport;
-import seprini.models.Airspace;
-import seprini.models.Waypoint;
-import seprini.network.client.Client;
-import seprini.network.client.Player;
-import seprini.screens.ScreenBase;
-
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.client.Player;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.Airport;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Art;
+import com.planepanic.model.Debug;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Waypoint;
+import com.planepanic.model.screens.ScreenBase;
 
 public final class ClientAircraftController extends AircraftController {
 
@@ -28,6 +23,7 @@ public final class ClientAircraftController extends AircraftController {
 	// to delay the take off of planes.
 	public float lastTakeOff = 0;
 
+	@SuppressWarnings("unused")
 	private final Client client;
 
 	/**
@@ -333,8 +329,6 @@ public final class ClientAircraftController extends AircraftController {
 	}
 
 	public void addAircraft(Player player, int planeId, String name, ArrayList<Waypoint> flightPlan, boolean shouldLand) {
-		flightPlan.add(new Waypoint(new Vector2(100, 100), true));
-		flightPlan.add(new Waypoint(new Vector2(200, 200), true));
 		Airport airport = airportList.get(player.getId());
 		Aircraft newAircraft = new Aircraft(this, randomAircraftType(), flightPlan, planeId, shouldLand, airport, player);
 		aircraftList.add(newAircraft);

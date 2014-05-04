@@ -1,25 +1,24 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import seprini.controllers.components.FlightPlanComponent;
-import seprini.controllers.components.WaypointComponent;
-import seprini.data.Art;
-import seprini.data.Config;
-import seprini.data.Debug;
-import seprini.data.GameDifficulty;
-import seprini.models.Aircraft;
-import seprini.models.Airport;
-import seprini.models.Airspace;
-import seprini.models.Map;
-import seprini.models.ScoreBar;
-import seprini.models.Waypoint;
-import seprini.models.types.AircraftType;
-import seprini.network.client.Player;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.planepanic.io.client.Player;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.AircraftType;
+import com.planepanic.model.Airport;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.Debug;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Map;
+import com.planepanic.model.ScoreBar;
+import com.planepanic.model.Waypoint;
+import com.planepanic.model.controllers.components.FlightPlanComponent;
+import com.planepanic.model.controllers.components.WaypointComponent;
 
 public abstract class AircraftController extends InputListener {
 

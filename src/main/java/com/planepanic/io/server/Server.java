@@ -1,18 +1,19 @@
-package seprini.network.server;
+package com.planepanic.io.server;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import seprini.controllers.AircraftController;
-import seprini.controllers.ServerAircraftController;
-import seprini.data.GameDifficulty;
-import seprini.models.Airspace;
-import seprini.network.FrameDecoder;
-import seprini.network.FrameEncoder;
-import seprini.network.FrameHandler;
-import seprini.network.packet.Packet;
+import com.planepanic.io.FrameDecoder;
+import com.planepanic.io.FrameEncoder;
+import com.planepanic.io.FrameHandler;
+import com.planepanic.io.packet.Packet;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.controllers.AircraftController;
+import com.planepanic.model.controllers.ServerAircraftController;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

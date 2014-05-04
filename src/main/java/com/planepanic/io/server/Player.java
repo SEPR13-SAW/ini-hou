@@ -1,13 +1,14 @@
-package seprini.network.server;
+package com.planepanic.io.server;
 
 import java.util.Map.Entry;
 
+import com.planepanic.io.Frame;
+import com.planepanic.io.packet.Packet;
+import com.planepanic.io.packet.UpdateScorePacket;
+import com.planepanic.io.packet.encoder.Encoder;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
-import seprini.network.Frame;
-import seprini.network.packet.Packet;
-import seprini.network.packet.UpdateScorePacket;
-import seprini.network.packet.codec.encoder.Encoder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ import lombok.Setter;
  * @author Jonathan
  *
  */
-public final class Player extends seprini.network.client.Player {
+public final class Player extends com.planepanic.io.client.Player {
 	@Getter @Setter private int id;
 	@Getter @Setter private String name;
 	@Getter private final Server server;

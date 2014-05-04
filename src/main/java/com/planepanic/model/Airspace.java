@@ -1,4 +1,4 @@
-package seprini.models;
+package com.planepanic.model;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;

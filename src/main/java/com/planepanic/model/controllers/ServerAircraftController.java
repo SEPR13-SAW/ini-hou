@@ -1,15 +1,15 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.io.IOException;
 
-import seprini.data.Art;
-import seprini.data.Config;
-import seprini.data.GameDifficulty;
-import seprini.models.Aircraft;
-import seprini.models.Airspace;
-import seprini.network.packet.SpawnPlanePacket;
-import seprini.network.server.Player;
-import seprini.network.server.Server;
+import com.planepanic.io.packet.SpawnPlanePacket;
+import com.planepanic.io.server.Player;
+import com.planepanic.io.server.Server;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.GameDifficulty;
 
 public final class ServerAircraftController extends AircraftController {
 	
@@ -115,7 +115,7 @@ public final class ServerAircraftController extends AircraftController {
 			// generated), add it as an actor to the stage
 			if (generatedAircraft != null) {
 				try {
-					server.broadcast(new SpawnPlanePacket(generatedAircraft.getId(), (byte) generatedAircraft.getPlayer().getId(), "Test"));
+					server.broadcast(new SpawnPlanePacket(generatedAircraft.getId(), (byte) generatedAircraft.getPlayer().getId(), "Test", generatedAircraft.getFlightPlan()));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

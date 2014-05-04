@@ -1,11 +1,6 @@
-package seprini.controllers;
+package com.planepanic.model.controllers;
 
 import java.util.HashMap;
-
-import seprini.data.Art;
-import seprini.data.Config;
-import seprini.models.Aircraft;
-import seprini.screens.ScreenBase;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -13,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.screens.ScreenBase;
 
 /**
  * Controls the sidebar in the GameScreen 

@@ -1,12 +1,11 @@
-package seprini.controllers.components;
+package com.planepanic.model.controllers.components;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import seprini.models.Exitpoint;
-import seprini.models.Waypoint;
-
 import com.badlogic.gdx.math.Vector2;
+import com.planepanic.model.Exitpoint;
+import com.planepanic.model.Waypoint;
 
 public class FlightPlanComponent {
 

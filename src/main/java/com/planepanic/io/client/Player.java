@@ -1,6 +1,7 @@
-package seprini.network.client;
+package com.planepanic.io.client;
 
-import seprini.controllers.ClientAircraftController;
+import com.planepanic.model.controllers.ClientAircraftController;
+
 import lombok.Getter;
 import lombok.Setter;
 

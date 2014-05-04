@@ -1,12 +1,12 @@
-package seprini.network.packet.handler;
+package com.planepanic.io.packet.handler;
 
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import seprini.network.packet.JoinGamePacket;
-import seprini.network.packet.PlayerJoinPacket;
-import seprini.network.server.Player;
-import seprini.network.server.Server;
+import com.planepanic.io.packet.JoinGamePacket;
+import com.planepanic.io.packet.PlayerJoinPacket;
+import com.planepanic.io.server.Player;
+import com.planepanic.io.server.Server;
 
 public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Player> {
 	public JoinGamePacketHandler() {

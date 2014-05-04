@@ -1,8 +1,9 @@
-package seprini.network;
+package com.planepanic.io;
 
-import seprini.network.packet.Packet;
-import seprini.network.packet.codec.decoder.Decoder;
-import seprini.network.packet.handler.Handler;
+import com.planepanic.io.packet.Packet;
+import com.planepanic.io.packet.decoder.Decoder;
+import com.planepanic.io.packet.handler.Handler;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

@@ -1,4 +1,4 @@
-package seprini.models;
+package com.planepanic.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,8 +7,6 @@ import java.util.Queue;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
-import seprini.data.Art;
 
 public final class Airport extends Entity {
 	Waypoint runwayEnd;

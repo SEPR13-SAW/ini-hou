@@ -1,6 +1,4 @@
-package seprini.models;
-
-import seprini.data.Art;
+package com.planepanic.model;
 
 import com.badlogic.gdx.math.Vector2;
 

@@ -1,4 +1,4 @@
-package seprini.network;
+package com.planepanic.io;
 
 import java.nio.charset.StandardCharsets;
 

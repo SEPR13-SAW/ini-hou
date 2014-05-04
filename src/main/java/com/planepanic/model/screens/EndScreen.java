@@ -1,7 +1,4 @@
-package seprini.screens;
-
-import seprini.ATC;
-import seprini.data.Art;
+package com.planepanic.model.screens;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.planepanic.ATC;
+import com.planepanic.model.Art;
 
 public class EndScreen extends AbstractScreen
 {

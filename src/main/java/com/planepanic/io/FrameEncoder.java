@@ -1,4 +1,4 @@
-package seprini.network;
+package com.planepanic.io;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

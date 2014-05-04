@@ -1,4 +1,4 @@
-package seprini.network.packet;
+package com.planepanic.io.packet;
 
 /**
  * An abstract class for representing packets.

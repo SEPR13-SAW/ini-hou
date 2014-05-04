@@ -1,7 +1,8 @@
-package seprini.network.packet.codec.decoder;
+package com.planepanic.io.packet.decoder;
+
+import com.planepanic.io.packet.SetVelocityPacket;
 
 import io.netty.buffer.ByteBuf;
-import seprini.network.packet.SetVelocityPacket;
 
 public final class SetVelocityPacketDecoder extends Decoder<SetVelocityPacket> {
 	public SetVelocityPacketDecoder() {

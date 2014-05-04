@@ -1,8 +1,8 @@
-package seprini.network.packet.handler;
+package com.planepanic.io.packet.handler;
 
-import seprini.network.client.Client;
-import seprini.network.client.Player;
-import seprini.network.packet.PlayerJoinPacket;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.client.Player;
+import com.planepanic.io.packet.PlayerJoinPacket;
 
 public final class PlayerJoinPacketHandler extends Handler<PlayerJoinPacket, Client> {
 	public PlayerJoinPacketHandler() {

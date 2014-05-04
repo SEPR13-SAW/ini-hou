@@ -1,7 +1,8 @@
-package seprini.network.packet.codec.decoder;
+package com.planepanic.io.packet.decoder;
+
+import com.planepanic.io.packet.SetDirectionPacket;
 
 import io.netty.buffer.ByteBuf;
-import seprini.network.packet.SetDirectionPacket;
 
 public final class SetDirectionPacketDecoder extends Decoder<SetDirectionPacket> {
 	public SetDirectionPacketDecoder() {

@@ -1,4 +1,4 @@
-package seprini.data;
+package com.planepanic.model;
 
 import com.badlogic.gdx.utils.Disposable;
 

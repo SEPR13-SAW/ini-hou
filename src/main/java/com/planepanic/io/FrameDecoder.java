@@ -1,4 +1,4 @@
-package seprini.network;
+package com.planepanic.io;
 
 import java.io.IOException;
 import java.util.List;

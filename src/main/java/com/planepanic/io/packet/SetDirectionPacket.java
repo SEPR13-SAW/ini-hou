@@ -1,4 +1,4 @@
-package seprini.network.packet;
+package com.planepanic.io.packet;
 
 public final class SetDirectionPacket extends Packet {
 	private final int planeId;

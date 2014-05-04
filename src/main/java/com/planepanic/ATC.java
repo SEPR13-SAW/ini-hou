@@ -1,11 +1,11 @@
-package seprini;
+package com.planepanic;
 
 import com.badlogic.gdx.Game;
-import seprini.data.Art;
-import seprini.data.GameDifficulty;
-import seprini.screens.EndScreen;
-import seprini.screens.GameScreen;
-import seprini.screens.MenuScreen;
+import com.planepanic.model.Art;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.screens.EndScreen;
+import com.planepanic.model.screens.GameScreen;
+import com.planepanic.model.screens.MenuScreen;
 
 /**
  * Main class, calls all subsequent classes. Initialises Input, Art classes,

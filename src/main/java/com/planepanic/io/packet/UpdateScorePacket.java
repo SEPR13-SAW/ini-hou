@@ -1,4 +1,4 @@
-package seprini.network.packet;
+package com.planepanic.io.packet;
 
 public final class UpdateScorePacket extends Packet {
 	private final int playerId;

@@ -1,9 +1,9 @@
-package seprini.network.packet.handler;
+package com.planepanic.io.packet.handler;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import seprini.network.packet.Packet;
+import com.planepanic.io.packet.Packet;
 
 /**
  * An abstract class for representing handlers for decoded packets.

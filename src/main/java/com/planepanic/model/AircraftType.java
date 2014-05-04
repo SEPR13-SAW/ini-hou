@@ -1,4 +1,4 @@
-package seprini.models.types;
+package com.planepanic.model;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

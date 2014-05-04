@@ -1,22 +1,8 @@
-package seprini.screens;
+package com.planepanic.model.screens;
 
 import java.net.InetSocketAddress;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import seprini.ATC;
-import seprini.controllers.AircraftController;
-import seprini.controllers.ClientAircraftController;
-import seprini.controllers.SidebarController;
-import seprini.controllers.SingleAircraftController;
-import seprini.data.Art;
-import seprini.data.Config;
-import seprini.data.GameDifficulty;
-import seprini.models.Airspace;
-import seprini.network.client.Client;
-import seprini.network.packet.JoinGamePacket;
-import seprini.network.server.Server;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -26,6 +12,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.planepanic.ATC;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.packet.JoinGamePacket;
+import com.planepanic.io.server.Server;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Art;
+import com.planepanic.model.Config;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.controllers.AircraftController;
+import com.planepanic.model.controllers.ClientAircraftController;
+import com.planepanic.model.controllers.SidebarController;
+import com.planepanic.model.controllers.SingleAircraftController;
 
 /**
  * The game screen - all game logic starts here
@@ -95,7 +93,8 @@ public class GameScreen extends AbstractScreen
 				@Override
 				public void act(float delta)
 				{
-					s.getController().update(delta);
+					if (s.getController() != null)
+						s.getController().update(delta);
 					controller.update(delta);
 					sidebarController.update();
 				}

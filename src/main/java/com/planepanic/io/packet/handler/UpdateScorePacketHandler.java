@@ -1,7 +1,7 @@
-package seprini.network.packet.handler;
+package com.planepanic.io.packet.handler;
 
-import seprini.network.client.Client;
-import seprini.network.packet.UpdateScorePacket;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.packet.UpdateScorePacket;
 
 public final class UpdateScorePacketHandler extends Handler<UpdateScorePacket, Client> {
 	public UpdateScorePacketHandler() {

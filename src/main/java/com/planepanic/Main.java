@@ -1,11 +1,10 @@
-package seprini;
-
-import seprini.data.Config;
-import seprini.network.server.Server;
+package com.planepanic;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.planepanic.io.server.Server;
+import com.planepanic.model.Config;
 
 public class Main {
 	public static void main(String[] args) {

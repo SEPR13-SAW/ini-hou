@@ -1,8 +1,9 @@
-package seprini.network.packet.codec.encoder;
+package com.planepanic.io.packet.encoder;
+
+import com.planepanic.io.packet.UpdateScorePacket;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import seprini.network.packet.UpdateScorePacket;
 
 public final class UpdateScorePacketEncoder extends Encoder<UpdateScorePacket> {
 	public UpdateScorePacketEncoder() {
