@@ -22,7 +22,7 @@ public class AbstractScreen implements ScreenBase
 
 	/**
 	 * Initializes the AbstractScreen class with an ATC game reference
-	 *
+	 * 
 	 * @param game reference to game
 	 */
 	public AbstractScreen(ATC game)
@@ -33,7 +33,7 @@ public class AbstractScreen implements ScreenBase
 
 	/**
 	 * Returns the stage at the root of the scene graph
-	 *
+	 * 
 	 * @return stage to draw to
 	 */
 	public Stage getStage()
@@ -43,7 +43,7 @@ public class AbstractScreen implements ScreenBase
 
 	/**
 	 * Returns game object controlling this screen
-	 *
+	 * 
 	 * @return root game object
 	 */
 	@Override
@@ -53,10 +53,14 @@ public class AbstractScreen implements ScreenBase
 	}
 
 	@Override
-	public boolean isPaused() { return paused; }
+	public boolean isPaused() {
+		return paused;
+	}
 
 	@Override
-	public void setPaused(boolean paused) { this.paused = paused; }
+	public void setPaused(boolean paused) {
+		this.paused = paused;
+	}
 
 	@Override
 	public void render(float delta)
@@ -93,13 +97,18 @@ public class AbstractScreen implements ScreenBase
 		stage.dispose();
 	}
 
-	@Override public void hide() { }
-	@Override public void pause() { }
-	@Override public void resume() { }
+	@Override
+	public void hide() {}
+
+	@Override
+	public void pause() {}
+
+	@Override
+	public void resume() {}
 
 	/**
 	 * Draw a texture from a texture region
-	 *
+	 * 
 	 * @param region
 	 * @param x
 	 * @param y
@@ -121,7 +130,7 @@ public class AbstractScreen implements ScreenBase
 
 	/**
 	 * Draws a string using the default 15pt Arial font
-	 *
+	 * 
 	 * @param str
 	 * @param x
 	 * @param y

@@ -14,8 +14,12 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 /**
  * Loads all the requires art (textures), essentially pre-loading all the
@@ -103,8 +107,11 @@ public class Art {
 
 		// Add the font to the skin; TODO: use a different one?
 		BitmapFont font = new BitmapFont();
+		BitmapFont textFieldFont = new BitmapFont();
+		textFieldFont.setScale(1.0f);
 
 		skin.add("default", font);
+		skin.add("text-field", textFieldFont);
 
 		// Configure a TextButtonStyle and name it "default". Skin resources are
 		// stored by type, so this doesn't overwrite the font.
@@ -131,6 +138,26 @@ public class Art {
 		textStyle.font = skin.getFont("default");
 		textStyle.fontColor = Color.BLACK;
 		skin.add("textStyle", textStyle);
+		
+		TextFieldStyle textFieldStyle = new TextFieldStyle();
+		textFieldStyle.background = skin.newDrawable("white", Color.DARK_GRAY);
+		textFieldStyle.font = skin.getFont("text-field");
+		textFieldStyle.fontColor = Color.WHITE;
+		skin.add("default", textFieldStyle);
+		
+		ListStyle listStyle = new ListStyle();
+		listStyle.font = skin.getFont("text-field");
+		listStyle.fontColorUnselected = Color.BLACK;
+		listStyle.fontColorSelected = Color.WHITE;
+		listStyle.selection = skin.newDrawable("white", 0.07f, 0.1f, 0.22f, 1);
+		skin.add("default", listStyle);
+		
+		ScrollPaneStyle scrollPaneStyle = new ScrollPaneStyle();
+		scrollPaneStyle.vScrollKnob = skin.newDrawable("white", Color.DARK_GRAY);
+		scrollPaneStyle.vScrollKnob.setMinWidth(3f);
+		scrollPaneStyle.vScroll = skin.newDrawable("white", Color.DARK_GRAY);
+		scrollPaneStyle.vScroll.setMinWidth(1f);
+		skin.add("default", scrollPaneStyle);
 
 	}
 

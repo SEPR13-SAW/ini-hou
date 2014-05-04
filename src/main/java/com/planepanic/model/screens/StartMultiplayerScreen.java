@@ -6,29 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.planepanic.ATC;
 import com.planepanic.model.Art;
 import com.planepanic.model.Config;
-import com.planepanic.model.controllers.MenuController;
-/**
- * Menu Screen, displays the menu with buttons to start and exit the game
- */
-public class MenuScreen extends AbstractScreen
-{
+import com.planepanic.model.controllers.StartMultiplayerController;
+
+public class StartMultiplayerScreen extends AbstractScreen {
 	private final Table ui;
 
-	/**
-	 * Initialises the input handler, stage and create the layout with buttons
-	 * for the menu screen
-	 */
-	public MenuScreen(ATC game) {
-
+	public StartMultiplayerScreen(ATC game) {
 		super(game);
-
-		// Create table and add to stage
 		ui = new Table();
 		getStage().addActor(ui);
 
-		// creater the controller for this screen, this will handle basically
-		// everything for this screen, including input and creation of buttons
-		new MenuController(this, ui);
+		new StartMultiplayerController(this, ui);
 
 		// make it fill the whole screen
 		ui.setFillParent(true);
@@ -54,6 +42,7 @@ public class MenuScreen extends AbstractScreen
 	public void show()
 	{
 		super.show();
-		Art.getSound("comeflywithme").play(0.2f);
+		Art.getSound("comeflywithme").play(1f);
 	}
+
 }

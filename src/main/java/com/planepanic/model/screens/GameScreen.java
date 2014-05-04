@@ -36,7 +36,7 @@ public class GameScreen extends AbstractScreen
 	//private boolean paused;
 	private Client client;
 
-	public GameScreen(ATC game, GameDifficulty diff) {
+	public GameScreen(ATC game, GameDifficulty diff, boolean host, InetSocketAddress address, String name) {
 
 		super(game);
 
@@ -55,9 +55,12 @@ public class GameScreen extends AbstractScreen
 		Server server = null;
 		Airspace airspace = new Airspace();
 		if (diff.getMultiplayer()) {
-			server = new Server(Server.PORT);
-			new Thread(server).start();
-			client = new Client(new InetSocketAddress("127.0.0.1", Server.PORT), new Runnable() {
+			if (host) {
+				server = new Server(Server.PORT);
+				new Thread(server).start();
+			}
+			if (host) address = new InetSocketAddress("127.0.0.1", Server.PORT);
+			client = new Client(address, new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -66,7 +69,7 @@ public class GameScreen extends AbstractScreen
 						e.printStackTrace();
 					}
 				}
-			}, "Test Name");
+			}, name);
 			controller = new ClientAircraftController(diff, airspace, this, client);
 			client.setController((ClientAircraftController) controller);
 		} else {
@@ -78,7 +81,7 @@ public class GameScreen extends AbstractScreen
 		final SidebarController sidebarController = new SidebarController(sidebar, controller, this);
 
 		// set controller update as first actor
-		if (server == null) {
+		if (server == null || host == false) {
 			ui.addActor(new Actor() {
 				@Override
 				public void act(float delta)
