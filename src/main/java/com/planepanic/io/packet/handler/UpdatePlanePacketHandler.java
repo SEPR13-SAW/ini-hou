@@ -13,6 +13,7 @@ public final class UpdatePlanePacketHandler extends Handler<UpdatePlanePacket, C
 	@Override
 	public void handle(UpdatePlanePacket packet, Client client) throws Exception {
 		ClientAircraftController c = client.getPlayer().getController();
+
 		for (Aircraft a : c.getAircraftList()) {
 			if (a.getId() == packet.getPlaneId()) {
 				a.setX(packet.getX());

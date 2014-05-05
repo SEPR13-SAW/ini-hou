@@ -136,6 +136,7 @@ public final class ServerAircraftController extends AircraftController {
 			tick = 0;
 			for (Aircraft a : aircraftList) {
 				try {
+					System.out.println("update " + a);
 					server.broadcast(new UpdatePlanePacket(a.getId(), a.getX(), a.getY(), a.getRotation(), a.getAltitude(), a.getSpeed()));
 				} catch (IOException e) {
 					e.printStackTrace();

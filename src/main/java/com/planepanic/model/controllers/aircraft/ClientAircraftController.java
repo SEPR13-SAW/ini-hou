@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.planepanic.io.client.Client;
 import com.planepanic.io.client.Player;
 import com.planepanic.io.packet.SetDirectionPacket;
+import com.planepanic.io.packet.SetVelocityPositionPacket;
 import com.planepanic.model.Aircraft;
 import com.planepanic.model.Airport;
 import com.planepanic.model.Airspace;
@@ -108,6 +109,7 @@ public final class ClientAircraftController extends AircraftController {
 			if (a.isTurningLeft() || a.isTurningRight()) {
 				try {
 					client.writePacket(new SetDirectionPacket(a.getId(), a.getRotation()));
+					client.writePacket(new SetVelocityPositionPacket(a.getId(), a.getSpeed(), a.getX(), a.getY()));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
