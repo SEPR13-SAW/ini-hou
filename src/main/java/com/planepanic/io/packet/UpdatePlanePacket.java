@@ -3,9 +3,10 @@ package com.planepanic.io.packet;
 public final class UpdatePlanePacket extends Packet {
 	private final int planeId;
 	private final float x, y, direction;
-	private final int altitude, velocity;
+	private final int altitude;
+	private final float velocity;
 
-	public UpdatePlanePacket(int planeId, float x, float y, float direction, int altitude, int velocity) {
+	public UpdatePlanePacket(int planeId, float x, float y, float direction, int altitude, float velocity) {
 		this.planeId = planeId;
 		this.x = x;
 		this.y = y;
@@ -39,7 +40,7 @@ public final class UpdatePlanePacket extends Packet {
 		return altitude;
 	}
 
-	public int getVelocity() {
+	public float getVelocity() {
 		return velocity;
 	}
 

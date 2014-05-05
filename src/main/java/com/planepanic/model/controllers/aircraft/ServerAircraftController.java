@@ -3,13 +3,14 @@ package com.planepanic.model.controllers.aircraft;
 import java.io.IOException;
 
 import com.planepanic.io.packet.SpawnPlanePacket;
+import com.planepanic.io.packet.UpdatePlanePacket;
 import com.planepanic.io.server.Player;
 import com.planepanic.io.server.Server;
 import com.planepanic.model.Aircraft;
 import com.planepanic.model.Airspace;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.resources.Art;
 
 public final class ServerAircraftController extends AircraftController {
 	
@@ -128,7 +129,21 @@ public final class ServerAircraftController extends AircraftController {
 
 		// sort aircraft so they appear in the right order
 		airspace.sortAircraft();
+
+		tick++;
+
+		if (tick == 6) {
+			tick = 0;
+			for (Aircraft a : aircraftList) {
+				try {
+					server.broadcast(new UpdatePlanePacket(a.getId(), a.getX(), a.getY(), a.getRotation(), a.getAltitude(), a.getSpeed()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
+	private int tick = 0;
 
 	/**
 	 * Handles what happens after a collision

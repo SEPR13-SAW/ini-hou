@@ -1,6 +1,7 @@
 package com.planepanic.model;
 
 import com.badlogic.gdx.math.Vector2;
+import com.planepanic.model.resources.Art;
 
 public final class Map extends Entity {
 	public Map() {

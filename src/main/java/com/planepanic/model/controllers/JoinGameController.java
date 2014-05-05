@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
 import com.planepanic.io.server.Server;
-import com.planepanic.model.Art;
 import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.JoinGameScreen;
 
 public class JoinGameController extends ChangeListener {
@@ -88,7 +88,7 @@ public class JoinGameController extends ChangeListener {
 		System.out.println(name.getText());
 		String n = name.getText();
 
-		if (actor.equals(buttons.get("startGame")))
+		if (actor.equals(buttons.get("startGame")) && name.getText().length() >= 3)
 			screen.getGame().showGameScreen(GameDifficulty.MULTI, false, new InetSocketAddress(address.getText(), Server.PORT), n);
 		if (actor.equals(buttons.get("back")))
 			screen.getGame().showMenuScreen();

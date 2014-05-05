@@ -44,7 +44,7 @@ public final class Aircraft extends Entity {
 	//landed
 	private boolean landed = false;
 
-	private boolean turnRight, turnLeft;
+	@Getter private boolean turnRight, turnLeft;
 
 	// used for smooth turning
 	// remember last angle to check if it's increasing or not
@@ -684,7 +684,7 @@ public final class Aircraft extends Entity {
 	 *
 	 * @param speed new speed
 	 */
-	private void setSpeed(float speed)
+	public void setSpeed(float speed)
 	{
 		if (speed == 0)
 			throw new IllegalArgumentException("speed cannot be 0");

@@ -16,7 +16,7 @@ public final class UpdatePlanePacketDecoder extends Decoder<UpdatePlanePacket> {
 		float y = buffer.readFloat();
 		float direction = buffer.readFloat();
 		int altitude = buffer.readInt();
-		int velocity = buffer.readInt();
+		float velocity = buffer.readFloat();
 
 		return new UpdatePlanePacket(planeId, x, y, direction, altitude, velocity);
 	}

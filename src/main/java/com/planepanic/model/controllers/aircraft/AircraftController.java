@@ -10,7 +10,6 @@ import com.planepanic.model.Aircraft;
 import com.planepanic.model.AircraftType;
 import com.planepanic.model.Airport;
 import com.planepanic.model.Airspace;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.Debug;
 import com.planepanic.model.GameDifficulty;
@@ -19,6 +18,7 @@ import com.planepanic.model.ScoreBar;
 import com.planepanic.model.Waypoint;
 import com.planepanic.model.controllers.components.FlightPlanComponent;
 import com.planepanic.model.controllers.components.WaypointComponent;
+import com.planepanic.model.resources.Art;
 
 public abstract class AircraftController extends InputListener {
 

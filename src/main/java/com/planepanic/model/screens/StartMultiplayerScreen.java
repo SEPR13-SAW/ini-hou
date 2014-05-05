@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.planepanic.ATC;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.controllers.StartMultiplayerController;
+import com.planepanic.model.resources.Art;
 
 public class StartMultiplayerScreen extends AbstractScreen {
 	private final Table ui;

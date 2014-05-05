@@ -1,17 +1,19 @@
 package com.planepanic.model.controllers.aircraft;
 
 import java.util.ArrayList;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.planepanic.io.client.Client;
 import com.planepanic.io.client.Player;
+import com.planepanic.io.packet.SetDirectionPacket;
 import com.planepanic.model.Aircraft;
 import com.planepanic.model.Airport;
 import com.planepanic.model.Airspace;
-import com.planepanic.model.Art;
 import com.planepanic.model.Debug;
 import com.planepanic.model.GameDifficulty;
 import com.planepanic.model.Waypoint;
+import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.ScreenBase;
 
 public final class ClientAircraftController extends AircraftController {
@@ -23,7 +25,6 @@ public final class ClientAircraftController extends AircraftController {
 	// to delay the take off of planes.
 	public float lastTakeOff = 0;
 
-	@SuppressWarnings("unused")
 	private final Client client;
 
 	/**
@@ -102,6 +103,16 @@ public final class ClientAircraftController extends AircraftController {
 
 		// sort aircraft so they appear in the right order
 		airspace.sortAircraft();
+
+		for (Aircraft a : aircraftList) {
+			if (a.isTurningLeft() || a.isTurningRight()) {
+				try {
+					client.writePacket(new SetDirectionPacket(a.getId(), a.getRotation()));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**

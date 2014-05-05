@@ -2,6 +2,7 @@ package com.planepanic.model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.planepanic.model.resources.Art;
 
 /**
  * A class to represent waypoints used for navigation within the airspace.

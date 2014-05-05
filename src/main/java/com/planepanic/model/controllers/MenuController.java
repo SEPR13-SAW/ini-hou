@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
-import com.planepanic.model.Art;
 import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.MenuScreen;
 
 /**
