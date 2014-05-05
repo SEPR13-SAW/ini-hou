@@ -31,7 +31,7 @@ public abstract class Encoder<T extends Packet> {
 		new JoinGamePacketEncoder();
 		new SetAltitudePacketEncoder();
 		new SetDirectionPacketEncoder();
-		new SetVelocityPacketEncoder();
+		new SetVelocityPositionPacketEncoder();
 		new PlayerJoinPacketEncoder();
 		new SpawnPlanePacketEncoder();
 		new UpdatePlanePacketEncoder();

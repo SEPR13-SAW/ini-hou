@@ -35,5 +35,8 @@ public abstract class Handler<T extends Packet, A> {
 		new PlayerJoinPacketHandler();
 		new SpawnPlanePacketHandler();
 		//new UpdateScorePacketHandler();
+		new UpdatePlanePacketHandler();
+		new SetDirectionPacketHandler();
+		new SetVelocityPositionPacketHandler();
 	}
 }

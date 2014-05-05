@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import seprini.network.client.Client;
-import seprini.network.packet.JoinGamePacket;
-import seprini.network.server.Server;
+import com.planepanic.io.client.Client;
+import com.planepanic.io.packet.JoinGamePacket;
+import com.planepanic.io.server.Server;
 
 /**
  * Test class for networking

@@ -2,6 +2,7 @@ package com.planepanic.model;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.planepanic.model.resources.Art;
 /**
  * 
  * @author Mantas

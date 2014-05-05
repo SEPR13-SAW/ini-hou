@@ -9,8 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
 import com.planepanic.model.Aircraft;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
+import com.planepanic.model.controllers.aircraft.AircraftController;
+import com.planepanic.model.controllers.aircraft.SingleAircraftController;
+import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.ScreenBase;
 
 /**

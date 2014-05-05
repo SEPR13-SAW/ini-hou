@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import seprini.controllers.SingleAircraftController;
-import seprini.data.GameDifficulty;
-import seprini.models.Airspace;
+import com.planepanic.model.controllers.aircraft.SingleAircraftController;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.controllers.components.WaypointComponent;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;

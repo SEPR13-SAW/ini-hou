@@ -3,8 +3,8 @@ package com.planepanic;
 import java.net.InetSocketAddress;
 
 import com.badlogic.gdx.Game;
-import com.planepanic.model.Art;
 import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.EndScreen;
 import com.planepanic.model.screens.GameScreen;
 import com.planepanic.model.screens.JoinGameScreen;

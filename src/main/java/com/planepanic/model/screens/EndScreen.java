@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.planepanic.ATC;
-import com.planepanic.model.Art;
+import com.planepanic.model.resources.Art;
 
 public class EndScreen extends AbstractScreen
 {

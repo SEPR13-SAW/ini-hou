@@ -19,7 +19,7 @@ public final class UpdatePlanePacketEncoder extends Encoder<UpdatePlanePacket> {
 		buf.writeFloat(packet.getY());
 		buf.writeFloat(packet.getDirection());
 		buf.writeInt(packet.getAltitude());
-		buf.writeInt(packet.getVelocity());
+		buf.writeFloat(packet.getVelocity());
 
 		return buf;
 	}

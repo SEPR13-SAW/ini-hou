@@ -30,7 +30,7 @@ public abstract class Decoder<T extends Packet> {
 		new JoinGamePacketDecoder();
 		new SetAltitudePacketDecoder();
 		new SetDirectionPacketDecoder();
-		new SetVelocityPacketDecoder();
+		new SetVelocityPositionPacketDecoder();
 		new PlayerJoinPacketDecoder();
 		new SpawnPlanePacketDecoder();
 		new UpdatePlanePacketDecoder();

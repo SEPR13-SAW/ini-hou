@@ -10,7 +10,7 @@ import com.planepanic.io.FrameEncoder;
 import com.planepanic.io.FrameHandler;
 import com.planepanic.io.packet.Packet;
 import com.planepanic.io.packet.encoder.Encoder;
-import com.planepanic.model.controllers.ClientAircraftController;
+import com.planepanic.model.controllers.aircraft.ClientAircraftController;
 
 import lombok.Getter;
 import lombok.Setter;

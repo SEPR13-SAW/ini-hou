@@ -17,13 +17,13 @@ import com.planepanic.io.client.Client;
 import com.planepanic.io.packet.JoinGamePacket;
 import com.planepanic.io.server.Server;
 import com.planepanic.model.Airspace;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.GameDifficulty;
-import com.planepanic.model.controllers.AircraftController;
-import com.planepanic.model.controllers.ClientAircraftController;
 import com.planepanic.model.controllers.SidebarController;
-import com.planepanic.model.controllers.SingleAircraftController;
+import com.planepanic.model.controllers.aircraft.AircraftController;
+import com.planepanic.model.controllers.aircraft.ClientAircraftController;
+import com.planepanic.model.controllers.aircraft.SingleAircraftController;
+import com.planepanic.model.resources.Art;
 
 /**
  * The game screen - all game logic starts here

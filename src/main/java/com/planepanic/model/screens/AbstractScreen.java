@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.planepanic.ATC;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
+import com.planepanic.model.resources.Art;
 
 public class AbstractScreen implements ScreenBase
 {

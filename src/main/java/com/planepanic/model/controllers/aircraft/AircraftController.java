@@ -1,4 +1,4 @@
-package com.planepanic.model.controllers;
+package com.planepanic.model.controllers.aircraft;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,7 +10,6 @@ import com.planepanic.model.Aircraft;
 import com.planepanic.model.AircraftType;
 import com.planepanic.model.Airport;
 import com.planepanic.model.Airspace;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.Debug;
 import com.planepanic.model.GameDifficulty;
@@ -19,6 +18,7 @@ import com.planepanic.model.ScoreBar;
 import com.planepanic.model.Waypoint;
 import com.planepanic.model.controllers.components.FlightPlanComponent;
 import com.planepanic.model.controllers.components.WaypointComponent;
+import com.planepanic.model.resources.Art;
 
 public abstract class AircraftController extends InputListener {
 
@@ -256,8 +256,11 @@ public abstract class AircraftController extends InputListener {
 		// generate the next aircraft
 		lastGenerated = timer;
 
+		newAircraft.setName("YO" + String.format("%03d", rng.nextInt(1000)));
+
 		return newAircraft;
 	}
+	private final static Random rng = new Random();
 
 	/**
 	 * Selects random aircraft type from aircraftTypeList.
@@ -324,7 +327,7 @@ public abstract class AircraftController extends InputListener {
 		allowRedirection = value;
 	}
 
-	public abstract void incScore(int ammount, Aircraft aircraft);
+	public abstract void incScore(int amount, Aircraft aircraft);
 
 
 }

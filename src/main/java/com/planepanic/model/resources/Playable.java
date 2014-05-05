@@ -1,4 +1,4 @@
-package com.planepanic.model;
+package com.planepanic.model.resources;
 
 import com.badlogic.gdx.utils.Disposable;
 

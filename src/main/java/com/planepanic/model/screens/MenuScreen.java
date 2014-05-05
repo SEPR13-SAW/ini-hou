@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.planepanic.ATC;
-import com.planepanic.model.Art;
 import com.planepanic.model.Config;
 import com.planepanic.model.controllers.MenuController;
+import com.planepanic.model.resources.Art;
 /**
  * Menu Screen, displays the menu with buttons to start and exit the game
  */
