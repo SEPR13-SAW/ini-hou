@@ -1,4 +1,4 @@
-package com.planepanic.model.screens;
+package com.planepanic.model.ui.screens;
 
 import com.badlogic.gdx.Screen;
 import com.planepanic.ATC;

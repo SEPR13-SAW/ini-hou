@@ -1,4 +1,4 @@
-package com.planepanic.model.controllers;
+package com.planepanic.model.ui.controllers;
 
 import java.util.HashMap;
 
@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
-import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
-import com.planepanic.model.screens.StartMultiplayerScreen;
+import com.planepanic.model.ui.screens.StartMultiplayerScreen;
 
 public class StartMultiplayerController extends ChangeListener {
 
@@ -74,7 +74,7 @@ public class StartMultiplayerController extends ChangeListener {
 		// Pass difficulty to the newly created GameScreen so the game can
 		// change variables depending on it
 		if (actor.equals(buttons.get("startGame")) && name.getText().length() >= 3)
-			screen.getGame().showGameScreen(GameDifficulty.MULTI, true, null, name.getText());
+			screen.getGame().showGameScreen(Difficulty.MULTIPLAYER_CLIENT, true, null, name.getText());
 		if (actor.equals(buttons.get("back")))
 			screen.getGame().showMenuScreen();
 	}

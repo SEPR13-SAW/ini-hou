@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.planepanic.io.ByteBufUtils;
 import com.planepanic.io.packet.SpawnPlanePacket;
-import com.planepanic.model.Waypoint;
+import com.planepanic.model.waypoint.Waypoint;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;

@@ -1,4 +1,4 @@
-package com.planepanic.model.screens;
+package com.planepanic.model.ui.screens;
 
 import java.net.InetSocketAddress;
 
@@ -13,31 +13,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.planepanic.ATC;
-import com.planepanic.io.client.Client;
-import com.planepanic.io.packet.JoinGamePacket;
-import com.planepanic.io.server.Server;
+import com.planepanic.io.client.Player;
 import com.planepanic.model.Airspace;
 import com.planepanic.model.Config;
-import com.planepanic.model.GameDifficulty;
-import com.planepanic.model.controllers.SidebarController;
-import com.planepanic.model.controllers.aircraft.AircraftController;
-import com.planepanic.model.controllers.aircraft.ClientAircraftController;
-import com.planepanic.model.controllers.aircraft.SingleAircraftController;
+import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
+import com.planepanic.model.ui.controllers.SidebarController;
 
 /**
  * The game screen - all game logic starts here
  */
-public class GameScreen extends AbstractScreen
-{
-	private final AircraftController controller;
-
-	// Paused state
-	//private boolean paused;
-	private Client client;
-
-	public GameScreen(ATC game, GameDifficulty diff, boolean host, InetSocketAddress address, String name) {
-
+public class GameScreen extends AbstractScreen {
+	public GameScreen(ATC game, Difficulty difficulty, boolean host, InetSocketAddress address, String name) {
 		super(game);
 
 		// create a table layout, main ui
@@ -48,69 +35,30 @@ public class GameScreen extends AbstractScreen
 		// required info
 		Table sidebar = new Table();
 
-		if (Config.DEBUG_UI)
+		if (Config.DEBUG)
 			sidebar.debug();
 
 		// create and add the Airspace group, contains aircraft and waypoints
-		Server server = null;
-		Airspace airspace = new Airspace();
-		if (diff.getMultiplayer()) {
-			if (host) {
-				server = new Server(Server.PORT);
-				new Thread(server).start();
-			}
-			if (host) address = new InetSocketAddress("127.0.0.1", Server.PORT);
-			client = new Client(address, new Runnable() {
-				@Override
-				public void run() {
-					try {
-						client.writePacket(new JoinGamePacket(client.getName()));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}, name);
-			controller = new ClientAircraftController(diff, airspace, this, client);
-			client.setController((ClientAircraftController) controller);
-		} else {
-			controller = new SingleAircraftController(diff, airspace, this);
-		}
+		final Airspace airspace = new Airspace(difficulty, new Player(0, ""), null, null);
 		root.setKeyboardFocus(airspace);
 
 		// create sidebar
-		final SidebarController sidebarController = new SidebarController(sidebar, controller, this);
+		final SidebarController sidebarController = new SidebarController(sidebar, airspace, this);
 
-		// set controller update as first actor
-		if (server == null || host == false) {
-			ui.addActor(new Actor() {
-				@Override
-				public void act(float delta)
-				{
-					controller.update(delta);
-					sidebarController.update();
-				}
-			});
-		} else {
-			final Server s = server;
-			ui.addActor(new Actor() {
-				@Override
-				public void act(float delta)
-				{
-					if (s.getController() != null)
-						s.getController().update(delta);
-					controller.update(delta);
-					sidebarController.update();
-				}
-			});
-		}
+		ui.addActor(new Actor() {
+			@Override
+			public void act(float delta) {
+				airspace.tick(delta);
+				sidebarController.update();
+			}
+		});
 
 		// make it fill the whole screen
 		ui.setFillParent(true);
 		root.addActor(ui);
 
-		airspace.addListener(controller);
-		ui.add(airspace).width(Config.AIRSPACE_SIZE.x)
-				.height(Config.AIRSPACE_SIZE.y);
+		//airspace.addListener(controller);
+		ui.add(airspace);
 
 		// Temporary background creator for sidebar
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
@@ -134,7 +82,7 @@ public class GameScreen extends AbstractScreen
 		super.render(delta);
 
 		// debug the ui and draw fps
-		if (Config.DEBUG_UI) {
+		if (Config.DEBUG) {
 			Stage root = getStage();
 
 			Table.drawDebug(root);

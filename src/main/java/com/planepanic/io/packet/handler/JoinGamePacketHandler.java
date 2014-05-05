@@ -25,7 +25,6 @@ public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Player>
 		client.setName(packet.getName());
 		client.setId(id);
 
-		System.out.println(client + ", " + client.getId() + ", " + client.getName());
 		server.addPlayer(client);
 
 		for (Entry<Integer, Player> c : server.getPlayers().entrySet()) {

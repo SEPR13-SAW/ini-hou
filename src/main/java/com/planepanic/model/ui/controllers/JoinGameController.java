@@ -1,4 +1,4 @@
-package com.planepanic.model.controllers;
+package com.planepanic.model.ui.controllers;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -11,9 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
 import com.planepanic.io.server.Server;
-import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
-import com.planepanic.model.screens.JoinGameScreen;
+import com.planepanic.model.ui.screens.JoinGameScreen;
 
 public class JoinGameController extends ChangeListener {
 
@@ -85,11 +85,10 @@ public class JoinGameController extends ChangeListener {
 		Art.getSound("comeflywithme").stop();
 		Art.getSkin().getFont("default").setScale(1f);
 
-		System.out.println(name.getText());
 		String n = name.getText();
 
 		if (actor.equals(buttons.get("startGame")) && name.getText().length() >= 3)
-			screen.getGame().showGameScreen(GameDifficulty.MULTI, false, new InetSocketAddress(address.getText(), Server.PORT), n);
+			screen.getGame().showGameScreen(Difficulty.MULTIPLAYER_CLIENT, false, new InetSocketAddress(address.getText(), Server.PORT), n);
 		if (actor.equals(buttons.get("back")))
 			screen.getGame().showMenuScreen();
 	}

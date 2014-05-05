@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.planepanic.io.ByteBufUtils;
 import com.planepanic.io.packet.SpawnPlanePacket;
-import com.planepanic.model.Waypoint;
+import com.planepanic.model.waypoint.Waypoint;
 
 import io.netty.buffer.ByteBuf;
 
@@ -23,7 +23,7 @@ public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 		int nWaypoints = buffer.readByte() & 0xFF;
 		List<Waypoint> waypoints = new ArrayList<>();
 		for (int i = 0; i < nWaypoints; i++) {
-			waypoints.add(new Waypoint(buffer.readFloat(), buffer.readFloat(), false));
+			waypoints.add(new Waypoint(buffer.readFloat(), buffer.readFloat()));
 		}
 
 		int altitude = buffer.readInt();

@@ -18,11 +18,11 @@ import lombok.Setter;
  *
  */
 public final class Player extends com.planepanic.io.client.Player {
-	@Getter @Setter private int id;
-	@Getter @Setter private String name;
 	@Getter private final Server server;
 	@Getter private final Channel channel;
 	@Getter @Setter private int score;
+	@Getter @Setter private int id;
+	@Getter @Setter private String name;
 
 	public Player(Server server, Channel channel) {
 		super(0, "");

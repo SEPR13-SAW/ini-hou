@@ -2,7 +2,7 @@ package com.planepanic.io.packet;
 
 import java.util.List;
 
-import com.planepanic.model.Waypoint;
+import com.planepanic.model.waypoint.Waypoint;
 
 public final class SpawnPlanePacket extends Packet {
 	private final int planeId;

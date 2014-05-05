@@ -1,4 +1,4 @@
-package com.planepanic.model;
+package com.planepanic.model.entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.planepanic.model.screens.AbstractScreen;
+import com.planepanic.model.Config;
+import com.planepanic.model.ui.screens.AbstractScreen;
 
 /**
  * A class representing a renderable entity.
@@ -17,8 +18,9 @@ public abstract class Entity extends Actor {
 	protected Vector2 coords;
 	protected TextureRegion texture;
 	protected Vector2 size;
+	protected int rotationOffset = 0;
 
-	protected boolean debugShape = false;
+	protected boolean debugShape = true;
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -26,13 +28,14 @@ public abstract class Entity extends Actor {
 
 		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
-		batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight()
-				/ 2, getOriginX(), getOriginY(), getWidth(), getHeight(),
-				getScaleX(), getScaleX(), getRotation());
+		//batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight()
+		//		/ 2, getOriginX(), getOriginY(), getWidth(), getHeight(),
+		//		getScaleX(), getScaleX(), -getRotation());
+		batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(), getScaleX(), rotationOffset - getRotation());
 
 		additionalDraw(batch);
 
-		if (Config.DEBUG_UI) {
+		if (Config.DEBUG) {
 			drawDebug(batch);
 		}
 	}

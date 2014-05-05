@@ -1,4 +1,4 @@
-package com.planepanic.model.controllers;
+package com.planepanic.model.ui.controllers;
 
 import java.util.HashMap;
 
@@ -10,15 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.esotericsoftware.tablelayout.Cell;
-import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
-import com.planepanic.model.screens.MenuScreen;
+import com.planepanic.model.ui.screens.MenuScreen;
 
 /**
  * Menu Controller
  */
 public final class MenuController extends ChangeListener {
-
 	private final Table ui;
 	private final MenuScreen screen;
 
@@ -110,23 +109,23 @@ public final class MenuController extends ChangeListener {
 		// change variables depending on it
 
 		if (actor.equals(buttons.get("joinMulti")))
-			screen.getGame().showJoinGameScreen(GameDifficulty.MULTI);
+			screen.getGame().showJoinGameScreen();
 
 		if (actor.equals(buttons.get("startMulti")))
-			screen.getGame().showStartMultiplayerScreen(GameDifficulty.MULTI);
+			screen.getGame().showStartMultiplayerScreen();
 
 		if (actor.equals(buttons.get("startEasy"))) {
-			screen.getGame().showGameScreen(GameDifficulty.EASY, false, null, null);
+			screen.getGame().showGameScreen(Difficulty.EASY, false, null, null);
 			Art.getSound("comeflywithme").stop();
 		}
 
 		if (actor.equals(buttons.get("startMedium"))) {
-			screen.getGame().showGameScreen(GameDifficulty.MEDIUM, false, null, null);
+			screen.getGame().showGameScreen(Difficulty.MEDIUM, false, null, null);
 			Art.getSound("comeflywithme").stop();
 		}
 
 		if (actor.equals(buttons.get("startHard"))) {
-			screen.getGame().showGameScreen(GameDifficulty.HARD, false, null, null);
+			screen.getGame().showGameScreen(Difficulty.HARD, false, null, null);
 			Art.getSound("comeflywithme").stop();
 		}
 

@@ -1,7 +1,5 @@
 package com.planepanic.io.client;
 
-import com.planepanic.model.controllers.aircraft.ClientAircraftController;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,6 @@ public class Player {
 	@Getter private final int id;
 	@Getter private final String name;
 	@Getter @Setter private int score;
-	@Getter @Setter private ClientAircraftController controller;
 
 	public Player(int id, String name) {
 		this.id = id;

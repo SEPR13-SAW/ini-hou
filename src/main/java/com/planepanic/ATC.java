@@ -3,13 +3,13 @@ package com.planepanic;
 import java.net.InetSocketAddress;
 
 import com.badlogic.gdx.Game;
-import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
-import com.planepanic.model.screens.EndScreen;
-import com.planepanic.model.screens.GameScreen;
-import com.planepanic.model.screens.JoinGameScreen;
-import com.planepanic.model.screens.MenuScreen;
-import com.planepanic.model.screens.StartMultiplayerScreen;
+import com.planepanic.model.ui.screens.EndScreen;
+import com.planepanic.model.ui.screens.GameScreen;
+import com.planepanic.model.ui.screens.JoinGameScreen;
+import com.planepanic.model.ui.screens.MenuScreen;
+import com.planepanic.model.ui.screens.StartMultiplayerScreen;
 
 /**
  * Main class, calls all subsequent classes. Initialises Input, Art classes,
@@ -38,7 +38,7 @@ public class ATC extends Game
 	 * @param address 
 	 * @param n 
 	 */
-	public void showGameScreen(GameDifficulty difficulty, boolean host, InetSocketAddress address, String name)
+	public void showGameScreen(Difficulty difficulty, boolean host, InetSocketAddress address, String name)
 	{
 		setScreen(new GameScreen(this, difficulty, host, address, name));
 	}
@@ -54,12 +54,12 @@ public class ATC extends Game
 		setScreen(new EndScreen(this, time, score));
 	}
 
-	public void showStartMultiplayerScreen(GameDifficulty multi) {
+	public void showStartMultiplayerScreen() {
 		setScreen(new StartMultiplayerScreen(this));
 		
 	}
 	
-	public void showJoinGameScreen(GameDifficulty multi){
+	public void showJoinGameScreen(){
 		setScreen(new JoinGameScreen(this));
 	}
 }

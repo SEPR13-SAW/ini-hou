@@ -1,4 +1,4 @@
-package com.planepanic.model.screens;
+package com.planepanic.model.ui.screens;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;

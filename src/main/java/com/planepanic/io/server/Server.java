@@ -9,11 +9,6 @@ import com.planepanic.io.FrameDecoder;
 import com.planepanic.io.FrameEncoder;
 import com.planepanic.io.FrameHandler;
 import com.planepanic.io.packet.Packet;
-import com.planepanic.model.Airspace;
-import com.planepanic.model.GameDifficulty;
-import com.planepanic.model.controllers.aircraft.AircraftController;
-import com.planepanic.model.controllers.aircraft.ServerAircraftController;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -35,8 +30,6 @@ public class Server implements Runnable {
 
 	private final int port;
 	private final Map<Integer, Player> players = new HashMap<>();
-
-	private AircraftController controller = null;
 
 	public Server(int port) {
 		this.port = port;
@@ -66,9 +59,6 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		final Server server = this;
-		
-		Airspace airspace = new Airspace();
-		setController(new ServerAircraftController(GameDifficulty.EASY, airspace, this));
 
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -103,13 +93,5 @@ public class Server implements Runnable {
 		for (Entry<Integer, Player> entry : players.entrySet()) {
 			entry.getValue().writePacket(p);
 		}
-	}
-
-	public AircraftController getController() {
-		return controller;
-	}
-
-	public void setController(AircraftController controller) {
-		this.controller = controller;
 	}
 }
