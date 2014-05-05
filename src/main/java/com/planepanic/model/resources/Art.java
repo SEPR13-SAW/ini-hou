@@ -55,7 +55,7 @@ public class Art {
 	 *
 	 * @param value if true, getters return fake artwork objects
 	 */
-	static void setUseFakeArt(boolean value) { useFakeArt = value; }
+	public static void setUseFakeArt(boolean value) { useFakeArt = value; }
 
 	/**
 	 * Initialises loading of texture, should be called once
