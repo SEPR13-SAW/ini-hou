@@ -115,7 +115,7 @@ public final class ServerAircraftController extends AircraftController {
 			// generated), add it as an actor to the stage
 			if (generatedAircraft != null) {
 				try {
-					server.broadcast(new SpawnPlanePacket(generatedAircraft.getId(), (byte) generatedAircraft.getPlayer().getId(), "Test", generatedAircraft.getFlightPlan()));
+					server.broadcast(new SpawnPlanePacket(generatedAircraft.getId(), (byte) generatedAircraft.getPlayer().getId(), generatedAircraft.getName(), generatedAircraft.getFlightPlan(), generatedAircraft.getAltitude()));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

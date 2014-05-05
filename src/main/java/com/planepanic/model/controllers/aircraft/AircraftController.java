@@ -256,8 +256,11 @@ public abstract class AircraftController extends InputListener {
 		// generate the next aircraft
 		lastGenerated = timer;
 
+		newAircraft.setName("YO" + String.format("%03d", rng.nextInt(1000)));
+
 		return newAircraft;
 	}
+	private final static Random rng = new Random();
 
 	/**
 	 * Selects random aircraft type from aircraftTypeList.
@@ -324,7 +327,7 @@ public abstract class AircraftController extends InputListener {
 		allowRedirection = value;
 	}
 
-	public abstract void incScore(int ammount, Aircraft aircraft);
+	public abstract void incScore(int amount, Aircraft aircraft);
 
 
 }

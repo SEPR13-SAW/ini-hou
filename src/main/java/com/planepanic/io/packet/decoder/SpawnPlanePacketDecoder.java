@@ -26,7 +26,9 @@ public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 			waypoints.add(new Waypoint(buffer.readFloat(), buffer.readFloat(), false));
 		}
 
-		return new SpawnPlanePacket(planeId, playerId, name, waypoints);
+		int altitude = buffer.readInt();
+
+		return new SpawnPlanePacket(planeId, playerId, name, waypoints, altitude);
 	}
 
 }

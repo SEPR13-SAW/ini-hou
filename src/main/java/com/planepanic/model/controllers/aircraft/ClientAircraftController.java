@@ -328,9 +328,10 @@ public final class ClientAircraftController extends AircraftController {
 		score += ammount;
 	}
 
-	public void addAircraft(Player player, int planeId, String name, ArrayList<Waypoint> flightPlan, boolean shouldLand) {
+	public void addAircraft(Player player, int planeId, String name, ArrayList<Waypoint> flightPlan, boolean shouldLand, int altitude) {
 		Airport airport = airportList.get(player.getId());
 		Aircraft newAircraft = new Aircraft(this, randomAircraftType(), flightPlan, planeId, shouldLand, airport, player);
+		newAircraft.setAltitude(altitude);
 		aircraftList.add(newAircraft);
 		newAircraft.toFront();
 		airspace.addActor(newAircraft);

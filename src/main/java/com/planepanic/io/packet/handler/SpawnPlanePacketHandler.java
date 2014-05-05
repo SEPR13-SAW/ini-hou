@@ -14,7 +14,7 @@ public final class SpawnPlanePacketHandler extends Handler<SpawnPlanePacket, Cli
 	@Override
 	public void handle(SpawnPlanePacket packet, Client client) throws Exception {
 		System.out.println(client.getPlayer() + ", " + client.getPlayer().getController());
-		client.getPlayer().getController().addAircraft(client.getPlayer(), packet.getPlaneId(), packet.getName(), (ArrayList<Waypoint>) packet.getFlightPlan(), true);
+		client.getPlayer().getController().addAircraft(client.getPlayer(), packet.getPlaneId(), packet.getName(), (ArrayList<Waypoint>) packet.getFlightPlan(), true, packet.getAltitude());
 	}
 
 }

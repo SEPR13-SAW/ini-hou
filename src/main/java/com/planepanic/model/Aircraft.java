@@ -738,4 +738,8 @@ public final class Aircraft extends Entity {
 		return id;
 	}
 
+	public void setAltitude(int altitude) {
+		this.altitude = altitude;
+	}
+
 }

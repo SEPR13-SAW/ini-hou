@@ -30,6 +30,8 @@ public final class SpawnPlanePacketEncoder extends Encoder<SpawnPlanePacket> {
 			buf.writeFloat(wp.getY());
 		}
 
+		buf.writeInt(packet.getAltitude());
+
 		return buf;
 	}
 
