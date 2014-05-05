@@ -28,12 +28,34 @@ public class ScoreBar extends Entity {
 		if(this.lengthRed > 0 && this.lengthRed < this.lengthBar)
 			this.lengthRed += this.step;
 		this.lengthBlue = this.lengthBar - this.lengthRed;
+		System.out.println("red" + lengthRed);
+		System.out.println("blue" + lengthBlue);
+		isRedBarFull();
+		
+
 	}
 	
 	public void increaseBlue(){
 		if(this.lengthRed > 0 && this.lengthRed < this.lengthBar)
 			this.lengthRed -= this.step;
 		this.lengthBlue = this.lengthBar - this.lengthRed;
+
+
+	}
+	
+	public boolean isBlueBarFull(){
+		if(this.lengthRed == 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isRedBarFull(){
+		if(this.lengthRed == this.lengthBar){
+			System.out.println("red full");
+			return true;	
+		}else
+			return false;
 	}
 	
 	

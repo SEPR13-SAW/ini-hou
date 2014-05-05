@@ -49,9 +49,9 @@ public class ATC extends Game
 	 * @param time final time
 	 * @param score final score
 	 */
-	public void showEndScreen(float time, float score)
+	public void showEndScreen(float time, float score, boolean gameWon)
 	{
-		setScreen(new EndScreen(this, time, score));
+		setScreen(new EndScreen(this, time, score, gameWon));
 	}
 
 	public void showStartMultiplayerScreen(GameDifficulty multi) {

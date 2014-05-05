@@ -14,7 +14,7 @@ import com.planepanic.model.resources.Art;
 
 public class EndScreen extends AbstractScreen
 {
-	public EndScreen(ATC game, float time, float score) {
+	public EndScreen(ATC game, float time, float score, boolean gameWon) {
 
 		super(game);
 
@@ -35,20 +35,32 @@ public class EndScreen extends AbstractScreen
 		});
 
 		root.setKeyboardFocus(ui);
-
+		Label text; 
 		Art.getSkin().getFont("default").setScale(1f);
-
-		Label text = new Label(
-				"You have failed.\n"
-						+ "Two aeroplanes have collided mid-flight in a huge crash which resulted in the death of many innocent people.\n"
-						+ "However, surprisingly, you managed to avoid a crash for exactly "
-						+ Math.round(time)
-						+ " seconds, which is respectable (at least by some standards).\n"
-						+ "In addition you achieved a score of "
-						+ Math.round(score)
-						+ ".\n"
-						+ "\nPRESS ESC TO RETURN TO THE MENU ",
-				Art.getSkin(), "textStyle");
+		if(gameWon)
+			text = new Label(
+					"You have Won.\n"
+							+ "Two aeroplanes have collided mid-flight in a huge crash which resulted in the death of many innocent people.\n"
+							+ "However, surprisingly, you managed to avoid a crash for exactly "
+							+ Math.round(time)
+							+ " seconds, which is respectable (at least by some standards).\n"
+							+ "In addition you achieved a score of "
+							+ Math.round(score)
+							+ ".\n"
+							+ "\nPRESS ESC TO RETURN TO THE MENU ",
+					Art.getSkin(), "textStyle");
+		else
+			text = new Label(
+					"You have Lost.\n"
+							+ "Two aeroplanes have collided mid-flight in a huge crash which resulted in the death of many innocent people.\n"
+							+ "However, surprisingly, you managed to avoid a crash for exactly "
+							+ Math.round(time)
+							+ " seconds, which is respectable (at least by some standards).\n"
+							+ "In addition you achieved a score of "
+							+ Math.round(score)
+							+ ".\n"
+							+ "\nPRESS ESC TO RETURN TO THE MENU ",
+					Art.getSkin(), "textStyle");
 
 		ui.add(text).center();
 

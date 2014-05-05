@@ -30,13 +30,16 @@ public final class ClientAircraftController extends AircraftController {
 
 	/**
 	 * 
-	 * @param diff game difficulty, changes number of aircraft and time between
+	 * @param diff
+	 *            game difficulty, changes number of aircraft and time between
 	 *            them
-	 * @param airspace the group where all of the waypoints and aircraft will be
+	 * @param airspace
+	 *            the group where all of the waypoints and aircraft will be
 	 *            added
 	 * @param screen
 	 */
-	public ClientAircraftController(GameDifficulty diff, Airspace airspace, ScreenBase screen, Client client) {
+	public ClientAircraftController(GameDifficulty diff, Airspace airspace,
+			ScreenBase screen, Client client) {
 		super(diff, airspace);
 		this.score = 0;
 		this.screen = screen;
@@ -59,7 +62,7 @@ public final class ClientAircraftController extends AircraftController {
 		// Updates aircraft in turn
 		// Removes aircraft which are no longer active from aircraftList.
 		// Manages collision detection.
-		//System.out.println(aircraftList);
+		// System.out.println(aircraftList);
 		for (int i = 0; i < aircraftList.size(); i++) {
 			Aircraft planeI = aircraftList.get(i);
 
@@ -68,27 +71,34 @@ public final class ClientAircraftController extends AircraftController {
 			planeI.setBreaching(false);
 
 			// Collision Detection + Separation breach detection.
-			/*for (Aircraft planeJ : aircraftList) {
-				// Checking for breach of separation.
-				if (!planeI.equals(planeJ)
-						// Check difference in altitude.
-						&& Math.abs(planeI.getAltitude() - planeJ.getAltitude()) < planeI
-								.getSeparationRadius()
-						// Check difference in horizontal 2d plane.
-						&& planeI.getCoords().dst(planeJ.getCoords()) < planeI
-								.getSeparationRadius()) {
-
-					separationRulesBreached(planeI, planeJ);
-				}
-			}*/
+			/*
+			 * for (Aircraft planeJ : aircraftList) { // Checking for breach of
+			 * separation. if (!planeI.equals(planeJ) // Check difference in
+			 * altitude. && Math.abs(planeI.getAltitude() -
+			 * planeJ.getAltitude()) < planeI .getSeparationRadius() // Check
+			 * difference in horizontal 2d plane. &&
+			 * planeI.getCoords().dst(planeJ.getCoords()) < planeI
+			 * .getSeparationRadius()) {
+			 * 
+			 * separationRulesBreached(planeI, planeJ); } }
+			 */
 
 			// Remove inactive aircraft.
 			if (!planeI.isActive()) {
 				removeAircraft(i);
 			}
 
-			if (planeI.getAltitude() < 0) {
-				screen.getGame().showEndScreen(timer, score);
+			if(scoreBar.isRedBarFull()){
+				if(client.getPlayer().getId() == 1)
+					this.gameWon();
+				else
+					this.gameLost();
+			}
+			if(scoreBar.isBlueBarFull()){
+				if(client.getPlayer().getId() == 0)
+					this.gameWon();
+				else
+					this.gameLost();
 			}
 
 		}
@@ -120,8 +130,10 @@ public final class ClientAircraftController extends AircraftController {
 	/**
 	 * Handles what happens after a collision
 	 * 
-	 * @param a first aircraft that collided
-	 * @param b second aircraft that collided
+	 * @param a
+	 *            first aircraft that collided
+	 * @param b
+	 *            second aircraft that collided
 	 */
 	@Override
 	protected void collisionHasOccured(Aircraft a, Aircraft b) {
@@ -130,14 +142,16 @@ public final class ClientAircraftController extends AircraftController {
 		Art.getSound("crash").play(0.6f);
 
 		// change the screen to the endScreen
-		screen.getGame().showEndScreen(timer, score);
+		screen.getGame().showEndScreen(timer, score, false);
 	}
 
 	/**
 	 * Handles what happens after the separation rules have been breached
 	 * 
-	 * @param a first aircraft that breached
-	 * @param b second aircraft that breached
+	 * @param a
+	 *            first aircraft that breached
+	 * @param b
+	 *            second aircraft that breached
 	 */
 	@Override
 	protected void separationRulesBreached(Aircraft a, Aircraft b) {
@@ -183,12 +197,14 @@ public final class ClientAircraftController extends AircraftController {
 	/**
 	 * Redirects aircraft to another waypoint.
 	 * 
-	 * @param waypoint Waypoint to redirect to
+	 * @param waypoint
+	 *            Waypoint to redirect to
 	 */
 	public void redirectAircraft(Waypoint waypoint) {
 		Debug.msg("Redirecting aircraft " + 0 + " to " + waypoint);
 
-		if (getSelectedAircraft() == null || getSelectedAircraft().isLanded() == true)
+		if (getSelectedAircraft() == null
+				|| getSelectedAircraft().isLanded() == true)
 			return;
 
 		getSelectedAircraft().insertWaypoint(waypoint);
@@ -255,7 +271,9 @@ public final class ClientAircraftController extends AircraftController {
 			if (keycode == Keys.R)
 				selectedAircraft.returnToPath();
 
-			if (keycode == Keys.F && selectedAircraft.getAltitude() == 5000 && selectedAircraft.getAirport().getLandedPlanes().size() < 10) {
+			if (keycode == Keys.F
+					&& selectedAircraft.getAltitude() == 5000
+					&& selectedAircraft.getAirport().getLandedPlanes().size() < 10) {
 				selectedAircraft.landAircraft();
 				this.selectedAircraft = null;
 			}
@@ -263,9 +281,11 @@ public final class ClientAircraftController extends AircraftController {
 		}
 
 		if (keycode == Keys.T) {
-			if (airportList.get(airportFlag).getLandedPlanes().size() != 0 && this.getTimer() - this.lastTakeOff > 2) {
+			if (airportList.get(airportFlag).getLandedPlanes().size() != 0
+					&& this.getTimer() - this.lastTakeOff > 2) {
 				this.lastTakeOff = this.getTimer();
-				Aircraft aircraft = airportList.get(airportFlag).getLandedPlanes().poll();
+				Aircraft aircraft = airportList.get(airportFlag)
+						.getLandedPlanes().poll();
 				airportList.get(airportFlag).takenPositions.poll();
 				airportList.get(airportFlag).findNext();
 				aircraft.setActive(true);
@@ -314,8 +334,6 @@ public final class ClientAircraftController extends AircraftController {
 
 		return false;
 	}
-	
-	
 
 	@Override
 	/**
@@ -341,14 +359,24 @@ public final class ClientAircraftController extends AircraftController {
 		score += ammount;
 	}
 
-	public void addAircraft(Player player, int planeId, String name, ArrayList<Waypoint> flightPlan, boolean shouldLand, int altitude) {
+	public void addAircraft(Player player, int planeId, String name,
+			ArrayList<Waypoint> flightPlan, boolean shouldLand, int altitude) {
 		Airport airport = airportList.get(player.getId());
-		Aircraft newAircraft = new Aircraft(this, randomAircraftType(), flightPlan, planeId, shouldLand, airport, player);
+		Aircraft newAircraft = new Aircraft(this, randomAircraftType(),
+				flightPlan, planeId, shouldLand, airport, player);
 		newAircraft.setAltitude(altitude);
 		aircraftList.add(newAircraft);
 		newAircraft.toFront();
 		airspace.addActor(newAircraft);
 		Art.getSound("ding").play(0.5f);
+	}
+	
+	public void gameWon(){
+		this.screen.getGame().showEndScreen(0, 0, true);
+	}
+	
+	public void gameLost(){
+		this.screen.getGame().showEndScreen(0,0, false);
 	}
 
 }
