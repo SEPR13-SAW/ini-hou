@@ -120,7 +120,8 @@ public class AircraftControllerTest extends FakeArtEnabler
 		{
 			return new ATC()
 			{
-				public void showEndScreen(float time, float score)
+				@Override
+				public void showEndScreen(float time, float score, boolean gameWon)
 				{
 					gameEnded = true;
 				}
