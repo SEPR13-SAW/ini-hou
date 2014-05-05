@@ -5,13 +5,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import seprini.ATC;
-import seprini.controllers.AircraftController;
-import seprini.controllers.SingleAircraftController;
-import seprini.data.Config;
-import seprini.data.GameDifficulty;
-import seprini.models.types.AircraftType;
-import seprini.screens.ScreenBase;
+import com.planepanic.ATC;
+import com.planepanic.model.controllers.aircraft.AircraftController;
+import com.planepanic.model.controllers.aircraft.SingleAircraftController;
+import com.planepanic.model.Config;
+import com.planepanic.model.GameDifficulty;
+import com.planepanic.model.AircraftType;
+import com.planepanic.model.screens.ScreenBase;
+import com.planepanic.model.Aircraft;
+import com.planepanic.model.Waypoint;
+import com.planepanic.model.Airport;
+import com.planepanic.model.Airspace;
 
 import java.util.*;
 
