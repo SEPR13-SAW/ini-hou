@@ -372,11 +372,11 @@ public final class ClientAircraftController extends AircraftController {
 	}
 	
 	public void gameWon(){
-		this.screen.getGame().showEndScreen(0, 0, true);
+		this.screen.getGame().showEndScreen(timer, 0, true, client);
 	}
 	
 	public void gameLost(){
-		this.screen.getGame().showEndScreen(0,0, false);
+		this.screen.getGame().showEndScreen(timer, 0, false, client);
 	}
 
 }
