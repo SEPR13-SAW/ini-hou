@@ -191,8 +191,6 @@ public final class SingleAircraftController extends AircraftController {
 	 * @param aircraft
 	 */
 	private void selectAircraft(Aircraft aircraft) {
-		// Only allows to select planes on the left side of the screen
-		if (aircraft.getCoords().x <= (this.getAirspace().getStage().getWidth() - 200) / 2) {
 			// make sure old selected aircraft is no longer selected in its own
 			// object
 			if (selectedAircraft != null) {
@@ -210,7 +208,6 @@ public final class SingleAircraftController extends AircraftController {
 
 			// make new aircraft know it's selected
 			selectedAircraft.setSelected(true);
-		}
 	}
 
 	/**
