@@ -12,7 +12,7 @@ import com.planepanic.model.Debug;
 import com.planepanic.model.Entrypoint;
 import com.planepanic.model.Exitpoint;
 import com.planepanic.model.Waypoint;
-import com.planepanic.model.controllers.AircraftController;
+import com.planepanic.model.controllers.aircraft.AircraftController;
 
 public class WaypointComponent {
 	

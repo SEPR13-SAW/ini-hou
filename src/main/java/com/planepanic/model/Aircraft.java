@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.planepanic.io.client.Player;
-import com.planepanic.model.controllers.AircraftController;
+import com.planepanic.model.controllers.aircraft.AircraftController;
 import com.planepanic.model.screens.AbstractScreen;
 
 public final class Aircraft extends Entity {

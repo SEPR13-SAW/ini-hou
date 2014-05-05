@@ -1,6 +1,6 @@
 package com.planepanic.io.client;
 
-import com.planepanic.model.controllers.ClientAircraftController;
+import com.planepanic.model.controllers.aircraft.ClientAircraftController;
 
 import lombok.Getter;
 import lombok.Setter;

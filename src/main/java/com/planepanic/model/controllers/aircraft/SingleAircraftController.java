@@ -1,4 +1,4 @@
-package com.planepanic.model.controllers;
+package com.planepanic.model.controllers.aircraft;
 
 import java.util.ArrayList;
 

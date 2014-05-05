@@ -11,6 +11,8 @@ import com.esotericsoftware.tablelayout.Cell;
 import com.planepanic.model.Aircraft;
 import com.planepanic.model.Art;
 import com.planepanic.model.Config;
+import com.planepanic.model.controllers.aircraft.AircraftController;
+import com.planepanic.model.controllers.aircraft.SingleAircraftController;
 import com.planepanic.model.screens.ScreenBase;
 
 /**
