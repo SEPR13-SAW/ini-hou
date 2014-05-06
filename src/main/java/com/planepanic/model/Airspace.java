@@ -195,9 +195,6 @@ public final class Airspace extends Entity {
 				r.remove();
 			}
 		}
-
-		// Test plane.
-		//addPlane(new Plane(this));
 	}
 
 	public void sendLand() {

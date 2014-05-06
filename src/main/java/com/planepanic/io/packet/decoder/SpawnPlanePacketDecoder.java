@@ -24,7 +24,6 @@ public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 		Stack<Waypoint> waypoints = new Stack<>();
 		for (int i = 0; i < nWaypoints; i++) {
 			Waypoint wp = WaypointManager.getAll().get(buffer.readByte() & 0xFF);
-			System.out.println("decoder wp = " + wp);
 			waypoints.add(wp);
 		}
 

@@ -64,9 +64,6 @@ public final class Plane extends Entity {
 		this.flightplan.push(a);
 
 		this.coords = a.coords.cpy();
-		System.out.println("flightPlan size = " + this.flightplan.size());
-		System.out.println("a = " + a);
-		System.out.println("b = " + b);
 		setRotation((float) ((Math.atan2(b.coords.y - coords.y, b.coords.x
 				- coords.x) / Math.PI) * 180));
 
@@ -83,9 +80,7 @@ public final class Plane extends Entity {
 			flightplan.push(WaypointManager.randomExit());
 			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG
 					.nextInt(airspace.getRunways().size())];
-			System.out.println("runway Approach " + runway.getApproach());
 			flightplan.push(runway.getEndOfRunway());
-			System.out.println("end of runway " + flightplan.peek());
 			flightplan.push((Waypoint) runway);
 			flightplan.push(runway.getStartOfRunway());
 			flightplan.push(runway.getApproach());
@@ -100,8 +95,6 @@ public final class Plane extends Entity {
 				flightplan.push(wp);
 		}
 		flightplan.push(WaypointManager.randomEntry());
-		System.out.println("FlightPlan size in randomFLightPlan() = "
-				+ flightplan.size());
 	}
 
 	@Override
@@ -151,12 +144,7 @@ public final class Plane extends Entity {
 							flightplan.size())) {
 						if (point instanceof Runway) {
 							point = airspace.getRunways().get(player);
-							System.out.println("Drawing! Point = " + point);
 						}
-						System.out.println("Drawing! flightplan size = "
-								+ flightplan.subList(1, flightplan.size()));
-						System.out.println("Drawing! Point = " + point);
-						System.out.println("Drawing! Next = " + next);
 						drawer.line(next.coords.x, next.coords.y,
 								point.coords.x, point.coords.y);
 						next = point;
