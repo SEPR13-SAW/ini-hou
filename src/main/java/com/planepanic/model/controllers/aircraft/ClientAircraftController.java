@@ -50,6 +50,13 @@ public final class ClientAircraftController extends AircraftController {
 	 * the stage. Collision Detection. Removes aircraft if inactive.
 	 */
 	public void update(float delta) {
+		// Deselects aircraft after crossing the middle of the screen
+		if(this.selectedAircraft != null && ((this.getSelectedAircraft().getCoords().x > 540 && client.getPlayer().getId() == 0) || (this.getSelectedAircraft().getCoords().x < 540 && client.getPlayer().getId() == 1))){
+			this.getSelectedAircraft().setSelected(false);
+			this.getSelectedAircraft().turnLeft(false);
+			this.getSelectedAircraft().turnRight(false);
+			this.selectedAircraft = null;
+		}
 		// Update timer
 		timer += delta;
 
@@ -167,7 +174,7 @@ public final class ClientAircraftController extends AircraftController {
 	@SuppressWarnings("unused")
 	private void selectAircraft(Aircraft aircraft) {
 		// Only allows to select planes on the left side of the screen
-		if ((client.getPlayer().getId() == 0) && (aircraft.getCoords().x <= (this.getAirspace().getStage().getWidth() - 200) / 2) || ((client.getPlayer().getId() == 1) && (aircraft.getCoords().x > (this.getAirspace().getStage().getWidth() - 200) / 2))) {
+		if (((client.getPlayer().getId() == 0) && (aircraft.getCoords().x <= (this.getAirspace().getStage().getWidth() - 200) / 2)) || ((client.getPlayer().getId() == 1) && (aircraft.getCoords().x > (this.getAirspace().getStage().getWidth() - 200) / 2))) {
 			// make sure old selected aircraft is no longer selected in its own
 			// object
 			if (selectedAircraft != null) {
