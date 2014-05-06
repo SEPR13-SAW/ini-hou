@@ -202,13 +202,12 @@ public final class Plane extends Entity {
 		}*/
 
 		if (state == State.APPROACHING) {
-			if((airspace.getRunways().get(player).getLandedPlanes().size() + airspace.getApproachingPlanes() >= 10)){
+			if((airspace.getRunways().get(player).getLandedPlanes().size() + airspace.getApproachingPlanes() > 10)){
 				state = State.FLIGHTPLAN;
 				flightplan.push(airspace.getRunways().get(player).getStartOfRunway());
 				flightplan.push(airspace.getRunways().get(player).getApproach());
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
-			}
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
+			} else if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
 		} else if (state == State.LANDING) {
@@ -239,7 +238,6 @@ public final class Plane extends Entity {
 					if (flightplan.peek() instanceof Runway && state == State.FLIGHTPLAN) {
 						state = State.APPROACHING;
 						airspace.setApproachingPlanes(airspace.getApproachingPlanes() + 1);
-						System.out.println("approaching = " + airspace.getApproachingPlanes());
 					}
 				}
 			}
