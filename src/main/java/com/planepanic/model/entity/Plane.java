@@ -73,6 +73,7 @@ public final class Plane extends Entity {
 	public void randomFlightPlan() {
 		if (MathUtils.RNG.nextInt(2) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
 			flightplan.push((Waypoint) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())]);
+
 		} else {
 			flightplan.push(WaypointManager.randomExit());
 		}
@@ -190,11 +191,11 @@ public final class Plane extends Entity {
 	public void tick(float delta) {
 		time += delta;
 
-		if (getX() < Config.HALF_WIDTH) {
-			player = 0;
-		} else {
-			player = 1;
-		}
+//		if (getX() < Config.HALF_WIDTH) {
+//			player = 0;
+//		} else {
+//			player = 1;
+//		}
 
 		if (state == State.APPROACHING) {
 			turnTowards(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), delta);
@@ -208,6 +209,7 @@ public final class Plane extends Entity {
 			turnTowards(airspace.getRunways().get(player).coords, delta);
 
 			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords, coords, 30)) {
+				airspace.getRunways().get(player).addLanded(this);
 				airspace.removePlane(this);
 			}
 		} else if (state == State.FLIGHTPLAN) {
