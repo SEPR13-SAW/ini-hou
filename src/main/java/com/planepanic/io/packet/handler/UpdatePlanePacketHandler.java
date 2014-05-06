@@ -14,7 +14,7 @@ public final class UpdatePlanePacketHandler extends Handler<UpdatePlanePacket, C
 	public void handle(UpdatePlanePacket packet, Client client) throws Exception {
 		Airspace airspace = client.getAirspace();
 		for (Plane plane : airspace.getPlanes()) {
-			if (packet.getId() == packet.getPlaneId()) {
+			if (plane.getId() == packet.getPlaneId()) {
 				plane.setAltitude(packet.getAltitude());
 				plane.setVelocity(packet.getVelocity());
 				plane.setRotation(packet.getDirection());

@@ -23,6 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.planepanic.ATC;
 import com.planepanic.io.client.Client;
 import com.planepanic.io.client.Player;
+import com.planepanic.io.packet.SetAltitudePacket;
+import com.planepanic.io.packet.SetDirectionPacket;
+import com.planepanic.io.packet.SetVelocityPositionPacket;
 import com.planepanic.io.packet.SpawnPlanePacket;
 import com.planepanic.io.packet.UpdatePlanePacket;
 import com.planepanic.io.server.Server;
@@ -175,6 +178,12 @@ public final class Airspace extends Entity {
 			if (difficulty != Difficulty.MULTIPLAYER_SERVER) {
 				WaypointManager.set(1, runways.get(1));
 			}
+		} else {
+			if (WaypointManager.getAll().containsKey(1)) {
+				Runway r = (Runway) WaypointManager.getAll().get(1);
+				WaypointManager.getAll().remove(1);
+				r.remove();
+			}
 		}
 
 		// Test plane.
@@ -267,8 +276,7 @@ public final class Airspace extends Entity {
 	public void tick(float delta) {
 		if (selected != null) {
 			if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
-				if (selected.getId() != player.getId()) {
-					System.out.println("deselecting " + selected);
+				if (selected.getPlayer() != player.getId()) {
 					selected = null;
 				}
 			}
@@ -291,6 +299,13 @@ public final class Airspace extends Entity {
 				removePlane(plane);
 				continue;
 			}
+
+			if (difficulty == Difficulty.MULTIPLAYER_CLIENT || difficulty == Difficulty.MULTIPLAYER_SERVER)
+				if (plane.getX() < Config.HALF_WIDTH) {
+					plane.setPlayer(0);
+				} else {
+					plane.setPlayer(1);
+				}
 
 			plane.setBreakingExclusion(false);
 
@@ -318,6 +333,20 @@ public final class Airspace extends Entity {
 						server.broadcast(new UpdatePlanePacket(plane.getId(), plane.getX(), plane.getY(), plane.getRotation(), (int) plane.getAltitude(), plane.getVelocity()));
 					} catch (IOException e) {
 						e.printStackTrace();
+					}
+				}
+			}
+
+			if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
+				if (tick % 10 == 0) {
+					if (plane.getState() == State.FLYING) {
+						try {
+							client.writePacket(new SetVelocityPositionPacket(plane.getId(), plane.getVelocity(), plane.getCoords().x, plane.getCoords().y));
+							client.writePacket(new SetAltitudePacket(plane.getId(), plane.getAltitude()));
+							client.writePacket(new SetDirectionPacket(plane.getId(), plane.getRotation()));
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}

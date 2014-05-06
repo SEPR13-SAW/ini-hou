@@ -12,7 +12,7 @@ public final class SetAltitudePacketDecoder extends Decoder<SetAltitudePacket> {
 	@Override
 	public SetAltitudePacket decode(ByteBuf buffer) {
 		int planeId = buffer.readInt();
-		int altitude = buffer.readInt();
+		float altitude = buffer.readFloat();
 
 		return new SetAltitudePacket(planeId, altitude);
 	}

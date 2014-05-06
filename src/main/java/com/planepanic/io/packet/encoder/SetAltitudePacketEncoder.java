@@ -15,7 +15,7 @@ public final class SetAltitudePacketEncoder extends Encoder<SetAltitudePacket> {
 		ByteBuf buf = alloc.buffer();
 
 		buf.writeInt(packet.getPlaneId());
-		buf.writeInt(packet.getAltitude());
+		buf.writeFloat(packet.getAltitude());
 
 		return buf;
 	}
