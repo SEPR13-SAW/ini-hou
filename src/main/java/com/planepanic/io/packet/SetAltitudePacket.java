@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class SetAltitudePacket extends Packet {
+	public final static int ID = 0x01;
+
 	private final int planeId;
 	private final float altitude;
 
@@ -11,7 +13,7 @@ public final class SetAltitudePacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x01;
+		return ID;
 	}
 
 	public int getPlaneId() {

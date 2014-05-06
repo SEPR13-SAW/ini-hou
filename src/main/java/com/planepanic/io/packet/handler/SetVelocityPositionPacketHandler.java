@@ -7,7 +7,7 @@ import com.planepanic.model.entity.Plane;
 
 public final class SetVelocityPositionPacketHandler extends Handler<SetVelocityPositionPacket, Player> {
 	public SetVelocityPositionPacketHandler() {
-		super(0x03);
+		super(SetVelocityPositionPacket.ID);
 	}
 
 	@Override

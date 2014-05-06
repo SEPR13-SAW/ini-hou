@@ -38,5 +38,7 @@ public abstract class Handler<T extends Packet, A> {
 		new UpdatePlanePacketHandler();
 		new SetDirectionPacketHandler();
 		new SetVelocityPositionPacketHandler();
+		new SetAltitudePacketHandler();
+		new LandPlanePacketHandler();
 	}
 }

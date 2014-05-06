@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class UpdateScorePacket extends Packet {
+	public final static int ID = 0x83;
+
 	private final int playerId;
 	private final int score;
 
@@ -11,7 +13,7 @@ public final class UpdateScorePacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x83;
+		return ID;
 	}
 
 	public int getPlayerId() {

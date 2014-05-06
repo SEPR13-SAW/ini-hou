@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 
 public final class SetDirectionPacketDecoder extends Decoder<SetDirectionPacket> {
 	public SetDirectionPacketDecoder() {
-		super(0x02);
+		super(SetDirectionPacket.ID);
 	}
 
 	@Override

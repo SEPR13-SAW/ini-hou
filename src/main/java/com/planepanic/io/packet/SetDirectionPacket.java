@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class SetDirectionPacket extends Packet {
+	public final static int ID = 0x02;
+
 	private final int planeId;
 	private final float direction;
 
@@ -11,7 +13,7 @@ public final class SetDirectionPacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x02;
+		return ID;
 	}
 
 	public int getPlaneId() {

@@ -7,7 +7,7 @@ import com.planepanic.model.entity.Plane;
 
 public final class SetDirectionPacketHandler extends Handler<SetDirectionPacket, Player> {
 	public SetDirectionPacketHandler() {
-		super(0x02);
+		super(SetDirectionPacket.ID);
 	}
 
 	@Override

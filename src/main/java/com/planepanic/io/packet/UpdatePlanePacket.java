@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class UpdatePlanePacket extends Packet {
+	public final static int ID = 0x82;
+
 	private final int planeId;
 	private final float x, y, direction;
 	private final int altitude;
@@ -17,7 +19,7 @@ public final class UpdatePlanePacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x82;
+		return ID;
 	}
 
 	public int getPlaneId() {

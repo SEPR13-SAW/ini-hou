@@ -35,7 +35,7 @@ public class Client implements Runnable {
 	private final Runnable onConnect;
 	@Getter private final Map<Integer, Player> players = new HashMap<>();
 	@Getter private final String name;
-	@Getter @Setter private Player player;
+	@Getter private Player player;
 	@Getter @Setter private Airspace airspace;
 	
 	public Client(SocketAddress host, Runnable onConnect, String name) {
@@ -101,5 +101,10 @@ public class Client implements Runnable {
 	
 			channel.writeAndFlush(frame);
 		}
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+		player.setClient(this);
 	}
 }

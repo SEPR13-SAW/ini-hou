@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBufAllocator;
 
 public final class SetAltitudePacketEncoder extends Encoder<SetAltitudePacket> {
 	public SetAltitudePacketEncoder() {
-		super(0x03);
+		super(SetAltitudePacket.ID);
 	}
 
 	@Override

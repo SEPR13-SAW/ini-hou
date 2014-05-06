@@ -35,5 +35,7 @@ public abstract class Decoder<T extends Packet> {
 		new SpawnPlanePacketDecoder();
 		new UpdatePlanePacketDecoder();
 		new UpdateScorePacketDecoder();
+		new LandPlanePacketDecoder();
+		new EndGamePacketDecoder();
 	}
 }

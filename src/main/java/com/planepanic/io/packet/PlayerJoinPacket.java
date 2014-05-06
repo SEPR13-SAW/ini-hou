@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class PlayerJoinPacket extends Packet {
+	public final static int ID = 0x80;
+
 	private final byte playerId;
 	private final String name;
 
@@ -11,7 +13,7 @@ public final class PlayerJoinPacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x80;
+		return ID;
 	}
 
 	public byte getPlayerId() {
