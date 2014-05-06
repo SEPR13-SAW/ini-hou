@@ -3,6 +3,7 @@ package com.planepanic;
 import java.net.InetSocketAddress;
 
 import com.badlogic.gdx.Game;
+import com.planepanic.io.client.Client;
 import com.planepanic.model.GameDifficulty;
 import com.planepanic.model.resources.Art;
 import com.planepanic.model.screens.EndScreen;
@@ -48,10 +49,23 @@ public class ATC extends Game
 	 * 
 	 * @param time final time
 	 * @param score final score
+	 * @param client 
 	 */
-	public void showEndScreen(float time, float score)
+	public void showEndScreen(float time, float score, boolean gameWon, Client client)
 	{
-		setScreen(new EndScreen(this, time, score));
+		setScreen(new EndScreen(this, time, score, gameWon, client));
+	}
+	
+	/**
+	 * Shows the end screen
+	 * 
+	 * @param time final time
+	 * @param score final score
+	 * @param client 
+	 */
+	public void showEndScreen(float time, float score, boolean gameWon)
+	{
+		setScreen(new EndScreen(this, time, score, gameWon));
 	}
 
 	public void showStartMultiplayerScreen(GameDifficulty multi) {
