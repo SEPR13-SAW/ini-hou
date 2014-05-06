@@ -33,7 +33,7 @@ public final class Plane extends Entity {
 	@Getter private final Airspace airspace;
 	@Getter private final Stack<Waypoint> flightplan;
 	@Getter private final int id;
-	@Getter private int player = 0;
+	@Getter @Setter private int player = 0;
 	@Getter private float time = 0;
 	@Getter @Setter private float velocity;
 	@Getter @Setter private float altitude;
@@ -190,11 +190,11 @@ public final class Plane extends Entity {
 	public void tick(float delta) {
 		time += delta;
 
-		if (getX() < Config.HALF_WIDTH) {
+		/*if (getX() < Config.HALF_WIDTH) {
 			player = 0;
 		} else {
 			player = 1;
-		}
+		}*/
 
 		if (state == State.APPROACHING) {
 			turnTowards(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), delta);
@@ -204,6 +204,9 @@ public final class Plane extends Entity {
 			}
 		} else if (state == State.LANDING) {
 			velocity = Config.MIN_VELOCITY;
+
+			altitude -= delta * 1000;
+			if (altitude < 0) altitude = 0;
 
 			turnTowards(airspace.getRunways().get(player).coords, delta);
 

@@ -2,9 +2,9 @@ package com.planepanic.io.packet;
 
 public final class SetAltitudePacket extends Packet {
 	private final int planeId;
-	private final int altitude;
+	private final float altitude;
 
-	public SetAltitudePacket(int planeId, int altitude) {
+	public SetAltitudePacket(int planeId, float altitude) {
 		this.planeId = planeId;
 		this.altitude = altitude;
 	}
@@ -18,7 +18,7 @@ public final class SetAltitudePacket extends Packet {
 		return planeId;
 	}
 
-	public int getAltitude() {
+	public float getAltitude() {
 		return altitude;
 	}
 

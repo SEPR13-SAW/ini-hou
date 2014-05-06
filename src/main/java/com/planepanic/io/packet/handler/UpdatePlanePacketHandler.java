@@ -20,6 +20,7 @@ public final class UpdatePlanePacketHandler extends Handler<UpdatePlanePacket, C
 				plane.setRotation(packet.getDirection());
 				plane.setX(packet.getX());
 				plane.setY(packet.getY());
+				break;
 			}
 		}
 	}
