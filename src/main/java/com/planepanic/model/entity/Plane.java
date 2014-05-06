@@ -73,8 +73,11 @@ public final class Plane extends Entity {
 	public void randomFlightPlan() {
 		if (MathUtils.RNG.nextInt(1) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
 			flightplan.push(WaypointManager.randomExit());
-			flightplan.push((Waypoint) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())]);
-
+			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())];
+			flightplan.push(runway.getEndOfRunway());
+			flightplan.push((Waypoint) runway);
+			flightplan.push(runway.getStartOfRunway());
+			flightplan.push(runway.getApproach());
 		} else {
 			flightplan.push(WaypointManager.randomExit());
 		}
@@ -182,9 +185,9 @@ public final class Plane extends Entity {
 		if (Math.abs(angle) < 3) return;
 
 		if (angle > 0) {
-			turn(-50 * delta);
+			turn(-70 * delta);
 		} else {
-			turn(50 * delta);
+			turn(70 * delta);
 		}
 	}
 
@@ -199,9 +202,8 @@ public final class Plane extends Entity {
 		}*/
 
 		if (state == State.APPROACHING) {
-			turnTowards(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), delta);
 
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
 		} else if (state == State.LANDING) {
@@ -214,6 +216,7 @@ public final class Plane extends Entity {
 
 			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords, coords, 30)) {
 				airspace.getRunways().get(player).addLanded(this);
+				flightplan.pop();
 				airspace.removePlane(this);
 			}
 		} else if (state == State.FLIGHTPLAN) {
@@ -222,7 +225,8 @@ public final class Plane extends Entity {
 
 		Waypoint point = flightplan.peek();
 		if (!(point instanceof Runway)) {
-			if (MathUtils.closeEnough(point.coords, coords, 30)) {
+			if (MathUtils.closeEnough(point.coords, coords, 10)) {
+
 				flightplan.pop();
 
 				if (!flightplan.isEmpty()) {

@@ -17,12 +17,19 @@ public final class Runway extends Waypoint {
 	public ArrayList<Waypoint> availablePositions = new ArrayList<Waypoint>();
 	public Queue<Waypoint> takenPositions = new LinkedList<Waypoint>();
 	public Waypoint nextPosition;
+	@Getter public Waypoint startOfRunway;
+	@Getter public Waypoint endOfRunway;
+	@Getter public Waypoint approach;
 	
 	public Runway(float x, float y, int id) {
 		super(x, y, id);
 		this.texture = Art.getTextureRegion("airport");
 		this.size = new Vector2(200, 200);
 		this.aircraft = Art.getTextureRegion("aircraft");
+		System.out.println("x = " + x + " y = " + y);
+		this.startOfRunway = new Waypoint(x, (y - 100), id + 1000);
+		this.endOfRunway = new Waypoint(x, (y + 100), id + 2000);
+		this.approach = new Waypoint(x, (y - 200), id + 3000); 
 //		this.adjustPositions();
 	}
 	

@@ -121,10 +121,14 @@ public final class Airspace extends Entity {
 						}
 						return true;
 					case Keys.T:
-						System.out.println("Landed planes = " + getRunways().get(airspace.player.getId()).getLandedPlanes().size());
-						Plane plane = getRunways().get(airspace.player.getId()).getLandedPlanes().poll();
-						plane.setState(State.FLIGHTPLAN);
-						airspace.addPlane(plane);
+						if (getRunways().get(airspace.player.getId())
+								.getLandedPlanes().size() != 0) {
+							Plane plane = getRunways()
+									.get(airspace.player.getId())
+									.getLandedPlanes().poll();
+							plane.setState(State.FLIGHTPLAN);
+							airspace.addPlane(plane);
+						}
 						return true;
 					case Keys.F:
 						if (selected != null) {
