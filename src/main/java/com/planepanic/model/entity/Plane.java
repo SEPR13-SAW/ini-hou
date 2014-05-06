@@ -71,13 +71,18 @@ public final class Plane extends Entity {
 	}
 
 	public void randomFlightPlan() {
-		if (MathUtils.RNG.nextInt(2) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
-			flightplan.push((Waypoint) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())]);
+		if (MathUtils.RNG.nextInt(1) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+			flightplan.push(WaypointManager.randomExit());
+			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())];
+			flightplan.push(runway.getEndOfRunway());
+			flightplan.push((Waypoint) runway);
+			flightplan.push(runway.getStartOfRunway());
+			flightplan.push(runway.getApproach());
 		} else {
 			flightplan.push(WaypointManager.randomExit());
 		}
 
-		int nWaypoints = MathUtils.RNG.nextInt(3) + 1;
+		int nWaypoints = MathUtils.RNG.nextInt(1) + 1;
 		for (int i = 0; i < nWaypoints; i++) {
 			Waypoint wp = WaypointManager.randomWaypoint();
 			if (!flightplan.contains(wp))
@@ -180,16 +185,16 @@ public final class Plane extends Entity {
 		if (Math.abs(angle) < 3) return;
 
 		if (angle > 0) {
-			turn(-50 * delta);
+			turn(-70 * delta);
 		} else {
-			turn(50 * delta);
+			turn(70 * delta);
 		}
 	}
 
 	@SuppressWarnings("deprecation")
 	public void tick(float delta) {
 		time += delta;
-
+		
 		/*if (getX() < Config.HALF_WIDTH) {
 			player = 0;
 		} else {
@@ -197,9 +202,8 @@ public final class Plane extends Entity {
 		}*/
 
 		if (state == State.APPROACHING) {
-			turnTowards(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), delta);
 
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
 		} else if (state == State.LANDING) {
@@ -211,6 +215,8 @@ public final class Plane extends Entity {
 			turnTowards(airspace.getRunways().get(player).coords, delta);
 
 			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords, coords, 30)) {
+				airspace.getRunways().get(player).addLanded(this);
+				flightplan.pop();
 				airspace.removePlane(this);
 			}
 		} else if (state == State.FLIGHTPLAN) {
@@ -219,7 +225,8 @@ public final class Plane extends Entity {
 
 		Waypoint point = flightplan.peek();
 		if (!(point instanceof Runway)) {
-			if (MathUtils.closeEnough(point.coords, coords, 30)) {
+			if (MathUtils.closeEnough(point.coords, coords, 10)) {
+
 				flightplan.pop();
 
 				if (!flightplan.isEmpty()) {

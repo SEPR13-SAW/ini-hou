@@ -123,8 +123,16 @@ public final class Airspace extends Entity {
 							if (selected.getVelocity() < Config.MIN_VELOCITY) selected.setVelocity(Config.MIN_VELOCITY);
 						}
 						return true;
-					//case Keys.T:
-					//	return true;
+					case Keys.T:
+						if (getRunways().get(airspace.player.getId())
+								.getLandedPlanes().size() != 0) {
+							Plane plane = getRunways()
+									.get(airspace.player.getId())
+									.getLandedPlanes().poll();
+							plane.setState(State.FLIGHTPLAN);
+							airspace.addPlane(plane);
+						}
+						return true;
 					case Keys.F:
 						if (selected != null) {
 							if (selected.getFlightplan().peek() instanceof Runway) {
@@ -354,7 +362,8 @@ public final class Airspace extends Entity {
 
 				if (MathUtils.closeEnough(plane.getCoords(), other.getCoords(), 30)) {
 					// Crash.
-					endGame();
+//					endGame();
+					System.out.println("Crashed!!!");
 				}
 			}
 
