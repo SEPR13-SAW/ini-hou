@@ -196,7 +196,12 @@ public final class Plane extends Entity {
 
 	@SuppressWarnings("deprecation")
 	public void tick(float delta) {
-		time += delta;
+
+		if(breakingExclusion){
+			time += 2 * delta;
+		} else {
+			time += delta;
+		}
 		
 		/*if (getX() < Config.HALF_WIDTH) {
 			player = 0;
@@ -225,6 +230,7 @@ public final class Plane extends Entity {
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
 				airspace.getRunways().get(player).addLanded(this);
 				flightplan.pop();
+				time -= 10;
 				airspace.removePlane(this);
 			}
 		} else if (state == State.FLIGHTPLAN) {
@@ -268,6 +274,6 @@ public final class Plane extends Entity {
 	}
 
 	public int getScore() {
-		return (int) (10000f / time);
+		return (int) (1000f - (time * 20f));
 	}
 }

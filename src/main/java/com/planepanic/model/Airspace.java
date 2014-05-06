@@ -362,9 +362,15 @@ public final class Airspace extends Entity {
 					plane.setBreakingExclusion(true);
 				}
 
-				if (MathUtils.closeEnough(plane.getCoords(), other.getCoords(), 30)) {
+				if (MathUtils.closeEnough(plane.getCoords(), other.getCoords(),
+						30)) {
 					// Crash.
-//					endGame();
+					if (difficulty == Difficulty.MULTIPLAYER_CLIENT
+							|| difficulty == Difficulty.MULTIPLAYER_SERVER) {
+						player.setScore(player.getScore() - 3000);
+					} else {
+						endGame();
+					}
 					System.out.println("Crashed!!!");
 				}
 			}
