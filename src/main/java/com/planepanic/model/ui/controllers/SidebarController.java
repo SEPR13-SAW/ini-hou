@@ -107,11 +107,12 @@ public final class SidebarController extends ChangeListener {
 		
 		aircraftControls.row().colspan(2);
 		
-		//createButton("takeOff", "Take Off (T)", aircraftControls, false).width(200);
+		createButton("takeOff", "Take Off (T)", aircraftControls, false).width(200);
 
-		//aircraftControls.row().colspan(2);
+		aircraftControls.row().colspan(2);
 		
 		createButton("land", "Land (F)", aircraftControls, false).width(200);
+
 
 		aircraftControls.row().spaceTop(100);
 
@@ -243,9 +244,6 @@ public final class SidebarController extends ChangeListener {
 					airspace.sendLand();
 				}
 
-				//if (actor.equals(buttons.get("takeOff"))) {
-				//	
-				//}
 
 				if (actor.equals(buttons.get("up"))) {
 					airspace.setUp(!airspace.isUp());
@@ -265,6 +263,19 @@ public final class SidebarController extends ChangeListener {
 					if (selectedAircraft.getVelocity() < Config.MIN_VELOCITY) selectedAircraft.setVelocity(Config.MIN_VELOCITY);
 				}
 
+			}
+			
+
+			if (actor.equals(buttons.get("takeOff"))) {
+				if (airspace.getRunways().get(airspace.getPlayer().getId())
+						.getLandedPlanes().size() != 0) {
+					Plane plane = airspace.getRunways()
+							.get(airspace.getPlayer().getId())
+							.getLandedPlanes().poll();
+					plane.takeOff();
+					airspace.getRunways().get(airspace.getPlayer().getId()).getTakenPositions().poll();
+					airspace.getRunways().get(airspace.getPlayer().getId()).findNext();
+				}
 			}
 			
 		}
