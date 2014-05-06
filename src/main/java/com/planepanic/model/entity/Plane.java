@@ -71,14 +71,15 @@ public final class Plane extends Entity {
 	}
 
 	public void randomFlightPlan() {
-		if (MathUtils.RNG.nextInt(2) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+		if (MathUtils.RNG.nextInt(1) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+			flightplan.push(WaypointManager.randomExit());
 			flightplan.push((Waypoint) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())]);
 
 		} else {
 			flightplan.push(WaypointManager.randomExit());
 		}
 
-		int nWaypoints = MathUtils.RNG.nextInt(3) + 1;
+		int nWaypoints = MathUtils.RNG.nextInt(1) + 1;
 		for (int i = 0; i < nWaypoints; i++) {
 			Waypoint wp = WaypointManager.randomWaypoint();
 			if (!flightplan.contains(wp))
@@ -190,12 +191,12 @@ public final class Plane extends Entity {
 	@SuppressWarnings("deprecation")
 	public void tick(float delta) {
 		time += delta;
-
-//		if (getX() < Config.HALF_WIDTH) {
-//			player = 0;
-//		} else {
-//			player = 1;
-//		}
+		
+		if (getX() < Config.HALF_WIDTH) {
+			player = 0;
+		} else {
+			player = 1;
+		}
 
 		if (state == State.APPROACHING) {
 			turnTowards(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 200)), delta);
