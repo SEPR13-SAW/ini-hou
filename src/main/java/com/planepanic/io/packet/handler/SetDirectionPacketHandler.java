@@ -10,7 +10,6 @@ public final class SetDirectionPacketHandler extends Handler<SetDirectionPacket,
 
 	@Override
 	public void handle(SetDirectionPacket packet, Player player) throws Exception {
-
+		
 	}
-
 }

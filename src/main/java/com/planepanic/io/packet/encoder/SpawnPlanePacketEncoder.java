@@ -22,15 +22,14 @@ public final class SpawnPlanePacketEncoder extends Encoder<SpawnPlanePacket> {
 		buf.writeByte(packet.getPlayerId());
 		ByteBufUtils.writeString(buf, packet.getName());
 
-		List<Waypoint> waypoints = packet.getFlightPlan();
+		List<Waypoint> waypoints = packet.getFlightPlan().subList(0, packet.getFlightPlan().size());
 		buf.writeByte(waypoints.size());
 
 		for (Waypoint wp : waypoints) {
-			buf.writeFloat(wp.getX());
-			buf.writeFloat(wp.getY());
+			buf.writeByte((byte) wp.getId());
 		}
 
-		buf.writeInt(packet.getAltitude());
+		buf.writeFloat(packet.getAltitude());
 
 		return buf;
 	}

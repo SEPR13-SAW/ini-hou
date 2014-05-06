@@ -10,6 +10,8 @@ import com.planepanic.io.FrameEncoder;
 import com.planepanic.io.FrameHandler;
 import com.planepanic.io.packet.Packet;
 import com.planepanic.io.packet.encoder.Encoder;
+import com.planepanic.model.Airspace;
+
 import lombok.Getter;
 import lombok.Setter;
 import io.netty.bootstrap.Bootstrap;
@@ -34,6 +36,7 @@ public class Client implements Runnable {
 	@Getter private final Map<Integer, Player> players = new HashMap<>();
 	@Getter private final String name;
 	@Getter @Setter private Player player;
+	@Getter @Setter private Airspace airspace;
 	
 	public Client(SocketAddress host, Runnable onConnect, String name) {
 		this.host = host;

@@ -13,17 +13,23 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.planepanic.ATC;
+import com.planepanic.io.client.Client;
 import com.planepanic.io.client.Player;
+import com.planepanic.io.server.Server;
 import com.planepanic.model.Airspace;
 import com.planepanic.model.Config;
 import com.planepanic.model.Difficulty;
 import com.planepanic.model.resources.Art;
 import com.planepanic.model.ui.controllers.SidebarController;
+import com.planepanic.io.packet.JoinGamePacket;
 
 /**
  * The game screen - all game logic starts here
  */
 public class GameScreen extends AbstractScreen {
+	Client client = null;
+	Server server = null;
+
 	public GameScreen(ATC game, Difficulty difficulty, boolean host, InetSocketAddress address, String name) {
 		super(game);
 
@@ -38,20 +44,55 @@ public class GameScreen extends AbstractScreen {
 		if (Config.DEBUG)
 			sidebar.debug();
 
+		Airspace serverAirspace = null;
+		if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
+			if (host) {
+				server = new Server(Server.PORT);
+				// Server airspace.
+				serverAirspace = new Airspace(game, Difficulty.MULTIPLAYER_SERVER, null, server, null);
+				address = new InetSocketAddress("127.0.0.1", Server.PORT);
+			}
+
+			client = new Client(address, new Runnable() {
+				@Override
+				public void run() {
+					try {
+						client.writePacket(new JoinGamePacket(client.getName()));
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					}
+				}
+			}, name);
+		}
+
 		// create and add the Airspace group, contains aircraft and waypoints
-		final Airspace airspace = new Airspace(difficulty, new Player(0, ""), null, null);
+		final Airspace airspace = new Airspace(game, difficulty, new Player(0, ""), null, client);
+		if (client != null) client.setAirspace(airspace);
+		if (server != null) server.setAirspace(airspace);
 		root.setKeyboardFocus(airspace);
 
 		// create sidebar
 		final SidebarController sidebarController = new SidebarController(sidebar, airspace, this);
 
-		ui.addActor(new Actor() {
-			@Override
-			public void act(float delta) {
-				airspace.tick(delta);
-				sidebarController.update();
-			}
-		});
+		if (host) {
+			final Airspace sa = serverAirspace;
+			ui.addActor(new Actor() {
+				@Override
+				public void act(float delta) {
+					airspace.tick(delta);
+					sa.tick(delta);
+					sidebarController.update();
+				}
+			});
+		} else {
+			ui.addActor(new Actor() {
+				@Override
+				public void act(float delta) {
+					airspace.tick(delta);
+					sidebarController.update();
+				}
+			});
+		}
 
 		// make it fill the whole screen
 		ui.setFillParent(true);

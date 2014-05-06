@@ -18,6 +18,7 @@ public final class PlayerJoinPacketHandler extends Handler<PlayerJoinPacket, Cli
 			Player player = new Player(id, name);
 			client.addPlayer(player);
 			client.setPlayer(player);
+			client.getAirspace().setPlayer(player);
 		} else {
 			Player player = new Player(id, name);
 			client.addPlayer(player);

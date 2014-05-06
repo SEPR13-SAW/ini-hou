@@ -12,6 +12,7 @@ import com.planepanic.model.Airspace;
 import com.planepanic.model.Config;
 import com.planepanic.model.Difficulty;
 import com.planepanic.model.entity.Plane;
+import com.planepanic.model.entity.Plane.State;
 import com.planepanic.model.resources.Art;
 import com.planepanic.model.ui.screens.ScreenBase;
 
@@ -86,15 +87,15 @@ public final class SidebarController extends ChangeListener {
 
 		// adding buttons to aircraft controls
 
-		createButton("assignWaypoint", " Assign Waypoint", aircraftControls,
-				true).width(200).colspan(2);
-
-		aircraftControls.row();
-
-		//createButton("returnToPath", " Return to Path (R)", aircraftControls, false)
-		//		.width(200).colspan(2);
+		//createButton("assignWaypoint", " Assign Waypoint", aircraftControls,
+		//		true).width(200).colspan(2);
 
 		//aircraftControls.row();
+
+		createButton("returnToPath", " Return to Path (R)", aircraftControls, false)
+				.width(200).colspan(2);
+
+		aircraftControls.row();
 
 		createButton("accelerate", " Accelerate (E)", aircraftControls, false)
 				.width(200).colspan(2);
@@ -106,9 +107,9 @@ public final class SidebarController extends ChangeListener {
 		
 		aircraftControls.row().colspan(2);
 		
-		createButton("takeOff", "Take Off (T)", aircraftControls, false).width(200);
+		//createButton("takeOff", "Take Off (T)", aircraftControls, false).width(200);
 
-		aircraftControls.row().colspan(2);
+		//aircraftControls.row().colspan(2);
 		
 		createButton("land", "Land (F)", aircraftControls, false).width(200);
 
@@ -151,40 +152,23 @@ public final class SidebarController extends ChangeListener {
 		if (airspace.getDifficulty() != Difficulty.MULTIPLAYER_CLIENT) {
 			labels.get("score").setText(Integer.toString(airspace.getPlayer().getScore()));
 		}
-		/*String altitudeText;
-		String speedText;
 
-		// update timer
-		labels.get("timer").setText("" + Math.round(aircrafts.getTimer()));
-		
-		if (aircrafts instanceof SingleAircraftController) {
-			// update score
-			labels.get("score").setText("" + Math.round(((SingleAircraftController) aircrafts).getScore()));
-		}
+		labels.get("timer").setText(Integer.toString((int) airspace.getTime()));
 
-		// if there is no selected aircraft, return immediately to avoid errors
-		// otherwise set it to the local selectedAircraft variable and update
-		// the text
-		if ((selectedAircraft = aircrafts.getSelectedAircraft()) == null) {
+		Plane selected = airspace.getSelected();
+
+		String altitudeText, speedText;
+		if (selected != null) {
+			altitudeText = " Altitude: " + selected.getAltitude() + "m";
+			speedText = " Speed: " + Math.round(selected.getVelocity()
+							* Config.AIRCRAFT_SPEED_MULTIPLIER) + "km/h";
+		} else {
 			altitudeText = " Altitude: ";
 			speedText = " Speed: ";
-		} else {
-			altitudeText = " Altitude: " + selectedAircraft.getAltitude() + "m";
-			speedText = " Speed: " + Math.round(selectedAircraft.getSpeed()
-							* Config.AIRCRAFT_SPEED_MULTIPLIER) + "km/h";
 		}
 
-		// force left + right buttons to be checked correctly
-		buttons.get("left").setChecked (selectedAircraft != null && selectedAircraft.isTurningLeft());
-		buttons.get("right").setChecked(selectedAircraft != null && selectedAircraft.isTurningRight());
-		buttons.get("up").setChecked   (selectedAircraft != null && selectedAircraft.isAscending());
-		buttons.get("down").setChecked (selectedAircraft != null && selectedAircraft.isDescending());
-
-		// update aircraft altitude text
 		labels.get("altitude").setText(altitudeText);
-
-		// update aircraft speed text
-		labels.get("speed").setText(speedText);*/
+		labels.get("speed").setText(speedText);
 	}
 
 	/**
@@ -243,6 +227,10 @@ public final class SidebarController extends ChangeListener {
 			Plane selectedAircraft = airspace.getSelected();
 			if (selectedAircraft != null) {
 				if (actor.equals(buttons.get("left"))) {
+					selectedAircraft.setState(State.FLIGHTPLAN);
+				}
+
+				if (actor.equals(buttons.get("left"))) {
 					airspace.setLeft(!airspace.isLeft());
 				}
 
@@ -251,12 +239,12 @@ public final class SidebarController extends ChangeListener {
 				}
 
 				if (actor.equals(buttons.get("land"))) {
-					
+					selectedAircraft.setState(State.APPROACHING);
 				}
 
-				if (actor.equals(buttons.get("takeOff"))) {
-					
-				}
+				//if (actor.equals(buttons.get("takeOff"))) {
+				//	
+				//}
 
 				if (actor.equals(buttons.get("up"))) {
 					airspace.setUp(!airspace.isUp());

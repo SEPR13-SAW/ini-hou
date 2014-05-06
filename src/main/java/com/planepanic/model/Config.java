@@ -32,4 +32,8 @@ public final class Config {
 			+ "might otherwise be infringing. Non-profit, educational or personal use tips the "
 			+ "balance in favor of fair use.";
 
+	public static final float EXCLUSION_ZONE = 100;
+
+	public static final float AIRCRAFT_SPEED_MULTIPLIER = 5;
+
 }

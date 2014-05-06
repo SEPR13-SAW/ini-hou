@@ -1,6 +1,7 @@
 package com.planepanic.io.packet;
 
 import java.util.List;
+import java.util.Stack;
 
 import com.planepanic.model.waypoint.Waypoint;
 
@@ -8,12 +9,12 @@ public final class SpawnPlanePacket extends Packet {
 	private final int planeId;
 	private final byte playerId;
 	private final String name;
-	private final List<Waypoint> flightPlan;
-	private final int altitude;
+	private final Stack<Waypoint> flightPlan;
+	private final float altitude;
 
-	public SpawnPlanePacket(int planeId, byte playerId, String name, List<Waypoint> flightPlan, int altitude) {
+	public SpawnPlanePacket(int planeId, int playerId, String name, Stack<Waypoint> flightPlan, float altitude) {
 		this.planeId = planeId;
-		this.playerId = playerId;
+		this.playerId = (byte) playerId;
 		this.name = name;
 		this.flightPlan = flightPlan;
 		this.altitude = altitude;
@@ -40,7 +41,7 @@ public final class SpawnPlanePacket extends Packet {
 		return flightPlan;
 	}
 
-	public int getAltitude() {
+	public float getAltitude() {
 		return altitude;
 	}
 

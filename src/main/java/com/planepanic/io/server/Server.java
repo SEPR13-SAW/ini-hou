@@ -5,10 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.planepanic.io.FrameDecoder;
 import com.planepanic.io.FrameEncoder;
 import com.planepanic.io.FrameHandler;
 import com.planepanic.io.packet.Packet;
+import com.planepanic.model.Airspace;
+import com.planepanic.model.Config;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -31,8 +37,15 @@ public class Server implements Runnable {
 	private final int port;
 	private final Map<Integer, Player> players = new HashMap<>();
 
+	@Getter @Setter private Airspace airspace;
+
+	EventLoopGroup bossGroup = new NioEventLoopGroup();
+	EventLoopGroup workerGroup = new NioEventLoopGroup();
+
 	public Server(int port) {
 		this.port = port;
+
+		new Thread(this).start();
 	}
 
 	public boolean playerConnected(String name) {
@@ -49,6 +62,7 @@ public class Server implements Runnable {
 	}
 
 	public void addPlayer(Player player) {
+		if (Config.DEBUG) System.out.println("Player " + player.getName() + " joined.");
 		players.put(player.getId(), player);
 	}
 
@@ -59,9 +73,6 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		final Server server = this;
-
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
 
 		try {
 			ServerBootstrap b = new ServerBootstrap();
@@ -90,8 +101,14 @@ public class Server implements Runnable {
 	}
 
 	public void broadcast(Packet p) throws IOException {
+		if (Config.DEBUG) System.out.println("Broadcasting packet " + p);
 		for (Entry<Integer, Player> entry : players.entrySet()) {
 			entry.getValue().writePacket(p);
 		}
+	}
+
+	public void shutdown() {
+		workerGroup.shutdownGracefully();
+		bossGroup.shutdownGracefully();
 	}
 }

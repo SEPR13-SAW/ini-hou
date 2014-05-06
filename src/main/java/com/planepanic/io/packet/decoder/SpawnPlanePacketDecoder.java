@@ -1,11 +1,11 @@
 package com.planepanic.io.packet.decoder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 import com.planepanic.io.ByteBufUtils;
 import com.planepanic.io.packet.SpawnPlanePacket;
 import com.planepanic.model.waypoint.Waypoint;
+import com.planepanic.model.waypoint.WaypointManager;
 
 import io.netty.buffer.ByteBuf;
 
@@ -21,12 +21,14 @@ public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 		String name = ByteBufUtils.readString(buffer);
 
 		int nWaypoints = buffer.readByte() & 0xFF;
-		List<Waypoint> waypoints = new ArrayList<>();
+		Stack<Waypoint> waypoints = new Stack<>();
 		for (int i = 0; i < nWaypoints; i++) {
-			waypoints.add(new Waypoint(buffer.readFloat(), buffer.readFloat()));
+			Waypoint wp = WaypointManager.getAll().get(buffer.readByte() & 0xFF);
+			System.out.println(wp);
+			waypoints.add(wp	);
 		}
 
-		int altitude = buffer.readInt();
+		float altitude = buffer.readFloat();
 
 		return new SpawnPlanePacket(planeId, playerId, name, waypoints, altitude);
 	}
