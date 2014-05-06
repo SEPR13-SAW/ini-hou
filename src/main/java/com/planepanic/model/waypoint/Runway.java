@@ -36,15 +36,15 @@ public final class Runway extends Waypoint {
 	
 //	 Fills the arraylist with positions for the landed planes to appear on.
 	public void adjustPositions() {
-		int offsetX = 40, offsetY = 25, stepY = 20;
+		int offsetX = 37, offsetY = 10, stepY = 35;
 		Waypoint waypoint;
 		for (int i = 0; i < 5; i++) {
 			waypoint = new Waypoint(this.startOfRunway.getX() + offsetX, this.startOfRunway.getY() + offsetY, 4000 + i);
 			offsetY += stepY;
 			this.availablePositions.add(waypoint);
 		};
-		offsetY = 5;
-		offsetX = -35;
+		offsetY = 20;
+		offsetX = -15;
 
 		for (int o = 5; o < 10; o++) {
 			waypoint = new Waypoint(this.startOfRunway.getX() + offsetX, this.startOfRunway.getY() + offsetY, 5000 + o);
@@ -77,17 +77,18 @@ public final class Runway extends Waypoint {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		// Draws planes landed on the airport.
+//		 Draws planes landed on the airport.
 		for (Waypoint position : this.takenPositions) {
 			if (position.getX() > this.getX())
 				batch.draw(aircraft, position.getX(), position.getY(), 0, 0,
 						aircraft.getRegionWidth(), aircraft.getRegionHeight(),
-						0.3f, 0.3f, 160f);
+						0.45f, 0.45f, 60f);
 			else
 				batch.draw(aircraft, position.getX(), position.getY(), 0, 0,
 						aircraft.getRegionWidth(), aircraft.getRegionHeight(),
-						0.3f, 0.3f, 20f);
+						0.45f, 0.45f, 120f);
 		}
+
 	}
 	
 	

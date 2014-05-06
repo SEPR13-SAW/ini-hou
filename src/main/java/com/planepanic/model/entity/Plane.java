@@ -25,7 +25,8 @@ public final class Plane extends Entity {
 		FLYING,
 		FLIGHTPLAN,
 		APPROACHING,
-		LANDING;
+		LANDING,
+		TAKINGOFF;
 	}
 
 	private static int nextId = 0;
@@ -41,11 +42,13 @@ public final class Plane extends Entity {
 	@Getter @Setter private boolean breakingExclusion = false;
 
 	public Plane(Airspace airspace, int id, Stack<Waypoint> flightplan) {
+
 		this.id = id;
 		this.rotationOffset = 90;
 		this.airspace = airspace;
 		this.texture = Art.getTextureRegion("aircraft");
-		this.size = new Vector2(74, 63);
+		this.size = new Vector2(38, 31);
+		this.scale(0.1f, 0.1f);
 		this.velocity = 45;
 		this.altitude = MathUtils.RNG.nextInt((int) (Config.MAXIMUM_ALTITUDE - Config.MINIMUM_ALTITUDE)) + Config.MINIMUM_ALTITUDE;
 
@@ -213,7 +216,7 @@ public final class Plane extends Entity {
 		} else if (state == State.LANDING) {
 			velocity = Config.MIN_VELOCITY;
 
-			altitude -= delta * 1000;
+			altitude -= delta * 2000;
 			if (altitude < 0) altitude = 0;
 
 			turnTowards(airspace.getRunways().get(player).coords, delta);
@@ -226,6 +229,13 @@ public final class Plane extends Entity {
 			}
 		} else if (state == State.FLIGHTPLAN) {
 			turnTowards(flightplan.peek().coords, delta);
+		} else if (state == State.TAKINGOFF){
+			velocity += delta * 40;
+			altitude += delta * 2000;
+			if (MathUtils.closeEnough(airspace.getRunways().get(player).getEndOfRunway().coords, coords, 30)) {
+				state = State.FLIGHTPLAN;
+			}
+					
 		}
 
 		Waypoint point = flightplan.peek();
@@ -248,6 +258,13 @@ public final class Plane extends Entity {
 		}
 
 		this.coords.add(MathUtils.fromAngle((float) ((getRotation() / 180) * Math.PI)).mul(velocity).mul(delta));
+	}
+	
+	public void takeOff(){
+		altitude = 0;
+		velocity = 0;
+		state = State.TAKINGOFF;
+		airspace.addPlane(this);
 	}
 
 	public int getScore() {

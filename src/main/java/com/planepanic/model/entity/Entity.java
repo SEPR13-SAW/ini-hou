@@ -31,7 +31,7 @@ public abstract class Entity extends Actor {
 		//batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight()
 		//		/ 2, getOriginX(), getOriginY(), getWidth(), getHeight(),
 		//		getScaleX(), getScaleX(), -getRotation());
-		batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(), getScaleX(), rotationOffset - getRotation());
+		batch.draw(getRegion(), getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(), getScaleY(), rotationOffset - getRotation());
 
 		additionalDraw(batch);
 
