@@ -28,6 +28,7 @@ public final class ClientAircraftController extends AircraftController {
 	public float lastTakeOff = 0;
 
 	private final Client client;
+	private ArrayList<Aircraft> clientAircraft = new ArrayList<Aircraft>();
 
 	/**
 	 * 
@@ -73,6 +74,7 @@ public final class ClientAircraftController extends AircraftController {
 		// Removes aircraft which are no longer active from aircraftList.
 		// Manages collision detection.
 		// System.out.println(aircraftList);
+		clientAircraft.clear();
 		for (int i = 0; i < aircraftList.size(); i++) {
 			Aircraft planeI = aircraftList.get(i);
 
@@ -95,6 +97,14 @@ public final class ClientAircraftController extends AircraftController {
 			// Remove inactive aircraft.
 			if (!planeI.isActive()) {
 				removeAircraft(i);
+			}
+
+			if ((planeI.getCoords().x > 540)
+					&& (client.getPlayer().getId() == 1)) {
+				clientAircraft.add(planeI);
+			} else if ((planeI.getCoords().x < 540)
+					&& (client.getPlayer().getId() == 0)) {
+				clientAircraft.add(planeI);
 			}
 		}
 
@@ -320,12 +330,12 @@ public final class ClientAircraftController extends AircraftController {
 			screen.getGame().showMenuScreen();
 		}
 
-		if (keycode == Keys.TAB && this.aircraftList.size() != 0) {
+		if (keycode == Keys.TAB && this.clientAircraft.size() != 0) {
 
-			int listSize = this.aircraftList.size();
+			int listSize = this.clientAircraft.size();
 
 			if (this.selectedAircraft != null) {
-				tabIndex = this.aircraftList.indexOf(selectedAircraft) + 1;
+				tabIndex = this.clientAircraft.indexOf(selectedAircraft) + 1;
 				this.selectedAircraft.returnToPath();
 				this.selectedAircraft.setSelected(false);
 				this.selectedAircraft = null;
@@ -334,7 +344,7 @@ public final class ClientAircraftController extends AircraftController {
 			if ((tabIndex) % listSize == 0 || listSize == 1)
 				tabIndex = 0;
 
-			this.selectedAircraft = this.aircraftList.get(tabIndex);
+			this.selectedAircraft = this.clientAircraft.get(tabIndex);
 			this.selectedAircraft.setSelected(true);
 		}
 
