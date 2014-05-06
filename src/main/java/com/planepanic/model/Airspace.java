@@ -332,7 +332,7 @@ public final class Airspace extends Entity {
 				selected.turn(delta * 40);
 		}
 
-		for (Plane plane : planes) {
+		planeLoop: for (Plane plane : planes) {
 			plane.tick(delta);
 
 			int bounds = 50;
@@ -366,11 +366,13 @@ public final class Airspace extends Entity {
 					// Crash.
 					if (difficulty == Difficulty.MULTIPLAYER_CLIENT
 							|| difficulty == Difficulty.MULTIPLAYER_SERVER) {
-						player.setScore(player.getScore() - 3000);
+						player.setScore(player.getScore() - 1000);
+						removePlane(plane);
+						removePlane(other);
+						break planeLoop;
 					} else {
 						endGame();
 					}
-					System.out.println("Crashed!!!");
 				}
 			}
 
