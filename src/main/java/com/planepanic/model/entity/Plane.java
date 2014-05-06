@@ -230,6 +230,7 @@ public final class Plane extends Entity {
 		int airport = 0;
 		if (airspace.getDifficulty() == Difficulty.MULTIPLAYER_CLIENT || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
 			if (coords.x > Config.HALF_WIDTH) airport = 1;
+		}
 		if(altitude < desiredAltitude){
 			altitude += 10;
 		} else if(altitude > desiredAltitude){
@@ -292,9 +293,8 @@ public final class Plane extends Entity {
 			airspace.removePlane(this);
 		}
 
-		this.coords.add(MathUtils
-				.fromAngle((float) ((getRotation() / 180) * Math.PI))
-				.mul(velocity).mul(delta));
+		this.coords.add(MathUtils.fromAngle((float) ((getRotation() / 180) * Math.PI)).mul(velocity).mul(delta));
+
 	}
 
 	public void takeOff() {
