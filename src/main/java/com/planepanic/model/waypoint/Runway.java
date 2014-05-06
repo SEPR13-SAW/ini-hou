@@ -27,10 +27,16 @@ public final class Runway extends Waypoint {
 		this.texture = Art.getTextureRegion("airport");
 		this.size = new Vector2(200, 200);
 		this.aircraft = Art.getTextureRegion("aircraft");
-		System.out.println("x = " + x + " y = " + y);
+		System.out.println("Runway constructor x = " + x + " y = " + y);
 		this.startOfRunway = new Waypoint(x, (y - 100), id + 1000);
+		WaypointManager.getAll().put(this.startOfRunway.getId(), this.startOfRunway);
+		System.out.println("startOfRunway = " + startOfRunway);
 		this.endOfRunway = new Waypoint(x, (y + 100), id + 2000);
+		WaypointManager.getAll().put(this.endOfRunway.getId(), this.endOfRunway);
+		System.out.println("endOfRunway = " + endOfRunway);
 		this.approach = new Waypoint(x, (y - 200), id + 3000); 
+		WaypointManager.getAll().put(this.approach.getId(), this.approach);
+		System.out.println("approach = " + approach);
 		this.adjustPositions();
 	}
 	

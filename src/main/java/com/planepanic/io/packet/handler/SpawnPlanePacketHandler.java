@@ -17,6 +17,7 @@ public final class SpawnPlanePacketHandler extends Handler<SpawnPlanePacket, Cli
 	public void handle(SpawnPlanePacket packet, Client client) throws Exception {
 		Airspace airspace = client.getAirspace();
 		Plane plane = new Plane(airspace, packet.getPlaneId(), (Stack<Waypoint>) packet.getFlightPlan());
+		System.out.println(plane.getFlightplan().size());
 		plane.setAltitude(packet.getAltitude());
 		airspace.addPlane(plane);
 	}

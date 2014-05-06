@@ -51,19 +51,22 @@ public final class Plane extends Entity {
 		this.scale(0.1f, 0.1f);
 		this.velocity = 45;
 		this.altitude = MathUtils.RNG.nextInt((int) (Config.MAXIMUM_ALTITUDE - Config.MINIMUM_ALTITUDE)) + Config.MINIMUM_ALTITUDE;
-
 		if (flightplan == null) {
 			this.flightplan = new Stack<>();
 			randomFlightPlan();
 		} else {
 			this.flightplan = flightplan;
 		}
+		
 
 		Waypoint a = this.flightplan.pop();
 		Waypoint b = this.flightplan.peek();
 		this.flightplan.push(a);
 
 		this.coords = a.coords.cpy();
+		System.out.println("flightPlan size = " + this.flightplan.size());
+		System.out.println("a = " + a);
+		System.out.println("b = " + b);
 		setRotation((float) ((Math.atan2(b.coords.y - coords.y, b.coords.x - coords.x) / Math.PI) * 180));
 
 		tick(0);
@@ -74,10 +77,12 @@ public final class Plane extends Entity {
 	}
 
 	public void randomFlightPlan() {
-		if (MathUtils.RNG.nextInt(1) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+		if (MathUtils.RNG.nextInt(2) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
 			flightplan.push(WaypointManager.randomExit());
 			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())];
+			System.out.println("runway Approach " + runway.getApproach());
 			flightplan.push(runway.getEndOfRunway());
+			System.out.println("end of runway " + flightplan.peek());
 			flightplan.push((Waypoint) runway);
 			flightplan.push(runway.getStartOfRunway());
 			flightplan.push(runway.getApproach());
@@ -85,14 +90,14 @@ public final class Plane extends Entity {
 			flightplan.push(WaypointManager.randomExit());
 		}
 
-		int nWaypoints = MathUtils.RNG.nextInt(1) + 1;
+		int nWaypoints = MathUtils.RNG.nextInt(3) + 1;
 		for (int i = 0; i < nWaypoints; i++) {
 			Waypoint wp = WaypointManager.randomWaypoint();
 			if (!flightplan.contains(wp))
 				flightplan.push(wp);
 		}
-
 		flightplan.push(WaypointManager.randomEntry());
+		System.out.println("FlightPlan size in randomFLightPlan() = " + flightplan.size());
 	}
 
 	@Override
@@ -126,6 +131,7 @@ public final class Plane extends Entity {
 		}
 
 		if (airspace.getSelected() == this) {
+
 			batch.end();
 
 			drawer.setColor(1, 1, 0, 0);
@@ -139,7 +145,13 @@ public final class Plane extends Entity {
 				Waypoint next = flightplan.get(0);
 				if (flightplan.size() > 1) {
 					for (Waypoint point : flightplan.subList(1, flightplan.size())) {
-						if (point instanceof Runway) point = airspace.getRunways().get(player);
+						if (point instanceof Runway) {
+							point = airspace.getRunways().get(player);
+							System.out.println("Drawing! Point = " + point);
+						}
+						System.out.println("Drawing! flightplan size = " + flightplan.subList(1, flightplan.size()));
+						System.out.println("Drawing! Point = " + point);
+						System.out.println("Drawing! Next = " + next);
 						drawer.line(next.coords.x, next.coords.y, point.coords.x, point.coords.y);
 						next = point;
 					}
