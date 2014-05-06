@@ -36,6 +36,8 @@ public abstract class Encoder<T extends Packet> {
 		new SpawnPlanePacketEncoder();
 		new UpdatePlanePacketEncoder();
 		new UpdateScorePacketEncoder();
+		new LandPlanePacketEncoder();
+		new EndGamePacketEncoder();
 	}
 
 	@SuppressWarnings("unchecked")

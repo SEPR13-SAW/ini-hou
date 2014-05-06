@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBufAllocator;
 
 public final class SetVelocityPositionPacketEncoder extends Encoder<SetVelocityPositionPacket> {
 	public SetVelocityPositionPacketEncoder() {
-		super(0x03);
+		super(SetVelocityPositionPacket.ID);
 	}
 
 	@Override

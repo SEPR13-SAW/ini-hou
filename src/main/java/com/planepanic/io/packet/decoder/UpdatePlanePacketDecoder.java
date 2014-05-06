@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 
 public final class UpdatePlanePacketDecoder extends Decoder<UpdatePlanePacket> {
 	public UpdatePlanePacketDecoder() {
-		super(0x82);
+		super(UpdatePlanePacket.ID);
 	}
 
 	@Override

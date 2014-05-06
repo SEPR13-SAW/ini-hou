@@ -30,7 +30,7 @@ public class FrameHandler extends ChannelInboundHandlerAdapter {
 		try {
 			Handler<?, ?> handler = Handler.get(packetId);
 			if (handler == null) {
-				System.out.println("No handler for frame " + packetId);
+				System.err.println("No handler for frame " + packetId);
 				return;
 			}
 			handler.handleGeneric(packet, attachment);

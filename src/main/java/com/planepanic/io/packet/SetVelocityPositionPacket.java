@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class SetVelocityPositionPacket extends Packet {
+	public final static int ID = 0x03;
+
 	private final int planeId;
 	private final float velocity;
 	private final float x, y;
@@ -14,7 +16,7 @@ public final class SetVelocityPositionPacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x03;
+		return ID;
 	}
 
 	public int getPlaneId() {

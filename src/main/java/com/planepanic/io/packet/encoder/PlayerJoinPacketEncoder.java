@@ -8,7 +8,7 @@ import io.netty.buffer.ByteBufAllocator;
 
 public final class PlayerJoinPacketEncoder extends Encoder<PlayerJoinPacket> {
 	public PlayerJoinPacketEncoder() {
-		super(0x80);
+		super(PlayerJoinPacket.ID);
 	}
 
 	@Override

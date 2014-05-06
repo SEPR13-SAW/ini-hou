@@ -5,7 +5,7 @@ import com.planepanic.io.packet.UpdateScorePacket;
 
 public final class UpdateScorePacketHandler extends Handler<UpdateScorePacket, Client> {
 	public UpdateScorePacketHandler() {
-		super(0x83);
+		super(UpdateScorePacket.ID);
 	}
 
 	@Override

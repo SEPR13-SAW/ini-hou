@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
 
 public final class JoinGamePacketDecoder extends Decoder<JoinGamePacket> {
 	public JoinGamePacketDecoder() {
-		super(0x00);
+		super(JoinGamePacket.ID);
 	}
 
 	@Override

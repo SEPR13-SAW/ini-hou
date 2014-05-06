@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBufAllocator;
 
 public final class SpawnPlanePacketEncoder extends Encoder<SpawnPlanePacket> {
 	public SpawnPlanePacketEncoder() {
-		super(0x81);
+		super(SpawnPlanePacket.ID);
 	}
 
 	@Override

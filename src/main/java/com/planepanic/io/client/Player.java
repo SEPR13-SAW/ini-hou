@@ -12,6 +12,7 @@ public class Player {
 	@Getter private final int id;
 	@Getter private final String name;
 	@Getter @Setter private int score;
+	@Getter @Setter private Client client;
 
 	public Player(int id, String name) {
 		this.id = id;

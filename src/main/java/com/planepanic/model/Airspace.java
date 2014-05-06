@@ -23,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.planepanic.ATC;
 import com.planepanic.io.client.Client;
 import com.planepanic.io.client.Player;
+import com.planepanic.io.packet.EndGamePacket;
+import com.planepanic.io.packet.LandPlanePacket;
 import com.planepanic.io.packet.SetAltitudePacket;
 import com.planepanic.io.packet.SetDirectionPacket;
 import com.planepanic.io.packet.SetVelocityPositionPacket;
@@ -48,6 +50,7 @@ public final class Airspace extends Entity {
 	@Getter private final List<Plane> deletion = new ArrayList<>();
 	@Getter private final Server server;
 	@Getter private final Client client;
+	@Getter private int scorediff = 0;
 
 	@Getter private Plane selected = null;
 	@Getter private long tick = 0;
@@ -137,6 +140,7 @@ public final class Airspace extends Entity {
 						if (selected != null) {
 							if (selected.getFlightplan().peek() instanceof Runway) {
 								selected.setState(State.APPROACHING);
+								airspace.sendLand();
 							}
 						}
 						return true;
@@ -197,6 +201,17 @@ public final class Airspace extends Entity {
 		//addPlane(new Plane(this));
 	}
 
+	public void sendLand() {
+		if (selected == null) return;
+		if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
+			try {
+				client.writePacket(new LandPlanePacket(selected.getId()));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+ 		}
+	}
+
 	@Override
 	protected void additionalDraw(SpriteBatch batch) {
 		synchronized (this) {
@@ -208,6 +223,17 @@ public final class Airspace extends Entity {
 				drawer.setColor(0, 0, 0, 0);
 				drawer.begin(ShapeType.Line);
 				drawer.line(Config.HALF_WIDTH, 0, Config.HALF_WIDTH, Config.SCREEN_HEIGHT);
+				drawer.end();
+
+				drawer.setColor(1, 0, 0, 0);
+				drawer.begin(ShapeType.Filled);
+				drawer.rect(Config.HALF_WIDTH - 100, 0, 200, 10);
+				drawer.end();
+
+				int x = (int) (((float) scorediff / 3000) * 100);
+				drawer.setColor(0, 1, 0, 0);
+				drawer.begin(ShapeType.Filled);
+				drawer.rect(Config.HALF_WIDTH - 100 + x, 0, 100 - x, 10);
 				drawer.end();
 	
 				batch.begin();
@@ -281,6 +307,17 @@ public final class Airspace extends Entity {
 	}
 
 	public void tick(float delta) {
+		if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
+			if (server.getPlayers().containsKey(0) && server.getPlayers().containsKey(1)) {
+				scorediff = server.getPlayers().get(1).getScore() - server.getPlayers().get(0).getScore();
+
+				// End game for multi.
+				if (Math.abs(scorediff) > 3000) {
+					endGame();
+				}
+			}
+		}
+
 		if (selected != null) {
 			if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
 				if (selected.getPlayer() != player.getId()) {
@@ -344,7 +381,7 @@ public final class Airspace extends Entity {
 				}
 			}
 
-			if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
+			if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
 				if (tick % 10 == 0) {
 					if (plane.getState() == State.FLYING) {
 						try {
@@ -405,24 +442,21 @@ public final class Airspace extends Entity {
 	}
 
 	public void endGame() {
+		this.endGame(-1, true);
+	}
+
+	public void endGame(int score, boolean win) {
 		if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
+			if (scorediff > 0) {
+				server.getPlayers().get(0).writePacket(new EndGamePacket(server.getPlayers().get(0).getScore(), win));
+				server.getPlayers().get(1).writePacket(new EndGamePacket(server.getPlayers().get(1).getScore(), !win));
+			} else {
+				server.getPlayers().get(0).writePacket(new EndGamePacket(server.getPlayers().get(0).getScore(), !win));
+				server.getPlayers().get(1).writePacket(new EndGamePacket(server.getPlayers().get(1).getScore(), win));
+			}
 			server.shutdown();
 		} else if (difficulty == Difficulty.MULTIPLAYER_CLIENT) {
-			int score = player.getScore();
-			int max = score;
-
-			for (Entry<Integer, Player> entry : client.getPlayers().entrySet()) {
-				int s = entry.getValue().getScore();
-				if (s > max) max = s;
-			}
-
-			if (score == max) {
-				// Won.
-				game.setScreen(new EndScreen(game, time, score));
-			} else {
-				// Lost.
-				game.setScreen(new EndScreen(game, time, score));
-			}
+			game.setScreen(new EndScreen(game, time, score));
 		} else {
 			game.setScreen(new EndScreen(game, time, player.getScore()));
 		}

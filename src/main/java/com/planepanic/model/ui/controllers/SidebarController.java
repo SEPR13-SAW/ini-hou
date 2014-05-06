@@ -240,6 +240,7 @@ public final class SidebarController extends ChangeListener {
 
 				if (actor.equals(buttons.get("land"))) {
 					selectedAircraft.setState(State.APPROACHING);
+					airspace.sendLand();
 				}
 
 				//if (actor.equals(buttons.get("takeOff"))) {

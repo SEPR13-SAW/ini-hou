@@ -1,6 +1,8 @@
 package com.planepanic.io.packet;
 
 public final class JoinGamePacket extends Packet {
+	public final static int ID = 0x00;
+
 	private final String name;
 
 	public JoinGamePacket(String name) {
@@ -9,7 +11,7 @@ public final class JoinGamePacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x00;
+		return ID;
 	}
 
 	public String getName() {

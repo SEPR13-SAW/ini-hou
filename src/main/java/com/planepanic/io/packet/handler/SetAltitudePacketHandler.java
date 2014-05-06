@@ -7,7 +7,7 @@ import com.planepanic.model.entity.Plane;
 
 public final class SetAltitudePacketHandler extends Handler<SetAltitudePacket, Player> {
 	public SetAltitudePacketHandler() {
-		super(0x03);
+		super(SetAltitudePacket.ID);
 	}
 
 	@Override

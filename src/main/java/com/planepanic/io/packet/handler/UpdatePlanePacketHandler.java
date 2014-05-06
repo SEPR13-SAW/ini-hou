@@ -7,7 +7,7 @@ import com.planepanic.model.entity.Plane;
 
 public final class UpdatePlanePacketHandler extends Handler<UpdatePlanePacket, Client> {
 	public UpdatePlanePacketHandler() {
-		super(0x82);
+		super(UpdatePlanePacket.ID);
 	}
 
 	@Override

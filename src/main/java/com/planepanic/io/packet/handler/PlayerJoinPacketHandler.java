@@ -6,7 +6,7 @@ import com.planepanic.io.packet.PlayerJoinPacket;
 
 public final class PlayerJoinPacketHandler extends Handler<PlayerJoinPacket, Client> {
 	public PlayerJoinPacketHandler() {
-		super(0x80);
+		super(PlayerJoinPacket.ID);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
 
 public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 	public SpawnPlanePacketDecoder() {
-		super(0x81);
+		super(SpawnPlanePacket.ID);
 	}
 
 	@Override
@@ -24,8 +24,7 @@ public final class SpawnPlanePacketDecoder extends Decoder<SpawnPlanePacket> {
 		Stack<Waypoint> waypoints = new Stack<>();
 		for (int i = 0; i < nWaypoints; i++) {
 			Waypoint wp = WaypointManager.getAll().get(buffer.readByte() & 0xFF);
-			System.out.println(wp);
-			waypoints.add(wp	);
+			waypoints.add(wp);
 		}
 
 		float altitude = buffer.readFloat();

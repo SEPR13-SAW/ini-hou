@@ -10,7 +10,7 @@ import com.planepanic.io.server.Server;
 
 public final class JoinGamePacketHandler extends Handler<JoinGamePacket, Player> {
 	public JoinGamePacketHandler() {
-		super(0x00);
+		super(JoinGamePacket.ID);
 	}
 
 	@Override

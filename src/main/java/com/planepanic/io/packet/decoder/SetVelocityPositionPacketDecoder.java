@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 
 public final class SetVelocityPositionPacketDecoder extends Decoder<SetVelocityPositionPacket> {
 	public SetVelocityPositionPacketDecoder() {
-		super(0x03);
+		super(SetVelocityPositionPacket.ID);
 	}
 
 	@Override

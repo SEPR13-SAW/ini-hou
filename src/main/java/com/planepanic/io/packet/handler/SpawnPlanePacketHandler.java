@@ -10,12 +10,11 @@ import com.planepanic.model.waypoint.Waypoint;
 
 public final class SpawnPlanePacketHandler extends Handler<SpawnPlanePacket, Client> {
 	public SpawnPlanePacketHandler() {
-		super(0x81);
+		super(SpawnPlanePacket.ID);
 	}
 
 	@Override
 	public void handle(SpawnPlanePacket packet, Client client) throws Exception {
-		System.out.println("SPAWN PLANE " + packet);
 		Airspace airspace = client.getAirspace();
 		Plane plane = new Plane(airspace, packet.getPlaneId(), (Stack<Waypoint>) packet.getFlightPlan());
 		plane.setAltitude(packet.getAltitude());

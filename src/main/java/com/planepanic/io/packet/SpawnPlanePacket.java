@@ -6,6 +6,8 @@ import java.util.Stack;
 import com.planepanic.model.waypoint.Waypoint;
 
 public final class SpawnPlanePacket extends Packet {
+	public final static int ID = 0x81;
+
 	private final int planeId;
 	private final byte playerId;
 	private final String name;
@@ -22,7 +24,7 @@ public final class SpawnPlanePacket extends Packet {
 
 	@Override
 	public int getId() {
-		return 0x81;
+		return ID;
 	}
 
 	public int getPlaneId() {
