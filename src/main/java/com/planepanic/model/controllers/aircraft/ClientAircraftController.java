@@ -51,7 +51,11 @@ public final class ClientAircraftController extends AircraftController {
 	 */
 	public void update(float delta) {
 		// Deselects aircraft after crossing the middle of the screen
-		if(this.selectedAircraft != null && ((this.getSelectedAircraft().getCoords().x > 540 && client.getPlayer().getId() == 0) || (this.getSelectedAircraft().getCoords().x < 540 && client.getPlayer().getId() == 1))){
+		if (this.selectedAircraft != null
+				&& ((this.getSelectedAircraft().getCoords().x > 540 && client
+						.getPlayer().getId() == 0) || (this
+						.getSelectedAircraft().getCoords().x < 540 && client
+						.getPlayer().getId() == 1))) {
 			this.getSelectedAircraft().setSelected(false);
 			this.getSelectedAircraft().turnLeft(false);
 			this.getSelectedAircraft().turnRight(false);
@@ -92,20 +96,6 @@ public final class ClientAircraftController extends AircraftController {
 			if (!planeI.isActive()) {
 				removeAircraft(i);
 			}
-
-			if (scoreBar.isRedBarFull()) {
-				if (client.getPlayer().getId() == 1)
-					this.gameWon();
-				else
-					this.gameLost();
-			}
-			if (scoreBar.isBlueBarFull()) {
-				if (client.getPlayer().getId() == 0)
-					this.gameWon();
-				else
-					this.gameLost();
-			}
-
 		}
 
 		// make sure the breaching sound plays only when a separation breach
@@ -123,12 +113,28 @@ public final class ClientAircraftController extends AircraftController {
 		for (Aircraft a : aircraftList) {
 			if (a.isTurningLeft() || a.isTurningRight()) {
 				try {
-					client.writePacket(new SetDirectionPacket(a.getId(), a.getRotation()));
-					client.writePacket(new SetVelocityPositionPacket(a.getId(), a.getSpeed(), a.getX(), a.getY()));
+					client.writePacket(new SetDirectionPacket(a.getId(), a
+							.getRotation()));
+					client.writePacket(new SetVelocityPositionPacket(a.getId(),
+							a.getSpeed(), a.getX(), a.getY()));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+
+		if (scoreBar.isRedBarFull()) {
+			if (client.getPlayer().getId() == 1)
+				this.gameWon();
+			else
+				this.gameLost();
+		}
+		if (scoreBar.isBlueBarFull()) {
+			if (client.getPlayer().getId() == 0)
+				this.gameWon();
+			else
+				this.gameLost();
 		}
 	}
 
