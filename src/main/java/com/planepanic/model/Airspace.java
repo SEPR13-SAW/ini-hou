@@ -243,7 +243,8 @@ public final class Airspace extends Entity {
 			}
 	
 			for (Entry<Integer, Waypoint> entry : WaypointManager.getAll().entrySet()) {
-				entry.getValue().draw(batch, this.getColor().a);
+				if (entry.getValue().isRendered())
+					entry.getValue().draw(batch, this.getColor().a);
 			}
 	
 			for (Plane plane : planes) {
