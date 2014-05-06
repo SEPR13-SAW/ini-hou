@@ -135,7 +135,6 @@ public final class Plane extends Entity {
 		}
 
 		if (airspace.getSelected() == this) {
-
 			batch.end();
 
 			drawer.setColor(1, 1, 0, 0);
@@ -228,27 +227,21 @@ public final class Plane extends Entity {
 			time += delta;
 		}
 
-		/*
-		 * if (getX() < Config.HALF_WIDTH) { player = 0; } else { player = 1; }
-		 */
+		int airport = 0;
+		if (airspace.getDifficulty() == Difficulty.MULTIPLAYER_CLIENT || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+			if (coords.x > Config.HALF_WIDTH) airport = 1;
 		if(altitude < desiredAltitude){
 			altitude += 10;
 		} else if(altitude > desiredAltitude){
 			altitude -= 10;
 		}
-
 		if (state == State.APPROACHING) {
-			if ((airspace.getRunways().get(player).getLandedPlanes().size()
-					+ airspace.getApproachingPlanes() > 10)) {
+			if((airspace.getRunways().get(airport).getLandedPlanes().size() + airspace.getApproachingPlanes() > 10)){
 				state = State.FLIGHTPLAN;
-				flightplan.push(airspace.getRunways().get(player)
-						.getStartOfRunway());
-				flightplan
-						.push(airspace.getRunways().get(player).getApproach());
+				flightplan.push(airspace.getRunways().get(airport).getStartOfRunway());
+				flightplan.push(airspace.getRunways().get(airport).getApproach());
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
-			} else if (MathUtils.closeEnough(
-					airspace.getRunways().get(player).coords.cpy().sub(
-							new Vector2(0, 100)), coords, 30)) {
+			} else if (MathUtils.closeEnough(airspace.getRunways().get(airport).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
 		} else if (state == State.LANDING) {
@@ -258,12 +251,11 @@ public final class Plane extends Entity {
 			if (altitude < 0)
 				altitude = 0;
 
-			turnTowards(airspace.getRunways().get(player).coords, delta);
+			turnTowards(airspace.getRunways().get(airport).coords, delta);
 
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords,
-					coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(airport).coords, coords, 30)) {
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
-				airspace.getRunways().get(player).addLanded(this);
+				airspace.getRunways().get(airport).addLanded(this);
 				flightplan.pop();
 				time -= 10;
 				airspace.removePlane(this);
@@ -273,8 +265,7 @@ public final class Plane extends Entity {
 		} else if (state == State.TAKINGOFF) {
 			velocity += delta * 40;
 			altitude += delta * 2000;
-			if (MathUtils.closeEnough(airspace.getRunways().get(player)
-					.getEndOfRunway().coords, coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(airport).getEndOfRunway().coords, coords, 30)) {
 				state = State.FLIGHTPLAN;
 			}
 

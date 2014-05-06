@@ -8,7 +8,7 @@ public final class Config {
 	public final static boolean DEBUG = false;
 
 	// General, graphics related settings
-	public final static String GAME_TITLE = "Controller Concern";
+	public final static String GAME_TITLE = "Plane Panic";
 	public final static int SCREEN_WIDTH = 1280;
 	public final static int SCREEN_HEIGHT = 720;
 	public final static boolean VSYNC = true;
