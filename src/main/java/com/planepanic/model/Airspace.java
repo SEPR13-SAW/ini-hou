@@ -100,11 +100,11 @@ public final class Airspace extends Entity {
 						return true;
 					case Keys.W:
 					case Keys.UP:
-						airspace.setUp(true);
+						selected.modifyAltitude(+1000);
 						return true;
 					case Keys.S:
 					case Keys.DOWN:
-						airspace.setDown(true);
+						selected.modifyAltitude(-1000);
 						return true;
 
 					case Keys.R:
@@ -326,11 +326,12 @@ public final class Airspace extends Entity {
 		}
 
 		if (selected != null) {
-			if (left || right) selected.setState(State.FLYING);
-			if (left) selected.turn(delta * -40);
-			if (right) selected.turn(delta * 40);
-			if (up) selected.modifyAltitude(delta * 1000);
-			if (down) selected.modifyAltitude(delta * -1000);
+			if (left || right)
+				selected.setState(State.FLYING);
+			if (left)
+				selected.turn(delta * -40);
+			if (right)
+				selected.turn(delta * 40);
 		}
 
 		for (Plane plane : planes) {

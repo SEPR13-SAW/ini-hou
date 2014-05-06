@@ -22,24 +22,22 @@ import lombok.Setter;
 
 public final class Plane extends Entity {
 	public enum State {
-		FLYING,
-		FLIGHTPLAN,
-		APPROACHING,
-		LANDING,
-		TAKINGOFF;
+		FLYING, FLIGHTPLAN, APPROACHING, LANDING, TAKINGOFF;
 	}
 
 	private static int nextId = 0;
 
-	@Getter private final Airspace airspace;
-	@Getter private final Stack<Waypoint> flightplan;
-	@Getter private final int id;
-	@Getter @Setter private int player = 0;
-	@Getter private float time = 0;
-	@Getter @Setter private float velocity;
-	@Getter @Setter private float altitude;
-	@Getter @Setter private State state = State.FLIGHTPLAN;
-	@Getter @Setter private boolean breakingExclusion = false;
+	@Getter	private final Airspace airspace;
+	@Getter	private final Stack<Waypoint> flightplan;
+	@Getter	private final int id;
+	@Getter @Setter	private int player = 0;
+	@Getter	private float time = 0;
+	@Getter	@Setter	private float velocity;
+	@Getter	@Setter	private float altitude;
+	@Getter	@Setter	private State state = State.FLIGHTPLAN;
+	@Getter	@Setter private boolean breakingExclusion = false;
+	@Getter @Setter private float desiredAltitude;
+
 
 	public Plane(Airspace airspace, int id, Stack<Waypoint> flightplan) {
 
@@ -50,14 +48,16 @@ public final class Plane extends Entity {
 		this.size = new Vector2(38, 31);
 		this.scale(0.1f, 0.1f);
 		this.velocity = 45;
-		this.altitude = MathUtils.RNG.nextInt((int) (Config.MAXIMUM_ALTITUDE - Config.MINIMUM_ALTITUDE)) + Config.MINIMUM_ALTITUDE;
+		this.altitude = Math
+				.round((MathUtils.RNG
+						.nextInt((int) (Config.MAXIMUM_ALTITUDE - Config.MINIMUM_ALTITUDE)) + Config.MINIMUM_ALTITUDE) / 1000) * 1000;
+		this.desiredAltitude = altitude;
 		if (flightplan == null) {
 			this.flightplan = new Stack<>();
 			randomFlightPlan();
 		} else {
 			this.flightplan = flightplan;
 		}
-		
 
 		Waypoint a = this.flightplan.pop();
 		Waypoint b = this.flightplan.peek();
@@ -67,7 +67,8 @@ public final class Plane extends Entity {
 		System.out.println("flightPlan size = " + this.flightplan.size());
 		System.out.println("a = " + a);
 		System.out.println("b = " + b);
-		setRotation((float) ((Math.atan2(b.coords.y - coords.y, b.coords.x - coords.x) / Math.PI) * 180));
+		setRotation((float) ((Math.atan2(b.coords.y - coords.y, b.coords.x
+				- coords.x) / Math.PI) * 180));
 
 		tick(0);
 	}
@@ -77,9 +78,11 @@ public final class Plane extends Entity {
 	}
 
 	public void randomFlightPlan() {
-		if (MathUtils.RNG.nextInt(2) == 0 || airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
+		if (MathUtils.RNG.nextInt(2) == 0
+				|| airspace.getDifficulty() == Difficulty.MULTIPLAYER_SERVER) {
 			flightplan.push(WaypointManager.randomExit());
-			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG.nextInt(airspace.getRunways().size())];
+			Runway runway = (Runway) airspace.getRunways().values().toArray()[MathUtils.RNG
+					.nextInt(airspace.getRunways().size())];
 			System.out.println("runway Approach " + runway.getApproach());
 			flightplan.push(runway.getEndOfRunway());
 			System.out.println("end of runway " + flightplan.peek());
@@ -97,7 +100,8 @@ public final class Plane extends Entity {
 				flightplan.push(wp);
 		}
 		flightplan.push(WaypointManager.randomEntry());
-		System.out.println("FlightPlan size in randomFLightPlan() = " + flightplan.size());
+		System.out.println("FlightPlan size in randomFLightPlan() = "
+				+ flightplan.size());
 	}
 
 	@Override
@@ -144,15 +148,18 @@ public final class Plane extends Entity {
 			if (flightplan.size() > 0) {
 				Waypoint next = flightplan.get(0);
 				if (flightplan.size() > 1) {
-					for (Waypoint point : flightplan.subList(1, flightplan.size())) {
+					for (Waypoint point : flightplan.subList(1,
+							flightplan.size())) {
 						if (point instanceof Runway) {
 							point = airspace.getRunways().get(player);
 							System.out.println("Drawing! Point = " + point);
 						}
-						System.out.println("Drawing! flightplan size = " + flightplan.subList(1, flightplan.size()));
+						System.out.println("Drawing! flightplan size = "
+								+ flightplan.subList(1, flightplan.size()));
 						System.out.println("Drawing! Point = " + point);
 						System.out.println("Drawing! Next = " + next);
-						drawer.line(next.coords.x, next.coords.y, point.coords.x, point.coords.y);
+						drawer.line(next.coords.x, next.coords.y,
+								point.coords.x, point.coords.y);
 						next = point;
 					}
 				}
@@ -175,15 +182,17 @@ public final class Plane extends Entity {
 			color = Color.ORANGE;
 		}
 
-		AbstractScreen.drawString("alt: " + ((int) getAltitude()) + "ft", getX() - 30, getY() - 20,
-				color, batch, true, 1);
+		AbstractScreen.drawString("alt: " + ((int) getAltitude()) + "ft",
+				getX() - 30, getY() - 20, color, batch, true, 1);
 	}
 
 	public void modifyAltitude(float delta) {
-		this.altitude += delta;
+		this.desiredAltitude += delta;
 
-		if (altitude < Config.MINIMUM_ALTITUDE) altitude = Config.MINIMUM_ALTITUDE;
-		if (altitude > Config.MAXIMUM_ALTITUDE) altitude = Config.MAXIMUM_ALTITUDE;
+		if (desiredAltitude < Config.MINIMUM_ALTITUDE)
+			desiredAltitude = Config.MINIMUM_ALTITUDE;
+		if (desiredAltitude > Config.MAXIMUM_ALTITUDE)
+			desiredAltitude = Config.MAXIMUM_ALTITUDE;
 	}
 
 	public void turn(float delta) {
@@ -192,12 +201,16 @@ public final class Plane extends Entity {
 
 	public void turnTowards(Vector2 location, float delta) {
 		Vector2 diff = location.cpy().sub(coords);
-		float angle = (270 - (float) (Math.atan2(diff.y, diff.x) / Math.PI) * 180) - getRotation();
+		float angle = (270 - (float) (Math.atan2(diff.y, diff.x) / Math.PI) * 180)
+				- getRotation();
 		angle %= 360;
-		if (angle > 180) angle -= 360;
-		if (angle <= -180) angle += 360;
+		if (angle > 180)
+			angle -= 360;
+		if (angle <= -180)
+			angle += 360;
 
-		if (Math.abs(angle) < 3) return;
+		if (Math.abs(angle) < 3)
+			return;
 
 		if (angle > 0) {
 			turn(-70 * delta);
@@ -209,36 +222,46 @@ public final class Plane extends Entity {
 	@SuppressWarnings("deprecation")
 	public void tick(float delta) {
 
-		if(breakingExclusion){
+		if (breakingExclusion) {
 			time += 2 * delta;
 		} else {
 			time += delta;
 		}
-		
-		/*if (getX() < Config.HALF_WIDTH) {
-			player = 0;
-		} else {
-			player = 1;
-		}*/
+
+		/*
+		 * if (getX() < Config.HALF_WIDTH) { player = 0; } else { player = 1; }
+		 */
+		if(altitude < desiredAltitude){
+			altitude += 10;
+		} else if(altitude > desiredAltitude){
+			altitude -= 10;
+		}
 
 		if (state == State.APPROACHING) {
-			if((airspace.getRunways().get(player).getLandedPlanes().size() + airspace.getApproachingPlanes() > 10)){
+			if ((airspace.getRunways().get(player).getLandedPlanes().size()
+					+ airspace.getApproachingPlanes() > 10)) {
 				state = State.FLIGHTPLAN;
-				flightplan.push(airspace.getRunways().get(player).getStartOfRunway());
-				flightplan.push(airspace.getRunways().get(player).getApproach());
+				flightplan.push(airspace.getRunways().get(player)
+						.getStartOfRunway());
+				flightplan
+						.push(airspace.getRunways().get(player).getApproach());
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
-			} else if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
+			} else if (MathUtils.closeEnough(
+					airspace.getRunways().get(player).coords.cpy().sub(
+							new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
 		} else if (state == State.LANDING) {
 			velocity = Config.MIN_VELOCITY;
 
 			altitude -= delta * 2000;
-			if (altitude < 0) altitude = 0;
+			if (altitude < 0)
+				altitude = 0;
 
 			turnTowards(airspace.getRunways().get(player).coords, delta);
 
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords, coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords,
+					coords, 30)) {
 				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
 				airspace.getRunways().get(player).addLanded(this);
 				flightplan.pop();
@@ -247,13 +270,14 @@ public final class Plane extends Entity {
 			}
 		} else if (state == State.FLIGHTPLAN) {
 			turnTowards(flightplan.peek().coords, delta);
-		} else if (state == State.TAKINGOFF){
+		} else if (state == State.TAKINGOFF) {
 			velocity += delta * 40;
 			altitude += delta * 2000;
-			if (MathUtils.closeEnough(airspace.getRunways().get(player).getEndOfRunway().coords, coords, 30)) {
+			if (MathUtils.closeEnough(airspace.getRunways().get(player)
+					.getEndOfRunway().coords, coords, 30)) {
 				state = State.FLIGHTPLAN;
 			}
-					
+
 		}
 
 		Waypoint point = flightplan.peek();
@@ -263,9 +287,11 @@ public final class Plane extends Entity {
 				flightplan.pop();
 
 				if (!flightplan.isEmpty()) {
-					if (flightplan.peek() instanceof Runway && state == State.FLIGHTPLAN) {
+					if (flightplan.peek() instanceof Runway
+							&& state == State.FLIGHTPLAN) {
 						state = State.APPROACHING;
-						airspace.setApproachingPlanes(airspace.getApproachingPlanes() + 1);
+						airspace.setApproachingPlanes(airspace
+								.getApproachingPlanes() + 1);
 					}
 				}
 			}
@@ -275,10 +301,12 @@ public final class Plane extends Entity {
 			airspace.removePlane(this);
 		}
 
-		this.coords.add(MathUtils.fromAngle((float) ((getRotation() / 180) * Math.PI)).mul(velocity).mul(delta));
+		this.coords.add(MathUtils
+				.fromAngle((float) ((getRotation() / 180) * Math.PI))
+				.mul(velocity).mul(delta));
 	}
-	
-	public void takeOff(){
+
+	public void takeOff() {
 		altitude = 0;
 		velocity = 0;
 		state = State.TAKINGOFF;

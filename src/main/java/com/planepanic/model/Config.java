@@ -15,8 +15,8 @@ public final class Config {
 	public final static boolean RESIZABLE = true;
 
 	public final static float MINIMUM_ALTITUDE = 5000, MAXIMUM_ALTITUDE = 20000;
-	public static final float MAX_VELOCITY = 100;
-	public static final float MIN_VELOCITY = 20;
+	public static final float MAX_VELOCITY = 140;
+	public static final float MIN_VELOCITY = 40;
 
 	// Art related config
 	public final static Vector2 AIRSPACE_SIZE = new Vector2(1080, SCREEN_HEIGHT);
