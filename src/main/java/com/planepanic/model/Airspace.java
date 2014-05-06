@@ -52,6 +52,7 @@ public final class Airspace extends Entity {
 	@Getter private Plane selected = null;
 	@Getter private long tick = 0;
 	@Getter private float time = 0;
+	@Getter @Setter private int approachingPlanes = 0;
 
 	@Getter @Setter private boolean left, right, up, down;
 
@@ -128,6 +129,8 @@ public final class Airspace extends Entity {
 									.getLandedPlanes().poll();
 							plane.setState(State.FLIGHTPLAN);
 							airspace.addPlane(plane);
+							getRunways().get(airspace.player.getId()).getTakenPositions().poll();
+							getRunways().get(airspace.player.getId()).findNext();
 						}
 						return true;
 					case Keys.F:

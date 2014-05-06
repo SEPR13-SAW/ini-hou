@@ -202,7 +202,12 @@ public final class Plane extends Entity {
 		}*/
 
 		if (state == State.APPROACHING) {
-
+			if((airspace.getRunways().get(player).getLandedPlanes().size() + airspace.getApproachingPlanes() >= 10)){
+				state = State.FLIGHTPLAN;
+				flightplan.push(airspace.getRunways().get(player).getStartOfRunway());
+				flightplan.push(airspace.getRunways().get(player).getApproach());
+				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
+			}
 			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords.cpy().sub(new Vector2(0, 100)), coords, 30)) {
 				state = State.LANDING;
 			}
@@ -215,6 +220,7 @@ public final class Plane extends Entity {
 			turnTowards(airspace.getRunways().get(player).coords, delta);
 
 			if (MathUtils.closeEnough(airspace.getRunways().get(player).coords, coords, 30)) {
+				airspace.setApproachingPlanes(airspace.getApproachingPlanes() - 1);
 				airspace.getRunways().get(player).addLanded(this);
 				flightplan.pop();
 				airspace.removePlane(this);
@@ -232,6 +238,8 @@ public final class Plane extends Entity {
 				if (!flightplan.isEmpty()) {
 					if (flightplan.peek() instanceof Runway && state == State.FLIGHTPLAN) {
 						state = State.APPROACHING;
+						airspace.setApproachingPlanes(airspace.getApproachingPlanes() + 1);
+						System.out.println("approaching = " + airspace.getApproachingPlanes());
 					}
 				}
 			}
