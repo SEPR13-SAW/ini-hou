@@ -66,8 +66,6 @@ public final class Plane extends Entity {
 		this.coords = a.coords.cpy();
 		setRotation((float) ((Math.atan2(b.coords.y - coords.y, b.coords.x
 				- coords.x) / Math.PI) * 180));
-
-		tick(0);
 	}
 
 	public Plane(Airspace airspace) {

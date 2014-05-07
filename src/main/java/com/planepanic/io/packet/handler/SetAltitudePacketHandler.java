@@ -15,7 +15,7 @@ public final class SetAltitudePacketHandler extends Handler<SetAltitudePacket, P
 		Airspace a = player.getServer().getAirspace();
 		for (Plane p : a.getPlanes()) {
 			if (p.getId() == packet.getPlaneId()) {
-				p.setRotation(packet.getAltitude());
+				p.setDesiredAltitude(packet.getAltitude());
 				break;
 			}
 		}

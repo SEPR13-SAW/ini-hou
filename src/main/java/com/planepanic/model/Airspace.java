@@ -100,10 +100,12 @@ public final class Airspace extends Entity {
 						return true;
 					case Keys.W:
 					case Keys.UP:
+						airspace.setUp(true);
 						selected.modifyAltitude(+1000);
 						return true;
 					case Keys.S:
 					case Keys.DOWN:
+						airspace.setDown(true);
 						selected.modifyAltitude(-1000);
 						return true;
 
@@ -304,6 +306,8 @@ public final class Airspace extends Entity {
 	}
 
 	public void tick(float delta) {
+		
+		
 		if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
 			if (server.getPlayers().containsKey(0) && server.getPlayers().containsKey(1)) {
 				scorediff = server.getPlayers().get(1).getScore() - server.getPlayers().get(0).getScore();
@@ -322,18 +326,25 @@ public final class Airspace extends Entity {
 				}
 			}
 		}
-
+		
 		if (selected != null) {
-			if (left || right)
+			if (left || right || up || down)
 				selected.setState(State.FLYING);
 			if (left)
 				selected.turn(delta * -40);
 			if (right)
 				selected.turn(delta * 40);
 		}
+		
+
+
 
 		planeLoop: for (Plane plane : planes) {
 			plane.tick(delta);
+			if (selected == plane) {
+				if (left || right || up || down)
+					selected.setState(State.FLYING);
+			}
 
 			int bounds = 50;
 			if (plane.getX() < -bounds || plane.getY() < -bounds || plane.getX() > Config.AIRSPACE_SIZE.x + bounds || plane.getY() > Config.AIRSPACE_SIZE.y + bounds) {
@@ -375,14 +386,19 @@ public final class Airspace extends Entity {
 					}
 				}
 			}
-
 			if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
 				if (tick % 10 == 0) {
-					try {
-						// Broadcast plane updates every 10 ticks.
-						server.broadcast(new UpdatePlanePacket(plane.getId(), plane.getX(), plane.getY(), plane.getRotation(), (int) plane.getAltitude(), plane.getVelocity()));
-					} catch (IOException e) {
-						e.printStackTrace();
+					if(plane.getState() != State.FLYING){
+
+						try {
+							// Broadcast plane updates every 10 ticks.
+							server.broadcast(new UpdatePlanePacket(plane
+									.getId(), plane.getX(), plane.getY(), plane
+									.getRotation(), (int) plane.getDesiredAltitude(),
+									plane.getVelocity()));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -392,7 +408,7 @@ public final class Airspace extends Entity {
 					if (plane.getState() == State.FLYING) {
 						try {
 							client.writePacket(new SetVelocityPositionPacket(plane.getId(), plane.getVelocity(), plane.getCoords().x, plane.getCoords().y));
-							client.writePacket(new SetAltitudePacket(plane.getId(), plane.getAltitude()));
+							client.writePacket(new SetAltitudePacket(plane.getId(), plane.getDesiredAltitude()));
 							client.writePacket(new SetDirectionPacket(plane.getId(), plane.getRotation()));
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -412,7 +428,6 @@ public final class Airspace extends Entity {
 				// Generate plane.
 				if (Config.DEBUG) System.out.println("Generating plane.");
 				Plane plane = new Plane(this);
-				addPlane(plane);
 
 				if (difficulty == Difficulty.MULTIPLAYER_SERVER) {
 					// Send spawn plane packet.
@@ -422,6 +437,8 @@ public final class Airspace extends Entity {
 						ex.printStackTrace();
 					}
 				}
+				addPlane(plane);
+
 
 				// Prevent plane spawns too close to existing planes.
 				for (Plane other : planes) {
